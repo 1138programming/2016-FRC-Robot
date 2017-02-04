@@ -1,5 +1,5 @@
 #include <Subsystems/DriveBase.h>
-//Drive Base team: Gioia, Peter, and Kyle
+//Drive Base team: Gioia, Peter, and Kyle(s)
 DriveBase::DriveBase() :
  	 Subsystem("DriveBase")
 {
