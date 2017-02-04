@@ -1,0 +1,12 @@
+Downloads for Build Season that could be important:
+
+
+WPILib - https://wpilib.screenstepslive.com/s/4485/m/13810/l/145002-installing-eclipse-c-java
+
+Download and Install HERO SDK - http://www.ctr-electronics.com/hro.html#product_tabs_technical_resource
+
+C++ Toolchains - http://first.wpi.edu/FRC/roborio/toolchains/
+
+Eclipse IDE for C++ Developers (need 32 bit) - https://eclipse.org/downloads/packages/release/Mars/2
+
+WPILib Library (your best friend) - http://first.wpi.edu/FRC/roborio/release/docs/cpp/annotated.html
