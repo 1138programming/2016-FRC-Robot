@@ -25,8 +25,8 @@ DriveBase::DriveBase() :
 	//Solenoids
 	LeftBaseSolenoid = new DoubleSolenoid(0, 1);
 	RightBaseSolenoid = new DoubleSolenoid(2, 3);
-	RightCollectorSolenoid = new Solenoid(3);
-	LeftCollectorSolenoid = new Solenoid (4);
+	RightCollectorSolenoid = new Solenoid(7);
+	LeftCollectorSolenoid = new Solenoid (6);
 	RatchetSolenoid = new Solenoid(5);
 }
 
