@@ -2,12 +2,10 @@
 
 Esophagus::Esophagus() :
 
-Subsystem("Esophagus")
+Subsystem("EsophagusSubsystem")
 {
 	// TODO Auto-generated constructor stub
 	esophagusSingleSolenoid = new Solenoid(4);
-
-
 }
 
 void Esophagus::InitDefaultCommand()

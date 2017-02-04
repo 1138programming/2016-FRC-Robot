@@ -1,17 +1,25 @@
-/*
- * Collector.h
- *
- *  Created on: Feb 2, 2017
- *      Author: eeuser
- */
-
 #ifndef SRC_SUBSYSTEMS_COLLECTOR_H_
 #define SRC_SUBSYSTEMS_COLLECTOR_H_
 
-class Collector {
+#include "Commands/Subsystem.h"
+#include "WPILib.h"
+#include "CANTalon.h"
+
+class Collector: public Subsystem
+{
+private:
+	CANTalon* collectorCIM;
+
 public:
 	Collector();
-	virtual ~Collector();
+	void InitDefaultCommand();
+	void CollectBallIntoStorage();
+	void DispenseBallOutOfStorage();
+	void StopCollector();
+
+	const float KCollectorSpeedForward = 1;
+	const float KCollectorSpeedReverse = -1;
+	const float KCollectorSpeedStop = 0;
 };
 
-#endif /* SRC_SUBSYSTEMS_COLLECTOR_H_ */
+#endif /* SRC_SUBSYSTEMS_COLLECTORLIFT_H_ */
