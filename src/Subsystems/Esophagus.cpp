@@ -26,7 +26,7 @@ void Esophagus::MoveEsophagusToBallCollection() //This function moves the Esopha
 void Esophagus::ShiftGearBallCollection() //This function moves the Esophagus so that it switches between collecting balls and gears
 {
 	esophagusSingleSolenoid->Get();
-	if (esophagusSingleSolenoid != false)
+	if (esophagusSingleSolenoid)
 		{
 			MoveEsophagusToGearCollection();
 		}
