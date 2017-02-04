@@ -16,9 +16,9 @@ private:
 
 	DoubleSolenoid* LeftBaseSolenoid;
 	DoubleSolenoid* RightBaseSolenoid;
-	DoubleSolenoid* LeftCollectorSolenoid;
-	DoubleSolenoid* RightCollectorSolenoid;
-	DoubleSolenoid* RatchetSolenoid;
+	Solenoid* LeftCollectorSolenoid;
+	Solenoid* RightCollectorSolenoid;
+	Solenoid* RatchetSolenoid;
 
 	Encoder* LeftRearBaseEncoder;
 	Encoder* RightRearBaseEncoder;

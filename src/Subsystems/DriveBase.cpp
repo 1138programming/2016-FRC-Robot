@@ -23,11 +23,11 @@ DriveBase::DriveBase() :
 	LeftFrontBaseMotor->SetInverted(true);
 
 	//Solenoids
-	LeftBaseSolenoid = new DoubleSolenoid(1);
-	RightBaseSolenoid = new DoubleSolenoid(2);
-	RightCollectorSolenoid = new DoubleSolenoid(3);
-	LeftCollectorSolenoid = new DoubleSolenoid (4);
-	RatchetSolenoid = new DoubleSolenoid(5);
+	LeftBaseSolenoid = new DoubleSolenoid(0, 1);
+	RightBaseSolenoid = new DoubleSolenoid(2, 3);
+	RightCollectorSolenoid = new Solenoid(3);
+	LeftCollectorSolenoid = new Solenoid (4);
+	RatchetSolenoid = new Solenoid(5);
 }
 
 void DriveBase::InitDefaultCommand()
