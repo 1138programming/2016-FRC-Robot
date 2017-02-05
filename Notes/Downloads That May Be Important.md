@@ -9,3 +9,4 @@
 | WPILib Library (your best friend) | http://first.wpi.edu/FRC/roborio/release/docs/cpp/annotated.html |
 | Programming the Radio | http://wpilib.screenstepslive.com/s/4485/m/13503/l/144986-programming-your-radio-for-home-use |
 | National Instruments | http://wpilib.screenstepslive.com/s/4485/m/13503/l/599670-installing-the-frc-2017-update-suite-all-languages |
+| Talon Updates (On Computer) | C:\Users\Public\Documents\Cross The Road Electronics\LifeBoat\HERO Firmware Files |
