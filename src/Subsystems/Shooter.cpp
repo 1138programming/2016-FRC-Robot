@@ -2,17 +2,20 @@
  * Shooter.cpp
  *
  *  Created on: Feb 2, 2017
- *      Author: eeuser
+ *      Author: Wolf and Nighthawk
+ *
  */
 
 #include <Subsystems/Shooter.h>
 
-Shooter::Shooter() {
-	// TODO Auto-generated constructor stub
+Shooter::Shooter() :
 
+Subsystem("ShooterSubsystem")
+{
+	// Initialize talons used by Shooter subsystem
+	flywheelRightTalon = new Talon();
 }
 
-Shooter::~Shooter() {
-	// TODO Auto-generated destructor stub
-}
+void Shooter::InitDefaultCommand() {
 
+}
