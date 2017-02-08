@@ -5,6 +5,8 @@
 #include "WPILib.h"
 #include "CANTalon.h"
 
+//Esophagus subsystem: Connor N, Christian G, and Chris H(A little)
+
 class Collector: public Subsystem
 {
 private:

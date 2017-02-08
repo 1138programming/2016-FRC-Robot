@@ -1,5 +1,7 @@
 #include <Subsystems/Collector.h>
 
+//Esophagus subsystem: Connor N, Christian G, and Chris H(A little)
+
 Collector::Collector() :
 
 Subsystem("CollectorSubsystem")
