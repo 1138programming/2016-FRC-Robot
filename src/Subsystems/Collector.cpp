@@ -28,3 +28,8 @@ void Collector::StopCollector() //This function makes the collector stop moving
 {
 	collectorCIM->Set(KCollectorSpeedStop);
 }
+
+Collector::~Collector()
+{
+	// TODO Auto-generated destructor stub
+}

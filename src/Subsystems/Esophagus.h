@@ -18,6 +18,7 @@ public:
 	void MoveEsophagusToGearCollection();
 	void MoveEsophagusToBallCollection();
 	void ShiftGearBallCollection();
+	virtual ~Esophagus();
 };
 
 #endif /* SRC_SUBSYSTEMS_ESOPHAGUS_H_ */

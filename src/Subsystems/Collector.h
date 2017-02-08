@@ -22,6 +22,8 @@ public:
 	const float KCollectorSpeedForward = 1;
 	const float KCollectorSpeedReverse = -1;
 	const float KCollectorSpeedStop = 0;
+
+	virtual ~Collector();
 };
 
 #endif /* SRC_SUBSYSTEMS_COLLECTORLIFT_H_ */

@@ -37,3 +37,8 @@ void Esophagus::ShiftGearBallCollection() //This function moves the Esophagus so
 			MoveEsophagusToBallCollection();
 		}
 }
+
+Esophagus::~Esophagus()
+{
+	// TODO Auto-generated destructor stub
+}
