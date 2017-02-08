@@ -1,5 +1,7 @@
 #include <Subsystems/Esophagus.h>
 
+//Esophagus subsystem: Connor N, Christian G, and Chris H(A little)
+
 Esophagus::Esophagus() :
 
 Subsystem("EsophagusSubsystem")
