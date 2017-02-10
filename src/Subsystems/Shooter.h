@@ -9,15 +9,16 @@
 #define SRC_SUBSYSTEMS_SHOOTER_H_
 
 #include "WPILib.h"
-#include "Commands/Subsystem.h"
+#include <Commands/Subsystem.h>
+#include "CANTalon.h"
 
-class Shooter {
+class Shooter: public frc::Subsystem {
 private:
-	Talon flywheelRightTalon;
-	Talon flywheelLeftTalon;
+	CANTalon* flywheelRightTalon;
+	CANTalon* flywheelLeftTalon;
 public:
 	Shooter();
-	void InitDefaultCommand();
+	void InitDefaultCommand() override;
 };
 
 #endif /* SRC_SUBSYSTEMS_SHOOTER_H_ */
