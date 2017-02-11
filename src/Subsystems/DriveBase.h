@@ -4,6 +4,7 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include "CANTalon.h"
+#include "AHRS.h"
 
 class DriveBase: public Subsystem
 {
@@ -14,35 +15,36 @@ private:
 	CANTalon* RightRearBaseMotor; //Talon 3 in CAN Bus
 	CANTalon* RightFrontBaseMotor; //Talon 4 in CAN Bus
 
-	DoubleSolenoid* LeftBaseSolenoid;
-	DoubleSolenoid* RightBaseSolenoid;
-	Solenoid* LeftCollectorSolenoid;
-	Solenoid* RightCollectorSolenoid;
-	Solenoid* RatchetSolenoid;
+	DoubleSolenoid* BaseSolenoid;
+	DoubleSolenoid* CollectorAndRatchetSolenoid;
 
-	Encoder* LeftRearBaseEncoder;
-	Encoder* RightRearBaseEncoder;
+	Encoder *LeftFrontBaseEncoder;
+	Encoder *RightFrontBaseEncoder;
+
+	AHRS* ahrs;
 
 public:
 	DriveBase();
 	void InitDefaultCommand();
-	void TankDrive();
-	void DriveForward(float distance, float speed);
-	void DriveBackward();
-	void BaseTurnLeft();
-	void BaseTurnRight();
+	void TankDrive(float left, float right);
+	void DriveForward(float speed, float distance);
+	void DriveBackward(float speed, float distance);
+	void BaseTurnLeft(float speed, float degrees);
+	void BaseTurnRight(float speed, float degrees);
 	void StopBase();
-	void UpShiftBase();
-	void DownShiftBase();
-	void ShiftBaseToCollector();
-	void ShiftCollectorToBase();
+	void HighShiftBase();
+	void LowShiftBase();
+	void ToggleShift();
 	void EngageRatchet();
 	void DisengageRatchet();
-	void ToggleShift();
 
 	const float KLeftMaster = 1; //KLeftMaster = Master Talon for left side
 	const float KRightMaster = 3; //KRightMaster = Master Talon for right side
 
+	const float KDeadZoneLimit = 0.1;
+
+	const float KHighGear = (DoubleSolenoid::kForward);
+	const float KLowGear = (DoubleSolenoid::kReverse);
 };
 
 #endif /* SRC_SUBSYSTEMS_BASE_H_ */
