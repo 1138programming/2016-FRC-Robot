@@ -8,10 +8,18 @@
 #ifndef SRC_COMMANDS_ESOPHAGUSTOBALLCOLLECTION_H_
 #define SRC_COMMANDS_ESOPHAGUSTOBALLCOLLECTION_H_
 
-class EsophagusToBallCollection {
+#include "../CommandBase.h"
+#include "WPILib.h"
+
+class EsophagusToBallCollection: public CommandBase
+{
 public:
 	EsophagusToBallCollection();
-	virtual ~EsophagusToBallCollection();
+	void Initialize();
+	void Execute();
+	bool IsFinished();
+	void End();
+	void Interrupted();
 };
 
 #endif /* SRC_COMMANDS_ESOPHAGUSTOBALLCOLLECTION_H_ */
