@@ -18,10 +18,14 @@ private:
 	DoubleSolenoid* BaseSolenoid;
 	DoubleSolenoid* CollectorAndRatchetSolenoid;
 
-	Encoder *LeftFrontBaseEncoder;
-	Encoder *RightFrontBaseEncoder;
+	//Encoder *LeftFrontBaseEncoder;
+	//Encoder *RightFrontBaseEncoder;
 
+	//Gyro
 	AHRS* ahrs;
+
+	//PIDController
+	PIDController* turnController;
 
 public:
 	DriveBase();
@@ -35,8 +39,8 @@ public:
 	void HighShiftBase();
 	void LowShiftBase();
 	void ToggleShift();
-	void EngageRatchet();
-	void DisengageRatchet();
+	void EngageLift();
+	void DisengageLift();
 
 	const float KLeftMaster = 1; //KLeftMaster = Master Talon for left side
 	const float KRightMaster = 3; //KRightMaster = Master Talon for right side

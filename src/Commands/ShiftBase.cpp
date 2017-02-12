@@ -1,36 +1,35 @@
-#include "ExampleCommand.h"
+#include "ShiftBase.h"
 
-ExampleCommand::ExampleCommand() {
+ShiftBase::ShiftBase() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	Requires(CommandBase::DriveBase);
+	Requires(CommandBase::driveBase);
 }
 
 // Called just before this Command runs the first time
-void ExampleCommand::Initialize() {
+void ShiftBase::Initialize() {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void ExampleCommand::Execute() {
-
-	CommandBase::DriveBase->TankDrive(oi->getLeftController(), oi->getRightController());
+void ShiftBase::Execute()
+{
+	CommandBase::driveBase->ToggleShift();
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool ExampleCommand::IsFinished()
+bool ShiftBase::IsFinished()
 {
-	return false;
+	return true;
 }
 
 // Called once after isFinished returns true
-void ExampleCommand::End()
-{
+void ShiftBase::End() {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void ExampleCommand::Interrupted() {
+void ShiftBase::Interrupted() {
 
 }

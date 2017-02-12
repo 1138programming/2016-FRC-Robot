@@ -1,12 +1,16 @@
-#include <Subsystems/DriveBase.h>
+#include "Subsystems/DriveBase.h"
+#include "Commands/DriveWithJoysticks.h"
+#include "Commands/ShiftBase.h"
+#include "C:\Users\eeuser\wpilib\cpp\current\include\Talon.h"
+#include "C:\Users\eeuser\wpilib\cpp\current\include\Solenoid.h"
 //Drive Base Team: Gioia, Peter, Jahred and Kyle
 DriveBase::DriveBase() :
  	 Subsystem("DriveBase")
+{
 	/* 4 Talons in the DriveBase, arranged in groups of 2. The front motors are the master motors, and the
 	 *  rear motors are the followers. 2 Magnetic Encoders on the front motors. 2 DoubleSolenoids on the DriveBase.
 	 *	One for the base and one for the Collector and Ratchet.
 	 */
-{
 	//Sets up Right Motors
 	RightFrontBaseMotor = new CANTalon(KRightMaster); //RightFrontBase is the master Talon for the right side
 	RightFrontBaseMotor->SetSafetyEnabled(true);
@@ -34,15 +38,15 @@ DriveBase::DriveBase() :
 	CollectorAndRatchetSolenoid = new DoubleSolenoid(2, 3);
 
 	//Gyro
-	AHRS *ahrs;
+	ahrs->GetYaw();
 
 	//Encoders
+	//Relative = Quadrature Encoder function of MagEncoder
 	LeftFrontBaseMotor->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
 	RightFrontBaseMotor->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
 
 	//LeftFrontBaseEncoder = new Encoder(0,1,false,Encoder::EncodingType::k4X);
 }
-
 void DriveBase::InitDefaultCommand()
 {
 	//SetDefaultCommand(new DriveWithJoysticks());
@@ -99,22 +103,22 @@ void DriveBase::DriveBackward(float speed, float distance)
 }
 void DriveBase::BaseTurnLeft(float speed, float degrees)
 {
-	float degreesTurned = GetYaw();
-	while(degreesTurned < degrees)
+	ahrs->GetYaw();
+	while(ahrs < degrees)
 	{
 		RightFrontBaseMotor->Set(speed);
 		LeftFrontBaseMotor->Set(-speed);
-		degreesTurned->GetYaw();
+		ahrs->GetYaw();
 	}
 }
 void DriveBase::BaseTurnRight(float speed, float degrees)
 {
-	float degreesTurned = GetYaw();
-	while(degreesTurned < degrees)
+	ahrs->GetYaw();
+	while(ahrs < degrees)
 	{
 		RightFrontBaseMotor->Set(-speed);
 		LeftFrontBaseMotor->Set(speed);
-		degreesTurned->GetYaw();
+		ahrs->GetYaw();
 	}
 }
 void DriveBase::StopBase()
@@ -149,13 +153,20 @@ void DriveBase::ShiftCollectorToBase()
 {
 	CollectorAndRatchetSolenoid->Set(DoubleSolenoid::kReverse);
 }*/
-void DriveBase::EngageRatchet()
+void DriveBase::EngageLift()
 {
-	if(BaseSolenoid->Get() != )
-
+	if(BaseSolenoid->Get() != DoubleSolenoid::kReverse)
+	{
+		LowShiftBase();
+		wait(0.5);
+		CollectorAndRatchetSolenoid->Set(DoubleSolenoid::kForward);
+	}
+	else if(BaseSolenoid->Get() == DoubleSolenoid::kForward)
+	{
 			CollectorAndRatchetSolenoid->Set(DoubleSolenoid::kForward);
+	}
 }
-void DriveBase::DisengageRatchet()
+void DriveBase::DisengageLift()
 {
 	CollectorAndRatchetSolenoid->Set(DoubleSolenoid::kReverse);
 }

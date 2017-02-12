@@ -1,11 +1,11 @@
-#ifndef EXAMPLE_COMMAND_H
-#define EXAMPLE_COMMAND_H
+#ifndef ShiftBase_H
+#define ShiftBase_H
 
 #include "../CommandBase.h"
 
-class ExampleCommand: public CommandBase {
+class ShiftBase: public CommandBase {
 public:
-	ExampleCommand();
+	ShiftBase();
 	void Initialize() override;
 	void Execute() override;
 	bool IsFinished() override;
@@ -13,4 +13,4 @@ public:
 	void Interrupted() override;
 };
 
-#endif  // EXAMPLE_COMMAND_H
+#endif
