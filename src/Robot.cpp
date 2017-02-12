@@ -3,12 +3,21 @@
 //No autonomous, Gear central, Gear left, Gear right
 
 #include "WPILib.h"
+#include "CANTalon.h"
 #include <Commands/Command.h>
 #include <Commands/Scheduler.h>
 #include <IterativeRobot.h>
 #include <LiveWindow/LiveWindow.h>
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
+#include "Subsystems/Collector.h"
+#include "Subsystems/DriveBase.h"
+#include "Subsystems/Esophagus.h"
+#include "Subsystems/ExampleSubsystem.h"
+#include "Subsystems/GearCam.h"
+#include "Subsystems/Pneumatics.h"
+#include "Subsystems/Shooter.h"
+#include "Subsystems/ShooterCam.h"
 
 #include "Commands/ExampleCommand.h"
 #include "CommandBase.h"
@@ -16,6 +25,8 @@
 class Robot: public IterativeRobot
 {
 private:
+
+	LiveWindow *lw = LiveWindow::GetInstance();
 
 	void RobotInit()
 	{
@@ -85,6 +96,7 @@ private:
 
 	void TeleopPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
+		lw->Run();
 	}
 
 	void TestPeriodic() override {
