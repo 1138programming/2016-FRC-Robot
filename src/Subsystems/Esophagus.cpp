@@ -1,5 +1,7 @@
 #include <Subsystems/Esophagus.h>
 #include "C:\Users\eeuser\wpilib\cpp\current\include\Solenoid.h"
+#include "Commands/EsophagusToBallCollection.h"
+#include "Commands/EsophagusToGearCollection.h"
 
 //Esophagus subsystem: Connor N, Christian G, and Chris H(A little)
 
