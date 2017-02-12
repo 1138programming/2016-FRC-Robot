@@ -1,5 +1,8 @@
 #include <memory>
 
+//No autonomous, Gear central, Gear left, Gear right
+
+#include "WPILib.h"
 #include <Commands/Command.h>
 #include <Commands/Scheduler.h>
 #include <IterativeRobot.h>
@@ -10,10 +13,18 @@
 #include "Commands/ExampleCommand.h"
 #include "CommandBase.h"
 
-class Robot: public frc::IterativeRobot {
-public:
-	void RobotInit() override {
+class Robot: public IterativeRobot
+{
+private:
+
+	void RobotInit()
+	{
+		CommandBase::init();
 		chooser.AddDefault("Default Auto", new ExampleCommand());
+		chooser.AddDefault("No autonomous", new ExampleCommand());
+		chooser.AddDefault("Gear Central Placing", new ExampleCommand());
+		chooser.AddDefault("Gear Left Placing", new ExampleCommand());
+		chooser.AddDefault("Gear Right Placing", new ExampleCommand());
 		// chooser.AddObject("My Auto", new MyAutoCommand());
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);
 	}
