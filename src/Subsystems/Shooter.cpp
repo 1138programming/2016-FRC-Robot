@@ -8,6 +8,7 @@
 
 #include <Subsystems/Shooter.h>
 #include "CANTalon.h"
+
 /*
  * List of motors and talons for Shooter
  *
@@ -40,16 +41,36 @@ frc::Subsystem("ShooterSubsystem")
 	// Make the left talon both inverted and enable control
 	flywheelLeftTalon->EnableControl();
 	flywheelLeftTalon->SetSafetyEnabled(false);
-	flywheelLeftTalon->SetFeedbackDevice(CANTalon::QuadEncoder);
+	flywheelLeftTalon->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
 	flywheelLeftTalon->SetInverted(true);
 
 	// Make the right talon a slave to the left one
 	flywheelRightTalon->SetControlMode(CANTalon::kFollower);
 	flywheelRightTalon->Set(6);
+
+	// Zero out quadrature encoder
+	flywheelLeftTalon->SetPosition(0);
+
+	filterLeftTalon = new CANTalon(8);
+	filterRightTalon = new CANTalon(7);
+
+	// Make the left filter inverted, and enable control
+	filterLeftTalon->EnableControl();
+	filterLeftTalon->SetSafetyEnabled(false);
+	filterLeftTalon->SetInverted(true);
+
+	// Make the right talon a slave to the left one
+	filterRightTalon->SetControlMode(CANTalon::kFollower);
+	filterRightTalon->Set(8);
 }
 
 void Shooter::InitDefaultCommand() {
 }
+
+/*
+ * Flywheel Functions
+ * 2/11/17 - Wolf
+ */
 
 void Shooter::FlywheelsOff() {
 	flywheelLeftTalon->Set(0);
@@ -61,4 +82,37 @@ void Shooter::FlywheelsForward(float speed /* = 1.0 */) {
 
 void Shooter::FlywheelsBackward(float speed /* = 1.0 */) {
 	flywheelLeftTalon->Set(-speed); // Backward movement; negate speed
+}
+
+/*
+ * Quadrature Functions
+ * 2/11/2017 - Wolf
+ */
+double Shooter::GetEncPos() {
+	return flywheelLeftTalon->GetPosition();
+}
+
+void Shooter::ResetEncPos() {
+	flywheelLeftTalon->SetPosition(0);
+}
+
+/*
+ * Filter Bag Motors
+ * 2/11/17 - Wolf
+ */
+void Shooter::FiltersOn(float speed /* = 1.0 */) {
+	filterLeftTalon->Set(speed);
+}
+
+void Shooter::FiltersOff() {
+	filterLeftTalon->Set(0);
+}
+
+/*
+ * PID Control
+ * 2/11/17 - Wolf and PID man
+ */
+
+void Shooter::DoPIDControl(double P, double I, double D) {
+	flywheelLeftTalon->SetPID(P,I,D);
 }
