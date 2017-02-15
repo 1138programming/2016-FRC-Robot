@@ -27,18 +27,21 @@ private:
 	//PIDController
 	PIDController* turnController;
 
+
 public:
 	DriveBase();
 	void InitDefaultCommand();
 	void TankDrive(float left, float right);
 	void DriveForward(float speed, float distance);
 	void DriveBackward(float speed, float distance);
-	void BaseTurnLeft(float speed, float degrees);
-	void BaseTurnRight(float speed, float degrees);
+	void BasePointTurnLeftWithGyro(float speed, float angleAdjustment);
+	void BasePointTurnRightWithGyro(float speed, float angleAdjustment);
+	void BaseRoundTurnLeftWithGyro(float fastWheelSpeed, float slowWheelSpeed, float degrees);
+	void BaseRoundTurnRightWithGyro(float fastWheelSpeed, float slowWheelSpeed, float degrees);
 	void StopBase();
 	void HighShiftBase();
 	void LowShiftBase();
-	void ToggleShift();
+ 	void ToggleShift();
 	void EngageLift();
 	void DisengageLift();
 
@@ -49,6 +52,12 @@ public:
 
 	const float KHighGear = (DoubleSolenoid::kForward);
 	const float KLowGear = (DoubleSolenoid::kReverse);
+
+	const static double kP = 0.03f;
+	const static double kI = 0.00f;
+	const static double kD = 0.00f;
+	const static double kF = 0.00f;
+	const static double kToleranceDegrees = 2.0f;
 };
 
 #endif /* SRC_SUBSYSTEMS_BASE_H_ */

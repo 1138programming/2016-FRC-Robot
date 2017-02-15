@@ -22,5 +22,5 @@ CommandBase::CommandBase()
 }
 static void CommandBase::init()
 {
-	driveBase = new DriveBase*();
+	driveBase = new DriveBase();
 }

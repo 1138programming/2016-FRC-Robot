@@ -1,6 +1,7 @@
 #include "Subsystems/DriveBase.h"
 #include "Commands/DriveWithJoysticks.h"
 #include "Commands/ShiftBase.h"
+#include "AHRS.h"
 #include "C:\Users\eeuser\wpilib\cpp\current\include\Talon.h"
 #include "C:\Users\eeuser\wpilib\cpp\current\include\Solenoid.h"
 //Drive Base Team: Gioia, Peter, Jahred and Kyle
@@ -38,7 +39,12 @@ DriveBase::DriveBase() :
 	CollectorAndRatchetSolenoid = new DoubleSolenoid(2, 3);
 
 	//Gyro
-	ahrs->GetYaw();
+	ahrs = new AHRS(SPI::Port::kMXP);
+	turnController = new PIDController(kP, kI, kD, kF, ahrs, this);
+	turnController->SetInputRange(-180.0f,  180.0f);
+	turnController->SetOutputRange(-1.0, 1.0);
+	turnController->SetAbsoluteTolerance(kToleranceDegrees);
+	turnController->SetContinuous(true);
 
 	//Encoders
 	//Relative = Quadrature Encoder function of MagEncoder
@@ -101,24 +107,51 @@ void DriveBase::DriveBackward(float speed, float distance)
 		encoder2 = RightFrontBaseMotor->GetEncPosition();
 	}
 }
-void DriveBase::BaseTurnLeft(float speed, float degrees)
+void DriveBase::BasePointTurnLeftWithGyro(float speed, float angleAdjustment)
 {
-	ahrs->GetYaw();
-	while(ahrs < degrees)
+	//Incorrect, just ignore for now
+	ahrs->GetAngle(); //Get current value of gyro
+	ahrs->SetAngleAdjustment(angleAdjustment); //Set how much you want to adjust
+	while(ahrs->GetAngle() < ahrs->SetAngleAdjustment(angleAdjustment)) //If current value < adjustment value
 	{
 		RightFrontBaseMotor->Set(speed);
 		LeftFrontBaseMotor->Set(-speed);
-		ahrs->GetYaw();
+		ahrs->GetAngle(); //Keep turning and get the reading again
 	}
+	RightFrontBaseMotor->Set(0);
+	LeftFrontBaseMotor->Set(0); //Stop
 }
-void DriveBase::BaseTurnRight(float speed, float degrees)
+void DriveBase::BasePointTurnRightWithGyro(float speed, float angleAdjustment)
 {
-	ahrs->GetYaw();
+	//The correct way to use the gyro to turn
+	ahrs->SetAngleAdjustment(angleAdjustment);
+	RightFrontBaseMotor->Set(-speed);
+	LeftFrontBaseMotor->Set(speed);
+	ahrs->GetAngle();
+	RightFrontBaseMotor->Set(0);
+	LeftFrontBaseMotor->Set(0); //Stop
+}
+void DriveBase::BaseRoundTurnLeftWithGyro(float fastWheelSpeed, float slowWheelSpeed, float degrees)
+{
+	//Another idea for how the turning could work, follow logic from BasePointTurnLeftWithGyro
+	ahrs->GetAngle();
 	while(ahrs < degrees)
 	{
-		RightFrontBaseMotor->Set(-speed);
-		LeftFrontBaseMotor->Set(speed);
-		ahrs->GetYaw();
+		RightFrontBaseMotor->Set(slowWheelSpeed);
+		LeftFrontBaseMotor->Set(fastWheelSpeed);
+		ahrs->GetAngle();
+	}
+}
+void DriveBase::BaseRoundTurnRightWithGyro(float fastWheelSpeed, float slowWheelSpeed, float degrees)
+{
+	//Same as BaseRoundTurnLeftWithGyro at the moment
+	//TODO function needs fixing to correct logic
+	ahrs->GetAngle();
+	while(ahrs < degrees)
+	{
+		RightFrontBaseMotor->Set(fastWheelSpeed);
+		LeftFrontBaseMotor->Set(slowWheelSpeed);
+		ahrs->GetAngle();
 	}
 }
 void DriveBase::StopBase()
@@ -158,7 +191,7 @@ void DriveBase::EngageLift()
 	if(BaseSolenoid->Get() != DoubleSolenoid::kReverse)
 	{
 		LowShiftBase();
-		wait(0.5);
+		Wait(0.5);
 		CollectorAndRatchetSolenoid->Set(DoubleSolenoid::kForward);
 	}
 	else if(BaseSolenoid->Get() == DoubleSolenoid::kForward)
