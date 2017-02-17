@@ -27,10 +27,14 @@ public:
 //	Return type	Command								Keywords
 	void		InitDefaultCommand()				override;
 
-	// Flywheel Control
+	// Flywheel Control - Always send positive values; code will adjust as necessary
 	void		FlywheelsOff();
-	void		FlywheelsForward(float speed=1.0);
-	void		FlywheelsBackward(float speed=1.0);
+	void		FlywheelsForward(float speed=0.0); // 0.0 uses default speed; else
+	void		FlywheelsBackward(float speed=0.0); // it will use overrided speed
+
+	// Default Flywheel Control Variables; Change as necessary, but keep POSITIVE
+	float flywheelForwardSpeed = 1.0;
+	float flywheelBackwardSpeed = 1.0;
 
 	//Quadrature Functions
 	double		GetEncPos();

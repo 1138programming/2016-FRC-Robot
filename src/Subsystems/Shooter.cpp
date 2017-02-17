@@ -76,12 +76,20 @@ void Shooter::FlywheelsOff() {
 	flywheelLeftTalon->Set(0);
 }
 
-void Shooter::FlywheelsForward(float speed /* = 1.0 */) {
-	flywheelLeftTalon->Set(speed); // Fowards movement
+void Shooter::FlywheelsForward(float speed /* = default speed */) {
+	if (speed == 0.0) {
+		flywheelLeftTalon->Set(flywheelForwardSpeed);
+	} else {
+		flywheelLeftTalon->Set(speed); // Fowards movement based on custom value
+	}
 }
 
-void Shooter::FlywheelsBackward(float speed /* = 1.0 */) {
-	flywheelLeftTalon->Set(-speed); // Backward movement; negate speed
+void Shooter::FlywheelsBackward(float speed /* = default speed */) {
+	if (speed == 0.0) {
+		flywheelLeftTalon->Set(-flywheelBackwardSpeed);
+	} else{
+		flywheelLeftTalon->Set(-speed);
+	}
 }
 
 /*

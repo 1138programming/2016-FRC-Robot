@@ -4,9 +4,9 @@
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class FlywheelsOn: public CommandBase {
+class FlywheelsBackward: public CommandBase {
 public:
-	FlywheelsOn();
+	FlywheelsBackward();
 	void Initialize() override;
 	void Execute() override;
 	bool IsFinished() override;

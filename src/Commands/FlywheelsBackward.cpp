@@ -1,38 +1,38 @@
 /*
- * FlywheelsOn.cpp
+ * FlywheelsBackward.cpp
  * By Wolf - 2/11/2017
  */
 
-#include "FlywheelsOn.h"
+#include <Commands/FlywheelsBackward.h>
 
-FlywheelsOn::FlywheelsOn() {
+FlywheelsBackward::FlywheelsBackward() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(CommandBase::shooter);
 }
 
 // Called just before this Command runs the first time
-void FlywheelsOn::Initialize() {
+void FlywheelsBackward::Initialize() {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void FlywheelsOn::Execute() {
-
+void FlywheelsBackward::Execute() {
+	CommandBase::shooter->FlywheelsBackward();
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool FlywheelsOn::IsFinished() {
+bool FlywheelsBackward::IsFinished() {
 	return false;
 }
 
 // Called once after isFinished returns true
-void FlywheelsOn::End() {
+void FlywheelsBackward::End() {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void FlywheelsOn::Interrupted() {
+void FlywheelsBackward::Interrupted() {
 
 }
