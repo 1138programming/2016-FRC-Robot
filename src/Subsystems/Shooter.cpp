@@ -113,6 +113,9 @@ void Shooter::FiltersOff() {
  * 2/11/17 - Wolf and PID man
  */
 
-void Shooter::DoPIDControl(double P, double I, double D) {
-	flywheelLeftTalon->SetPID(P,I,D);
+void Shooter::DoPIDControl(float target /* = 1.0 */, double kP /* = 0.0 */,
+						   double kI /* = 0.0 */, double kD /* = 0.0 */)
+{
+	flywheelLeftTalon->Set(target);
+	flywheelLeftTalon->SetPID(kP,kI,kD);
 }

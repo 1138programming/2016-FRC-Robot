@@ -40,7 +40,8 @@ public:
 	void		FiltersOn(float speed=1.0);
 	void		FiltersOff();
 
-	void		DoPIDControl(double P,double I,double D);
+	void		DoPIDControl(float target=1.0, double kP=0.0, double kI=0.0, double kD=0.0);
+
 };
 
 #endif /* SRC_SUBSYSTEMS_SHOOTER_H_ */
