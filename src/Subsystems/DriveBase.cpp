@@ -109,15 +109,11 @@ void DriveBase::DriveBackward(float speed, float distance)
 }
 void DriveBase::BasePointTurnLeftWithGyro(float speed, float angleAdjustment)
 {
-	//Incorrect, just ignore for now
-	ahrs->GetAngle(); //Get current value of gyro
-	ahrs->SetAngleAdjustment(angleAdjustment); //Set how much you want to adjust
-	while(ahrs->GetAngle() < ahrs->SetAngleAdjustment(angleAdjustment)) //If current value < adjustment value
-	{
-		RightFrontBaseMotor->Set(speed);
-		LeftFrontBaseMotor->Set(-speed);
-		ahrs->GetAngle(); //Keep turning and get the reading again
-	}
+	//The correct way to use the gyro to turn
+	ahrs->SetAngleAdjustment(angleAdjustment);
+	RightFrontBaseMotor->Set(speed);
+	LeftFrontBaseMotor->Set(-speed);
+	ahrs->GetAngle();
 	RightFrontBaseMotor->Set(0);
 	LeftFrontBaseMotor->Set(0); //Stop
 }
@@ -133,26 +129,23 @@ void DriveBase::BasePointTurnRightWithGyro(float speed, float angleAdjustment)
 }
 void DriveBase::BaseRoundTurnLeftWithGyro(float fastWheelSpeed, float slowWheelSpeed, float degrees)
 {
-	//Another idea for how the turning could work, follow logic from BasePointTurnLeftWithGyro
+	//The correct way to use the gyro to turn
+	ahrs->SetAngleAdjustment(degrees);
+	RightFrontBaseMotor->Set(fastWheelSpeed);
+	LeftFrontBaseMotor->Set(slowWheelSpeed);
 	ahrs->GetAngle();
-	while(ahrs < degrees)
-	{
-		RightFrontBaseMotor->Set(slowWheelSpeed);
-		LeftFrontBaseMotor->Set(fastWheelSpeed);
-		ahrs->GetAngle();
-	}
+	RightFrontBaseMotor->Set(0);
+	LeftFrontBaseMotor->Set(0); //Stop
 }
 void DriveBase::BaseRoundTurnRightWithGyro(float fastWheelSpeed, float slowWheelSpeed, float degrees)
 {
-	//Same as BaseRoundTurnLeftWithGyro at the moment
-	//TODO function needs fixing to correct logic
+	//The correct way to use the gyro to turn
+	ahrs->SetAngleAdjustment(degrees);
+	RightFrontBaseMotor->Set(slowWheelSpeed);
+	LeftFrontBaseMotor->Set(fastWheelSpeed);
 	ahrs->GetAngle();
-	while(ahrs < degrees)
-	{
-		RightFrontBaseMotor->Set(fastWheelSpeed);
-		LeftFrontBaseMotor->Set(slowWheelSpeed);
-		ahrs->GetAngle();
-	}
+	RightFrontBaseMotor->Set(0);
+	LeftFrontBaseMotor->Set(0); //Stop
 }
 void DriveBase::StopBase()
 {
