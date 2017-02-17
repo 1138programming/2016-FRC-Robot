@@ -28,6 +28,10 @@ DriveBase::DriveBase() :
 	RightCollectorSolenoid = new Solenoid(7);
 	LeftCollectorSolenoid = new Solenoid (6);
 	RatchetSolenoid = new Solenoid(5);
+
+	//Ultrasonic
+	BaseUltrasonic = new Ultrasonic(1,1);
+	BaseUltrasonic->SetAutomaticMode(true);
 }
 
 void DriveBase::InitDefaultCommand()
@@ -98,4 +102,21 @@ void DriveBase::EngageRatchet()
 void DriveBase::DisengageRatchet()
 {
 	RatchetSolenoid->Set(DoubleSolenoid::kReverse);
+}
+
+void DriveBase::InitDefaultCommandForUltrasonic()
+{
+	bool IsEnabled = true;
+}
+
+void DriveBase::GetDistance()
+{
+	DistanceToGearCollector = BaseUltrasonic->GetRangeMM();
+}
+
+
+bool DriveBase::IsUltrasonicRangeValid()
+{
+	whatIsRange = BaseUltrasonic->IsRangeValid();
+	SmartDashboard::PutNumber("UltrasonicInRange", (bool) whatIsRange);
 }
