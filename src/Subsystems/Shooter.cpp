@@ -108,8 +108,12 @@ void Shooter::ResetEncPos() {
  * Filter Bag Motors
  * 2/11/17 - Wolf
  */
-void Shooter::FiltersOn(float speed /* = 1.0 */) {
-	filterLeftTalon->Set(speed);
+void Shooter::FiltersOn(float speed /* = default */) {
+	if (speed == 0.0) {
+		filterLeftTalon->Set(filterSpeed);
+	} else {
+		filterLeftTalon->Set(speed);
+	}
 }
 
 void Shooter::FiltersOff() {

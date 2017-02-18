@@ -33,16 +33,18 @@ public:
 	void		FlywheelsBackward(float speed=0.0); // it will use overrided speed
 
 	// Default Flywheel Control Variables; Change as necessary, but keep POSITIVE
-	float flywheelForwardSpeed = 1.0;
-	float flywheelBackwardSpeed = 1.0;
+	float		flywheelForwardSpeed = 1.0;
+	float		flywheelBackwardSpeed = 1.0;
 
 	//Quadrature Functions
 	double		GetEncPos();
 	void		ResetEncPos();
 
 	// Filter Control
-	void		FiltersOn(float speed=1.0);
+	void		FiltersOn(float speed=0.0); // Same note as FlywheelsForward
 	void		FiltersOff();
+
+	float		filterSpeed = 1.0;
 
 	void		DoPIDControl(float target=1.0, double kP=0.0, double kI=0.0, double kD=0.0);
 
