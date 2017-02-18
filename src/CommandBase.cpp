@@ -11,7 +11,7 @@ std::unique_ptr<ExampleSubsystem> CommandBase::exampleSubsystem =
 		std::make_unique<ExampleSubsystem>();
 
 
-std::unique_ptr<Pneumatics> CommandBase::pneumatics = std::make_unique<pneumatics>();
+std::unique_ptr<Pneumatics> CommandBase::pneumatics = std::make_unique<Pneumatics>();
 
 CommandBase::CommandBase(const std::string &name) :
 		frc::Command(name) {
