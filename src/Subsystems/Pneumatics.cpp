@@ -5,11 +5,13 @@
  *      Author: eeuser
  */
 
-#include <Subsystems/Pneumatics.h>
+#include "Subsystems/Pneumatics.h"
+#include "../RobotMap.h"
 
-Pneumatics::Pneumatics() {
-	Subsystem("Pneumatics")
-{
+
+Pneumatics::Pneumatics() :
+		frc::Subsystem("Pneumatics") {
+
 		pCompressor = new Compressor(0);
 
 		pressureSensor = new AnalogInput(0);
@@ -24,7 +26,7 @@ void Pneumatics::InitDefaultCommand()
 }
 	// TODO Auto-generated constructor stub
 
-}
+
 
 
 
