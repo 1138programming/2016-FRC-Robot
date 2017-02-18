@@ -18,8 +18,8 @@ private:
 	DoubleSolenoid* BaseSolenoid;
 	DoubleSolenoid* CollectorAndRatchetSolenoid;
 
-	//Encoder *LeftFrontBaseEncoder;
-	//Encoder *RightFrontBaseEncoder;
+	Encoder *LeftFrontBaseEncoder;
+	Encoder *RightFrontBaseEncoder;
 
 	//Gyro
 	AHRS* ahrs;
@@ -27,14 +27,16 @@ private:
 	//PIDController
 	PIDController* turnController;
 
+	double waitPeriod = 5.00;
+
 public:
 	DriveBase();
 	void InitDefaultCommand();
 	void TankDrive(float left, float right);
 	void DriveForward(float speed, float distance);
 	void DriveBackward(float speed, float distance);
-	void BaseTurnLeft(float speed, float degrees);
-	void BaseTurnRight(float speed, float degrees);
+	void BaseTurnLeft(float speed, double degrees);
+	void BaseTurnRight(float speed, double degrees);
 	void StopBase();
 	void HighShiftBase();
 	void LowShiftBase();
@@ -47,8 +49,8 @@ public:
 
 	const float KDeadZoneLimit = 0.1;
 
-	const float KHighGear = (DoubleSolenoid::kForward);
-	const float KLowGear = (DoubleSolenoid::kReverse);
+//	const float KHighGear = (DoubleSolenoid::kForward);
+//	const float KLowGear = (DoubleSolenoid::kReverse);
 };
 
 #endif /* SRC_SUBSYSTEMS_BASE_H_ */

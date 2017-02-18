@@ -7,7 +7,11 @@
 #include <Commands/Command.h>
 
 #include "Subsystems/DriveBase.h"
+
 #include "OI.h"
+#include "WPILib.h"
+
+#include "C:\Users\eeuser\wpilib\user\cpp\include\CANTalon.h"
 //#include "Subsystems/ExampleSubsystem.h"
 
 /**
@@ -16,15 +20,17 @@
  * subsystem elsewhere in your code in your code use
  * CommandBase::exampleSubsystem
  */
-class CommandBase: public frc::Command {
+class CommandBase: public frc::Command
+{
 public:
 	CommandBase(const std::string& name);
 	CommandBase();
 	static void init();
 	// Create a single static instance of all of your subsystems
-	/*static std::unique_ptr<ExampleSubsystem> exampleSubsystem;
+	/*static std::uniqueptr<ExampleSubsystem> exampleSubsystem;
 	static std::unique_ptr<OI> oi;*/
 	static DriveBase* driveBase;
+	static OI* oi;
 };
 
 #endif  // COMMAND_BASE_H

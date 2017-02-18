@@ -3,6 +3,7 @@
 #include "Commands/ShiftBase.h"
 #include "C:\Users\eeuser\wpilib\cpp\current\include\Talon.h"
 #include "C:\Users\eeuser\wpilib\cpp\current\include\Solenoid.h"
+#include "sys/wait.h"
 //Drive Base Team: Gioia, Peter, Jahred and Kyle
 DriveBase::DriveBase() :
  	 Subsystem("DriveBase")
@@ -75,8 +76,10 @@ void DriveBase::TankDrive(float left, float right)
 }
 void DriveBase::DriveForward(float distance, float speed)
 {
-	LeftFrontBaseMotor->Reset();
-	RightFrontBaseMotor->Reset();
+	//LeftFrontBaseMotor->Reset();
+	//RightFrontBaseMotor->Reset();
+	LeftFrontBaseMotor->SetEncPosition(0);
+	RightFrontBaseMotor->SetEncPosition(0);
 	float encoder = LeftFrontBaseMotor->GetEncPosition();
 	float encoder2 = RightFrontBaseMotor->GetEncPosition();
 	while(encoder < distance && encoder2 < distance)
@@ -101,24 +104,21 @@ void DriveBase::DriveBackward(float speed, float distance)
 		encoder2 = RightFrontBaseMotor->GetEncPosition();
 	}
 }
-void DriveBase::BaseTurnLeft(float speed, float degrees)
+void DriveBase::BaseTurnLeft(float speed, double degrees)
 {
 	ahrs->GetYaw();
-	while(ahrs < degrees)
+	while(ahrs->GetAngleAdjustment() < degrees)
 	{
 		RightFrontBaseMotor->Set(speed);
 		LeftFrontBaseMotor->Set(-speed);
-		ahrs->GetYaw();
 	}
 }
-void DriveBase::BaseTurnRight(float speed, float degrees)
+void DriveBase::BaseTurnRight(float speed, double degrees)
 {
-	ahrs->GetYaw();
-	while(ahrs < degrees)
+	while(ahrs->GetAngleAdjustment() < degrees)
 	{
 		RightFrontBaseMotor->Set(-speed);
 		LeftFrontBaseMotor->Set(speed);
-		ahrs->GetYaw();
 	}
 }
 void DriveBase::StopBase()
@@ -158,7 +158,7 @@ void DriveBase::EngageLift()
 	if(BaseSolenoid->Get() != DoubleSolenoid::kReverse)
 	{
 		LowShiftBase();
-		wait(0.5);
+		Wait(5);
 		CollectorAndRatchetSolenoid->Set(DoubleSolenoid::kForward);
 	}
 	else if(BaseSolenoid->Get() == DoubleSolenoid::kForward)
