@@ -11,3 +11,4 @@
 | National Instruments | http://wpilib.screenstepslive.com/s/4485/m/13503/l/599670-installing-the-frc-2017-update-suite-all-languages |
 | Talon Updates (On Computer) | C:\Users\Public\Documents\Cross The Road Electronics\LifeBoat\HERO Firmware Files |
 | Third Party Libraries | http://wpilib.screenstepslive.com/s/4485/m/13503/l/682619-3rd-party-libraries |
+| NavX MXP Library | http://www.kauailabs.com/public_files/navx-mxp/apidocs/java/com/kauailabs/navx/frc/AHRS.html |

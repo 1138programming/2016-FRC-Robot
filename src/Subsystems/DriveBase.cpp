@@ -32,11 +32,16 @@ DriveBase::DriveBase() :
 	LeftRearBaseMotor->SetInverted(true);
 
 	//Solenoids
+
 	//0 is forward, 1 is reverse
 	//LowGear is torque, HighGear is speed
 	//forward = highgear; reverse = lowgear;
 	BaseSolenoid = new DoubleSolenoid(0, 1);
 	CollectorAndRatchetSolenoid = new DoubleSolenoid(2, 3);
+
+	//Ultrasonic
+	BaseUltrasonic = new Ultrasonic(1,1);
+	BaseUltrasonic->SetAutomaticMode(true);
 
 	//Gyro
 	ahrs->GetYaw();
@@ -169,4 +174,21 @@ void DriveBase::EngageLift()
 void DriveBase::DisengageLift()
 {
 	CollectorAndRatchetSolenoid->Set(DoubleSolenoid::kReverse);
+}
+
+void DriveBase::InitDefaultCommandForUltrasonic()
+{
+	bool IsEnabled = true;
+}
+
+void DriveBase::GetDistance()
+{
+	DistanceToGearCollector = BaseUltrasonic->GetRangeMM();
+}
+
+
+bool DriveBase::IsUltrasonicRangeValid()
+{
+	whatIsRange = BaseUltrasonic->IsRangeValid();
+	SmartDashboard::PutNumber("UltrasonicInRange", (bool) whatIsRange);
 }

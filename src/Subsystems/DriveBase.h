@@ -4,7 +4,12 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include "CANTalon.h"
+
 #include "AHRS.h"
+
+#include "c:\Users\eeuser\wpilib\cpp\current\include\Ultrasonic.h"
+#include "C:\Users\eeuser\wpilib\cpp\current\include\SmartDashboard\SmartDashboard.h"
+
 
 class DriveBase: public Subsystem
 {
@@ -29,6 +34,10 @@ private:
 
 	double waitPeriod = 5.00;
 
+	Ultrasonic* BaseUltrasonic;
+	double DistanceToGearCollector;
+	bool whatIsRange;
+
 public:
 	DriveBase();
 	void InitDefaultCommand();
@@ -41,8 +50,14 @@ public:
 	void HighShiftBase();
 	void LowShiftBase();
 	void ToggleShift();
+
 	void EngageLift();
 	void DisengageLift();
+
+	void InitDefaultCommandForUltrasonic();
+	void GetDistance();
+	bool IsUltrasonicRangeValid();
+
 
 	const float KLeftMaster = 1; //KLeftMaster = Master Talon for left side
 	const float KRightMaster = 3; //KRightMaster = Master Talon for right side

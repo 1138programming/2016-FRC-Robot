@@ -9,10 +9,15 @@
 #include "Subsystems/DriveBase.h"
 
 #include "OI.h"
+
 #include "WPILib.h"
 
 #include "C:\Users\eeuser\wpilib\user\cpp\include\CANTalon.h"
 //#include "Subsystems/ExampleSubsystem.h"
+
+#include "Subsystems/ExampleSubsystem.h"
+#include "Subsystems/Pneumatics.h"
+
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -27,10 +32,12 @@ public:
 	CommandBase();
 	static void init();
 	// Create a single static instance of all of your subsystems
-	/*static std::uniqueptr<ExampleSubsystem> exampleSubsystem;
-	static std::unique_ptr<OI> oi;*/
-	static DriveBase* driveBase;
-	static OI* oi;
+
+	static std::unique_ptr<DriveBase> driveBase;
+	static std::unique_ptr<ExampleSubsystem> exampleSubsystem;
+	static std::unique_ptr<OI> oi;
+	static std::unique_ptr<Pneumatics> pneumatics;
+
 };
 
 #endif  // COMMAND_BASE_H
