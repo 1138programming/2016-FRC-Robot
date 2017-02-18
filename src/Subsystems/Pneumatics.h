@@ -7,11 +7,19 @@
 
 #ifndef SRC_SUBSYSTEMS_PNEUMATICS_H_
 #define SRC_SUBSYSTEMS_PNEUMATICS_H_
+#include "WPILib.h"
+#include "Compressor.h"
 
-class Pneumatics {
+class Pneumatics : public Subsystem {
+private:
+	Compressor* pCompressor;
+	AnalogInput* pressureSensor;
+
 public:
 	Pneumatics();
-	virtual ~Pneumatics();
+//	virtual ~Pneumatics();
+
+	void InitDefaultCommand();
 };
 
 #endif /* SRC_SUBSYSTEMS_PNEUMATICS_H_ */
