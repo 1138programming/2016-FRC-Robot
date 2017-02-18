@@ -70,7 +70,9 @@ Once you have finished editing your code, you need to commit and push it to the 
 * Click commit and push, or you can just commit them now and push them to the repository later with Team -> Push to Upstream.
 * If you’re asked for a username and password to push, the username is `breedenpt@gmail.com` and the password is `Eagles1138` (With a capital 'E').
 
-### Working with Branches
+### Creating Branches
+###### Note: To switch to an existing branch, see Switching Branches below.
+
 
 When you're working on a project, you're going to have a bunch of different features or ideas in progress at any given time – some of which are ready to go, and others which are not. Branching exists to help you manage this workflow.
 
@@ -112,9 +114,22 @@ Resolving conflicts:
 * Tell EGit that the conflict is resolved with Team > Add to index
 * Commit the conflict resolution with Team > Commit
 
+### Switching Branches
 
+Most of the time, you will need to edit code on a branch that is only on the remote repository (Github), and not available in the local branches. In order to edit the code and correctly push and pull code, you need to switch branches.
 
+1.    Right-Click on the project that you want to switch branches on (e.g. Momentum) and go to Team->Fetch from Upstream
+2.    A window will pop up after a little while. This is a sum of all the changes on Github that your computer has not noticed until now. Just click `OK`
+3.    Right-Click on the project again and go to `Team->Switch To->Other...`. Open the `Remote Tracking` folder and Double-Click on branch that you want to use.
+4.    Once you do that, a window will pop up asking what you want to do with the branch. Click `Checkout as New Local Branch `.
 
+### Updating from Master
+
+When working on code, most of the time you will need to merge code from the master in order to prevent conflicts and get the latest code worked on by others.
+
+1.    Right-Click on the project that you want to switch branches on (e.g. Momentum) and go to Team->Fetch from Upstream
+2.    A window will pop up after a little while. This is a sum of all the changes on Github that your computer has not noticed until now. Just click `OK`
+3.    Right-Click on the project again and go to `Team->Merge...`. Open up the `Remote Tracking` folder and Double-Click on `origin/master`. Do not change any of the other options.
 
 ## Glossary
 **Branch** - A branch is a parallel version of a repository. It is contained within the repository, but does not affect the primary or master branch allowing you to work freely without disrupting the "live" version. When you've made the changes you want to make, you can merge your branch back into the master branch to publish your changes.
