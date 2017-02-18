@@ -1,7 +1,6 @@
 #include "CommandBase.h"
 #include "Commands/Scheduler.h"
-#include "Subsystems/ExampleSubsystem.h"
-#include "Subsystems/Pneumatics.h"
+
 
 // Initialize a single static instance of all of your subsystems to NULL
 Collector* CommandBase::collector = NULL;
