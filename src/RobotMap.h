@@ -17,5 +17,7 @@
 // number and the module. For example you with a rangefinder:
 // constexpr int RANGE_FINDER_PORT = 1;
 // constexpr int RANGE_FINDER_MODULE = 1;
+const int KEsophagusSolenoid1 = 4 ;
+const int KEsophagusSolenoid2 = 5 ;
 
 #endif  // ROBOTMAP_H

@@ -17,11 +17,11 @@ CommandBase::CommandBase(const std::string &name) :
 {
 }
 
-CommandBase::CommandBase() :
-		Command()
-{
-
-}
+//CommandBase::CommandBase() :
+//		Command()
+//{
+//
+//}
 
 void CommandBase::init()
 {

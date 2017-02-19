@@ -1,5 +1,7 @@
 #include <Subsystems/DriveBase.h>
+
 //Drive Base Team: Gioia, Peter, and Kyle
+
 DriveBase::DriveBase() :
  	 Subsystem("DriveBase")
 {
@@ -23,12 +25,7 @@ DriveBase::DriveBase() :
 	LeftFrontBaseMotor->SetInverted(true);
 
 	//Solenoids
-	LeftBaseSolenoid = new DoubleSolenoid(0, 1);
-	RightBaseSolenoid = new DoubleSolenoid(2, 3);
-	RightCollectorSolenoid = new Solenoid(7);
-	LeftCollectorSolenoid = new Solenoid (6);
-	RatchetSolenoid = new Solenoid(5);
-}
+
 
 void DriveBase::InitDefaultCommand()
 {
