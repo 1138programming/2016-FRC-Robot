@@ -4,6 +4,7 @@
 //Esophagus subsystem: Connor N, Christian G, and Chris H(A little)
 
 #include "WPILib.h"
+#include "RobotMap.h"
 #include "Commands/Subsystem.h"
 #include "SolenoidBase.h"
 
@@ -11,7 +12,6 @@ class Esophagus: public Subsystem
 {
 private:
 	DoubleSolenoid* esophagusSolenoid;
-
 
 public:
 	Esophagus();

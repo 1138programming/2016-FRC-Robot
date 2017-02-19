@@ -9,13 +9,12 @@ Esophagus::Esophagus() :
 
 Subsystem("EsophagusSubsystem")
 {
-	// TODO Auto-generated constructor stub
-	esophagusSolenoid = new DoubleSolenoid(4, 5);
+		esophagusSolenoid = new DoubleSolenoid(KEsophagusSolenoid1, KEsophagusSolenoid2);
 }
 
 void Esophagus::InitDefaultCommand()
 {
-
+	MoveEsophagusToGearCollection();	//default position is gear collection.
 }
 
 void Esophagus::MoveEsophagusToGearCollection() //This function moves the Esophagus so that it can now collect gears
@@ -30,7 +29,7 @@ void Esophagus::MoveEsophagusToBallCollection() //This function moves the Esopha
 
 void Esophagus::ShiftGearBallCollection() //This function moves the Esophagus so that it switches between collecting balls and gears
 {
-	if (esophagusSolenoid->Get() = DoubleSolenoid::kForward) //If the Solenoid is set to Ball Collection
+	if (esophagusSolenoid->Get() == DoubleSolenoid::kForward) //If the Solenoid is set to Ball Collection
 		{
 			MoveEsophagusToGearCollection(); //Then it will change to gear collection
 		}
