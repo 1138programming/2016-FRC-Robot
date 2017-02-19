@@ -1,4 +1,5 @@
-#include <Subsystems/Esophagus.h>
+#include "Subsystems/Esophagus.h"
+#include "WPILib.h"
 
 //Esophagus subsystem: Connor N, Christian G, and Chris H(A little)
 
@@ -6,29 +7,28 @@ Esophagus::Esophagus() :
 
 Subsystem("EsophagusSubsystem")
 {
-	// TODO Auto-generated constructor stub
-	esophagusSingleSolenoid = new Solenoid(4);
+
+	esophagusSolenoid = new DoubleSolenoid(KEsophagusSolenoid1, KEsophagusSolenoid2);
 }
 
 void Esophagus::InitDefaultCommand()
 {
-
+	MoveEsophagusToGearCollection();
 }
 
 void Esophagus::MoveEsophagusToGearCollection() //This function moves the Esophagus so that it can now collect gears
 {
-	esophagusSingleSolenoid->Set(false);
+	esophagusSolenoid->Set(DoubleSolenoid::kOff);;
 }
 
 void Esophagus::MoveEsophagusToBallCollection() //This function moves the Esophagus so that it can now collect balls
 {
-	esophagusSingleSolenoid->Set(true);
+	esophagusSolenoid->Set(DoubleSolenoid::kForward);;
 }
 
 void Esophagus::ShiftGearBallCollection() //This function moves the Esophagus so that it switches between collecting balls and gears
 {
-	esophagusSingleSolenoid->Get();
-	if (esophagusSingleSolenoid)
+		if (esophagusSolenoid->Get() == DoubleSolenoid::kForward)
 		{
 			MoveEsophagusToGearCollection();
 		}
@@ -40,5 +40,5 @@ void Esophagus::ShiftGearBallCollection() //This function moves the Esophagus so
 
 Esophagus::~Esophagus()
 {
-	// TODO Auto-generated destructor stub
+
 }
