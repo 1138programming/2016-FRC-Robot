@@ -4,6 +4,9 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include "CANTalon.h"
+#include "RobotMap.h"
+#include "C:\Users\eeuser\wpilib\cpp\current\include\Solenoid.h"
+#include "sys/wait.h"
 
 #include "AHRS.h"
 
@@ -20,8 +23,8 @@ private:
 	CANTalon* RightRearBaseMotor; //Talon 3 in CAN Bus
 	CANTalon* RightFrontBaseMotor; //Talon 4 in CAN Bus
 
-	DoubleSolenoid* BaseSolenoid;
-	DoubleSolenoid* CollectorAndRatchetSolenoid;
+	DoubleSolenoid* ShiftSolenoid;
+	DoubleSolenoid* LiftSolenoid;
 
 	Encoder *LeftFrontBaseEncoder;
 	Encoder *RightFrontBaseEncoder;
@@ -64,8 +67,6 @@ public:
 
 	const float KDeadZoneLimit = 0.1;
 
-//	const float KHighGear = (DoubleSolenoid::kForward);
-//	const float KLowGear = (DoubleSolenoid::kReverse);
 };
 
 #endif /* SRC_SUBSYSTEMS_BASE_H_ */

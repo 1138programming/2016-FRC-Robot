@@ -10,7 +10,7 @@
 #include "Subsystems/Esophagus.h"
 #include "Subsystems/ExampleSubsystem.h"
 #include "Subsystems/GearCam.h"
-#include "Subsystems/Pneumatics.h"
+//#include "Subsystems/Pneumatics.h"
 #include "Subsystems/Shooter.h"
 #include "Subsystems/ShooterCam.h"
 #include "OI.h"
@@ -49,14 +49,14 @@ public:
 // Create a single static instance of all of your subsystems
 
 	static std::unique_ptr<Collector> collector;
-  static std::unique_ptr<DriveBase> driveBase;
+	static std::unique_ptr<DriveBase> driveBase;
 	static std::unique_ptr<ExampleSubsystem> exampleSubsystem;
 	static std::unique_ptr<Esophagus> esophagus;
-		static std::unique_ptr<GearCam> gearCam;
-    	static std::unique_ptr<Shooter> shooter;
-      	static std::unique_ptr<ShooterCam> shooterCam;
-        	static std::unique_ptr<OI> oi;
-  static std::unique_ptr<Pneumatics> pneumatics;
+	static std::unique_ptr<GearCam> gearCam;
+	static std::unique_ptr<Shooter> shooter;
+	static std::unique_ptr<ShooterCam> shooterCam;
+	static std::unique_ptr<OI> oi;
+ // static std::unique_ptr<Pneumatics> pneumatics;
 
 
 };
