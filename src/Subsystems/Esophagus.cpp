@@ -1,5 +1,7 @@
 #include <Subsystems/Esophagus.h>
 
+//Esophagus subsystem: Connor N, Christian G, and Chris H(A little)
+
 Esophagus::Esophagus() :
 
 Subsystem("EsophagusSubsystem")
@@ -34,4 +36,9 @@ void Esophagus::ShiftGearBallCollection() //This function moves the Esophagus so
 		{
 			MoveEsophagusToBallCollection();
 		}
+}
+
+Esophagus::~Esophagus()
+{
+	// TODO Auto-generated destructor stub
 }
