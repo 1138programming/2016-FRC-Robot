@@ -1,6 +1,7 @@
 #include "CommandBase.h"
 #include "Commands/Scheduler.h"
 
+
 // Initialize a single static instance of all of your subsystems to NULL
 Collector* CommandBase::collector = NULL;
 DriveBase* CommandBase::driveBase = NULL;
@@ -11,17 +12,6 @@ Pneumatics* CommandBase::pneumatics = NULL;
 Shooter* CommandBase::shooter = NULL;
 ShooterCam* CommandBase::shooterCam = NULL;
 OI* CommandBase::oi = NULL;
-
-CommandBase::CommandBase(const std::string &name) :
-		Command(name)
-{
-}
-
-CommandBase::CommandBase() :
-		Command()
-{
-
-}
 
 void CommandBase::init()
 {
@@ -36,4 +26,9 @@ void CommandBase::init()
 	shooter = new Shooter();
 	shooterCam = new ShooterCam();
 	oi = new OI();
+}
+CommandBase::CommandBase():
+		Command()
+{
+
 }
