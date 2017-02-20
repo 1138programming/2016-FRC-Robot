@@ -8,7 +8,7 @@
 FlywheelsOff::FlywheelsOff() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	Requires(CommandBase::shooter.get());
+	Requires(CommandBase::shooter);
 }
 
 // Called just before this Command runs the first time
@@ -18,7 +18,7 @@ void FlywheelsOff::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void FlywheelsOff::Execute() {
-	CommandBase::shooter.get()->FlywheelsOff();
+	CommandBase::shooter->FlywheelsOff();
 }
 
 // Make this return true when this Command no longer needs to run execute()

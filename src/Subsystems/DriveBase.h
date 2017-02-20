@@ -3,7 +3,7 @@
 
 #include "Commands/Subsystem.h"
 
-#include "AHRS.h"
+#include "C:\Users\eeuser\navx-mxp\cpp\include\AHRS.h"
 
 #include "C:\Users\eeuser\wpilib\cpp\current\include\WPILib.h"
 #include "C:\Users\eeuser\wpilib\user\cpp\include\CANTalon.h"

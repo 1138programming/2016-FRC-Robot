@@ -44,6 +44,7 @@ DriveBase::DriveBase() :
 	BaseUltrasonic->SetAutomaticMode(true);
 
 	//Gyro
+	AHRS* ahrs = new AHRS();
 	ahrs->GetYaw();
 
 	//Encoders
