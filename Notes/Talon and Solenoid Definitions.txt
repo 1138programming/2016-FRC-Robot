@@ -14,9 +14,6 @@ Talons:
 10 - Spare
 
 Solenoids:
-0 and 1 - Shift Left
-2 and 3 - Shift Right
-4 - Esophagus
-5 - Ratchet/Lift
-6 - Left Collector
-7 - Right Collector Solenoid
+0 and 1 - Base Solenoid (shift)
+2 and 3 - Collector/Ratchet Solenoid
+4 and 5 - Esophagus

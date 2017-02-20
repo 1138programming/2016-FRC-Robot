@@ -1,4 +1,6 @@
-#include <Subsystems/Collector.h>
+#include "Subsystems/Collector.h"
+#include "Commands/CollectBallIntoStorage.h"
+#include "Commands/DispenseBallOutOfStorage.h"
 
 //Esophagus subsystem: Connor N, Christian G, and Chris H(A little)
 
