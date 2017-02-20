@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <string>
+
 #include "Commands/Command.h"
 #include "Subsystems/Collector.h"
 #include "Subsystems/DriveBase.h"
@@ -14,7 +15,9 @@
 #include "Subsystems/ShooterCam.h"
 #include "OI.h"
 #include "WPILib.h"
-#include "OI.h"
+
+#include "C:\Users\eeuser\wpilib\user\cpp\include\CANTalon.h"
+//#include "Subsystems/ExampleSubsystem.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -25,7 +28,8 @@
 class CommandBase: public frc::Command {
 public:
 	CommandBase(const std::string& name);
-	CommandBase() = default;
+
+	CommandBase();
 
 	static void init();
 
