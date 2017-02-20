@@ -1,17 +1,19 @@
-/*
- * Pneumatics.h
- *
- *  Created on: Feb 2, 2017
- *      Author: eeuser
- */
-
 #ifndef SRC_SUBSYSTEMS_PNEUMATICS_H_
 #define SRC_SUBSYSTEMS_PNEUMATICS_H_
 
-class Pneumatics {
+#include "Commands/Subsystem.h"
+#include "WPILib.h"
+
+class Pneumatics: public Subsystem
+{
+private:
+	Compressor* pCompressor;
+
+	AnalogInput* pressureSensor;
+
 public:
 	Pneumatics();
-	virtual ~Pneumatics();
+	void InitDefaultCommand();
 };
 
 #endif /* SRC_SUBSYSTEMS_PNEUMATICS_H_ */

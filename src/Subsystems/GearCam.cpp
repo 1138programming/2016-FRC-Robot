@@ -12,7 +12,8 @@ GearCam::GearCam() {
 
 }
 
-GearCam::~GearCam() {
+GearCam::~GearCam()
+{
 	// TODO Auto-generated destructor stub
 }
 

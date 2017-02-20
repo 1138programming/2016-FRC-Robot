@@ -2,11 +2,11 @@
 #define SRC_SUBSYSTEMS_DRIVEBASE_H_
 
 #include "Commands/Subsystem.h"
-#include "WPILib.h"
-#include "CANTalon.h"
 
 #include "AHRS.h"
 
+#include "C:\Users\eeuser\wpilib\cpp\current\include\WPILib.h"
+#include "C:\Users\eeuser\wpilib\user\cpp\include\CANTalon.h"
 #include "c:\Users\eeuser\wpilib\cpp\current\include\Ultrasonic.h"
 #include "C:\Users\eeuser\wpilib\cpp\current\include\SmartDashboard\SmartDashboard.h"
 
