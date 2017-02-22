@@ -1,107 +1,188 @@
-#include <Subsystems/DriveBase.h>
-//Drive Base Team: Gioia, Peter, and Kyle
+#include "Subsystems/DriveBase.h"
+#include "Commands/DriveWithJoysticks.h"
+#include "Commands/ShiftBase.h"
+#include "C:\Users\eeuser\wpilib\cpp\current\include\Talon.h"
+#include "C:\Users\eeuser\wpilib\cpp\current\include\Solenoid.h"
+#include "sys/wait.h"
+//Drive Base Team: Gioia, Peter, Jahred and Kyle
 DriveBase::DriveBase() :
  	 Subsystem("DriveBase")
 {
+	/* 4 Talons in the DriveBase, arranged in groups of 2. The front motors are the master motors, and the
+	 *  rear motors are the followers. 2 Magnetic Encoders on the front motors. 2 DoubleSolenoids on the DriveBase.
+	 *	One for the base and one for the Collector and Ratchet.
+	 */
 	//Sets up Right Motors
-	RightRearBaseMotor = new CANTalon(KRightMaster); //RightRearBase is the master Talon for the right side
-	RightRearBaseMotor->SetSafetyEnabled(true);
+	RightFrontBaseMotor = new CANTalon(KRightMaster); //RightFrontBase is the master Talon for the right side
+	RightFrontBaseMotor->SetSafetyEnabled(true);
 
-	RightFrontBaseMotor = new CANTalon(2);
-	RightFrontBaseMotor->SetControlMode(CANTalon::kFollower); //RightFrontBase is the follower to RightRearBase
-	RightFrontBaseMotor->Set(KRightMaster);
+	RightRearBaseMotor = new CANTalon(2);
+	RightRearBaseMotor->SetControlMode(CANTalon::kFollower); //RightRearBase is the follower to RightRearBase
+	RightRearBaseMotor->Set(KRightMaster);
 
 	//Sets up Left motors
 	//Left base motors are inverted
-	LeftRearBaseMotor = new CANTalon(KLeftMaster); //LeftRearBase is the master Talon on the Left side
-	LeftRearBaseMotor->SetSafetyEnabled(true);
-	LeftRearBaseMotor->SetInverted(true);
-
-	LeftFrontBaseMotor = new CANTalon(4);
-	LeftFrontBaseMotor->SetControlMode(CANTalon::kFollower); //LeftFrontBase is the follower to the LeftRearBase
-	LeftFrontBaseMotor->Set(KLeftMaster);
+	LeftFrontBaseMotor = new CANTalon(KLeftMaster); //LeftFrontBase is the master Talon on the Left side
+	LeftFrontBaseMotor->SetSafetyEnabled(true);
 	LeftFrontBaseMotor->SetInverted(true);
 
+	LeftRearBaseMotor = new CANTalon(4);
+	LeftRearBaseMotor->SetControlMode(CANTalon::kFollower); //LeftRearBase is the follower to the LeftRearBase
+	LeftRearBaseMotor->Set(KLeftMaster);
+	LeftRearBaseMotor->SetInverted(true);
+
 	//Solenoids
-	LeftBaseSolenoid = new DoubleSolenoid(0, 1);
-	RightBaseSolenoid = new DoubleSolenoid(2, 3);
-	RightCollectorSolenoid = new Solenoid(7);
-	LeftCollectorSolenoid = new Solenoid (6);
-	RatchetSolenoid = new Solenoid(5);
+
+	//0 is forward, 1 is reverse
+	//LowGear is torque, HighGear is speed
+	//forward = highgear; reverse = lowgear;
+	BaseSolenoid = new DoubleSolenoid(0, 1);
+	CollectorAndRatchetSolenoid = new DoubleSolenoid(2, 3);
 
 	//Ultrasonic
 	BaseUltrasonic = new Ultrasonic(1,1);
 	BaseUltrasonic->SetAutomaticMode(true);
-}
 
+	//Gyro
+	AHRS* ahrs;
+	ahrs->GetYaw();
+
+	//Encoders
+	//Relative = Quadrature Encoder function of MagEncoder
+	LeftFrontBaseMotor->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
+	RightFrontBaseMotor->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
+	LeftFrontBaseMotor->ConfigEncoderCodesPerRev(4095);
+	RightFrontBaseMotor->ConfigEncoderCodesPerRev(4095);
+	LeftFrontBaseMotor->SetEncPosition(0);
+	RightFrontBaseMotor->SetEncPosition(0);
+
+	//LeftFrontBaseEncoder = new Encoder(0,1,false,Encoder::EncodingType::k4X);
+}
 void DriveBase::InitDefaultCommand()
 {
 	//SetDefaultCommand(new DriveWithJoysticks());
 	//Sets the default to drive with joysticks when robot is turned on
+	SetDefaultCommand(new DriveWithJoysticks());
 }
-void DriveBase::TankDrive()
+void DriveBase::TankDrive(float left, float right)
 {
+	if(left > KDeadZoneLimit || left < -KDeadZoneLimit)
+	{
+		LeftRearBaseMotor->Set(left);
+	}
+	else
+	{
+		LeftRearBaseMotor->Set(0);
+	}
 
+	if(right > KDeadZoneLimit || right < -KDeadZoneLimit)
+	{
+		RightRearBaseMotor->Set(right);
+	}
+	else
+	{
+		RightRearBaseMotor->Set(0);
+	}
 }
 void DriveBase::DriveForward(float distance, float speed)
 {
-
+	//LeftFrontBaseMotor->Reset();
+	//RightFrontBaseMotor->Reset();
+	//LeftFrontBaseMotor->SetEncPosition(0);
+	//RightFrontBaseMotor->SetEncPosition(0);
+	float encoderReference = LeftFrontBaseMotor->GetEncPosition();
+	float encoder2Reference = RightFrontBaseMotor->GetEncPosition();
+	float encoder = LeftFrontBaseMotor->GetEncPosition();
+	float encoder2 = RightFrontBaseMotor->GetEncPosition();
+	while((encoder - encoderReference) < distance && (encoder2 - encoder2Reference) < distance)
+	{
+		RightFrontBaseMotor->Set(speed);
+		LeftFrontBaseMotor->Set(speed);
+		encoder = LeftFrontBaseMotor->GetEncPosition();
+		encoder2 = RightFrontBaseMotor->GetEncPosition();
+	}
 }
-void DriveBase::DriveBackward()
+void DriveBase::DriveBackward(float speed, float distance)
 {
-
+	//LeftFrontBaseMotor->SetEncPosition(0);
+	//RightFrontBaseMotor->SetEncPosition(0);
+	float encoderReference = LeftFrontBaseMotor->GetEncPosition();
+	float encoder2Reference = RightFrontBaseMotor->GetEncPosition();
+	float encoder = LeftFrontBaseMotor->GetEncPosition();
+	float encoder2 = RightFrontBaseMotor->GetEncPosition();
+	while((encoder - encoderReference) > distance && (encoder2 - encoder2Reference) > distance)
+	{
+		RightFrontBaseMotor->Set(speed);
+		LeftFrontBaseMotor->Set(speed);
+		encoder = LeftFrontBaseMotor->GetEncPosition();
+		encoder2 = RightFrontBaseMotor->GetEncPosition();
+	}
 }
-void DriveBase::BaseTurnLeft()
+void DriveBase::BaseTurnLeft(float speed, double degrees)
 {
-
+	ahrs->GetYaw();
+	while(ahrs->GetAngleAdjustment() < degrees)
+	{
+		RightFrontBaseMotor->Set(speed);
+		LeftFrontBaseMotor->Set(-speed);
+	}
 }
-void DriveBase::BaseTurnRight()
+void DriveBase::BaseTurnRight(float speed, double degrees)
 {
-
+	while(ahrs->GetAngleAdjustment() < degrees)
+	{
+		RightFrontBaseMotor->Set(-speed);
+		LeftFrontBaseMotor->Set(speed);
+	}
 }
 void DriveBase::StopBase()
 {
 	RightRearBaseMotor->Set(0);
 	LeftRearBaseMotor->Set(0);
 }
-void DriveBase::UpShiftBase()
+void DriveBase::HighShiftBase()
 {
-	LeftBaseSolenoid->Set(DoubleSolenoid::kReverse);
-	RightBaseSolenoid->Set(DoubleSolenoid::kReverse);
+	BaseSolenoid->Set(DoubleSolenoid::kForward);
 }
-void DriveBase::DownShiftBase()
+void DriveBase::LowShiftBase()
 {
-	LeftBaseSolenoid->Set(DoubleSolenoid::kForward);
-	RightBaseSolenoid->Set(DoubleSolenoid::kForward);
+	BaseSolenoid->Set(DoubleSolenoid::kReverse);
 }
 void DriveBase::ToggleShift()
 {
-	if(LeftBaseSolenoid->Get() != DoubleSolenoid::kForward && RightBaseSolenoid->Get() != DoubleSolenoid::kForward)
+	if(BaseSolenoid -> Get() != DoubleSolenoid::kForward)
 	{
-		UpShiftBase();
+		HighShiftBase();
 	}
 	else
 	{
-		DownShiftBase();
+		LowShiftBase();
 	}
 }
-void DriveBase::ShiftBaseToCollector()
+/*void DriveBase::ShiftBaseToCollector()
 {
-	LeftCollectorSolenoid->Set(DoubleSolenoid::kForward);
-	RightCollectorSolenoid->Set(DoubleSolenoid::kForward);
+	CollectorAndRatchetSolenoid->Set(DoubleSolenoid::kForward);
 }
 void DriveBase::ShiftCollectorToBase()
 {
-	LeftCollectorSolenoid->Set(DoubleSolenoid::kReverse);
-	RightCollectorSolenoid->Set(DoubleSolenoid::kReverse);
-}
-void DriveBase::EngageRatchet()
+	CollectorAndRatchetSolenoid->Set(DoubleSolenoid::kReverse);
+}*/
+void DriveBase::EngageLift()
 {
-	RatchetSolenoid->Set(DoubleSolenoid::kForward);
+	if(BaseSolenoid->Get() != DoubleSolenoid::kReverse)
+	{
+		LowShiftBase();
+		Wait(5);
+		CollectorAndRatchetSolenoid->Set(DoubleSolenoid::kForward);
+	}
+	else if(BaseSolenoid->Get() == DoubleSolenoid::kForward)
+	{
+			CollectorAndRatchetSolenoid->Set(DoubleSolenoid::kForward);
+	}
 }
-void DriveBase::DisengageRatchet()
+void DriveBase::DisengageLift()
 {
-	RatchetSolenoid->Set(DoubleSolenoid::kReverse);
+	CollectorAndRatchetSolenoid->Set(DoubleSolenoid::kReverse);
 }
 
 void DriveBase::InitDefaultCommandForUltrasonic()
