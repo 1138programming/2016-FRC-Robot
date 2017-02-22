@@ -57,9 +57,20 @@ Red LEDs Strobe M+ - Forward Limit Switch or Forward Soft Limit
 Red LEDs Strobe M- - Reverse Limit Switch or Reverse Soft Limit
 Green/Orange LED1 - In Boot-loader mode
 
-Talon B/C CAL Blink Codes
+Talon B/C CAL Blink Codes:
 Solid Red - Brake Mode
 Off - Coast Mode
+
+
+PDP Fault Table:
+Green - Robot Enabled/Disabled
+Orange - Sticky Fault
+Red - No CAM Comm
+
+PDP Special States Table:
+Red/Orange - Damaged Hardware
+Green/Orange - Bootloader Mode
+None - No Power/Incorrect Polarity
 
 
 Radio Power:
