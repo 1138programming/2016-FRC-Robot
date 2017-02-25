@@ -1,4 +1,4 @@
-Talon and Solenoid Definiitons:
+alon and Solenoid Definiitons:
 
 
 Talons:
