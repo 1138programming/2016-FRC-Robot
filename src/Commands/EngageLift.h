@@ -1,12 +1,11 @@
-#ifndef ShiftBase_H
-#define ShiftBase_H
+#ifndef EngageLift_H
+#define EngageLift_H
 
 #include "../CommandBase.h"
 
-
-class ShiftBase : public CommandBase {
+class EngageLift : public CommandBase {
 public:
-	ShiftBase();
+	EngageLift();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -14,5 +13,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // ShiftBase_H
-
+#endif  // EngageLift_H

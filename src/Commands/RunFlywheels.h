@@ -1,12 +1,11 @@
-#ifndef ShiftBase_H
-#define ShiftBase_H
+#ifndef RunFlywheels_H
+#define RunFlywheels_H
 
 #include "../CommandBase.h"
 
-
-class ShiftBase : public CommandBase {
+class RunFlywheels : public CommandBase {
 public:
-	ShiftBase();
+	RunFlywheels();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -14,5 +13,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // ShiftBase_H
-
+#endif  // RunFlywheels_H

@@ -1,36 +1,32 @@
-#include "ShiftBase.h"
+#include <Commands/FlywheelDecreaseSpeed.h>
 
-ShiftBase::ShiftBase() {
+FlywheelDecreaseSpeed::FlywheelDecreaseSpeed() {
 	// Use Requires() here to declare subsystem dependencies
-
-	Requires(CommandBase::driveBase);
+	// eg. Requires(Robot::chassis.get());
 }
 
 // Called just before this Command runs the first time
-void ShiftBase::Initialize() {
+void FlywheelDecreaseSpeed::Initialize() {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
+void FlywheelDecreaseSpeed::Execute() {
 
-void ShiftBase::Execute()
-{
-	CommandBase::driveBase->ToggleShift();
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool ShiftBase::IsFinished()
-{
-	return true;
+bool FlywheelDecreaseSpeed::IsFinished() {
+	return false;
 }
 
 // Called once after isFinished returns true
-void ShiftBase::End() {
+void FlywheelDecreaseSpeed::End() {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void ShiftBase::Interrupted() {
+void FlywheelDecreaseSpeed::Interrupted() {
 
 }

@@ -6,20 +6,22 @@
 #include "WPILib.h"
 #include "RobotMap.h"
 #include "Commands/Subsystem.h"
-#include "SolenoidBase.h"
+
+#include "Solenoid.h"
+
 
 class Esophagus: public Subsystem
 {
 private:
 	DoubleSolenoid* esophagusSolenoid;
 
-
 public:
 	Esophagus();
 	void InitDefaultCommand();
 	void MoveEsophagusToGearCollection();
 	void MoveEsophagusToBallCollection();
-	void ShiftGearBallCollection();
+	void MoveEsophagus();
+//	void ShiftGearBallCollection();
 };
 
 #endif /* SRC_SUBSYSTEMS_ESOPHAGUS_H_ */
