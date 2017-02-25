@@ -3,19 +3,20 @@
 
 #include "WPILib.h"
 #include "Commands/Subsystem.h"
+#include "Solenoid.h"
 
 class Esophagus: public Subsystem
 {
 private:
-	Solenoid* esophagusSingleSolenoid;
-
+	DoubleSolenoid* esophagusSolenoid;
 
 public:
 	Esophagus();
 	void InitDefaultCommand();
 	void MoveEsophagusToGearCollection();
 	void MoveEsophagusToBallCollection();
-	void ShiftGearBallCollection();
+	void MoveEsophagus();
+//	void ShiftGearBallCollection();
 };
 
 #endif /* SRC_SUBSYSTEMS_ESOPHAGUS_H_ */
