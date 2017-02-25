@@ -15,9 +15,9 @@ private:
 public:
 	Collector();
 	void InitDefaultCommand();
-	void CollectBallIntoStorage();
-	void DispenseBallOutOfStorage();
-	void StopCollector();
+//	void CollectBallIntoStorage();
+//	void DispenseBallOutOfStorage();
+//	void StopCollector();
 
 	const float KCollectorSpeedForward = 1;
 	const float KCollectorSpeedReverse = -1;

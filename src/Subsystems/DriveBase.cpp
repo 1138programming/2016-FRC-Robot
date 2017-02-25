@@ -29,7 +29,7 @@ DriveBase::DriveBase() :
 	LeftRearBaseMotor = new CANTalon(4);
 	LeftRearBaseMotor->SetControlMode(CANTalon::kFollower); //LeftRearBase is the follower to the LeftRearBase
 	LeftRearBaseMotor->Set(KLeftMaster);
-	LeftRearBaseMotor->SetInverted(true);
+//	LeftRearBaseMotor->SetInverted(true);
 
 	//Solenoids
 
@@ -187,7 +187,7 @@ void DriveBase::DisengageLift()
 
 void DriveBase::InitDefaultCommandForUltrasonic()
 {
-	bool IsEnabled = true;
+	//bool IsEnabled = true;
 }
 
 void DriveBase::GetDistance()
@@ -199,5 +199,6 @@ void DriveBase::GetDistance()
 bool DriveBase::IsUltrasonicRangeValid()
 {
 	whatIsRange = BaseUltrasonic->IsRangeValid();
-	SmartDashboard::PutNumber("UltrasonicInRange", (bool) whatIsRange);
+	SmartDashboard::PutBoolean("UltrasonicInRange", whatIsRange);
+	return whatIsRange;
 }

@@ -7,7 +7,7 @@
 #include "RobotMap.h"
 #include "Commands/Subsystem.h"
 
-#include "Solenoid.h"
+#include "DoubleSolenoid.h"
 
 
 class Esophagus: public Subsystem

@@ -56,8 +56,8 @@ public:
 	bool IsUltrasonicRangeValid();
 
 
-	const float KLeftMaster = 1; //KLeftMaster = Master Talon for left side
-	const float KRightMaster = 3; //KRightMaster = Master Talon for right side
+	const float KLeftMaster = 2; //KLeftMaster = Master Talon for left side
+	const float KRightMaster = 1; //KRightMaster = Master Talon for right side
 
 	const float KDeadZoneLimit = 0.1;
 
