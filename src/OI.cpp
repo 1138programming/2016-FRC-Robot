@@ -1,5 +1,5 @@
 #include "OI.h"
-#include "Commands/ShiftBase.h"
+
 #include "Commands/ShiftEsophagus.h"
 #include "Commands/VisionTrackingCommand.h"
 #include "Commands/ShiftFlywheels.h"
@@ -7,8 +7,10 @@
 #include "Commands/FlywheelsDecreaseSpeed.h"
 
 
+
 OI::OI()
 {
+
 	//Logitech and xbox controllers
 	leftController = new Joystick(0) ;
 	rightController = new Joystick(1) ;
@@ -32,6 +34,7 @@ OI::OI()
 	buttonA->WhenPressed(new ShiftFlywheels());
 	buttonLB->WhenPressed(new FlywheelsDecreaseSpeed());
 	buttonRB->WhenPressed(new FlywheelsIncreaseSpeed());
+
 }
 
 float OI::getRightController(){			//Right controller is right side drive
@@ -61,4 +64,63 @@ float OI::getRightXBoxAxis(){
 
 int OI::getXBoxPOV(){					//POV controls the collector arms
 	return xBoxController->GetPOV();
+
 }
+
+//controls the collector arms, signal from joystick is reversed
+float OI::getRightXBoxAxis(){
+	return -xBoxController->GetRawAxis(5);
+}
+
+int OI::getXBoxPOV(){					//POV controls the collector arms
+	return xBoxController->GetPOV();
+}
+
+
+
+
+
+
+
+
+	/*Project Thunderbolt*/
+	/*
+	 *
+	 * OI::OI()
+	 * {
+	 * 		//Logitech and xbox controllers
+	 * 		leftController = new Joystick(0) ;
+	 * 		rightController = new Joystick(1) ;
+	 * 		xBoxController = new Joystick(2)
+	 *
+	 * 		//Logitech Buttons
+	 * 		shiftButtonUP = new Joystick(rightController, 1) ;
+	 * 		shiftButtonDOWN = new Joystick(leftController, 0) ;
+	 *
+	 *		//XBox Definitions
+	 *		buttonA	= new JoystickButton(xBoxController, 1) ;	//Power Up Shooter -- tap
+	 *		buttonB = new JoystickButton(xBoxController, 2) ;	//Turn Off Shooter -- tap
+	 *		buttonX = new JoystickButton(xBoxController, 3) ;	//Bag Motor Intake
+	 *		buttonY = new JoystickButton(xBoxController, 4) ;	//Bag Motor Outtake
+	 *		buttonLB = new JoystickButton(xBoxController, 5) ;	//Lift Initialization
+	 *		buttonRB = new JoystickButton(xBoxController, 6) ;	//Esophagus
+	 *		//buttonSelect = new JoystickButton(xBoxController, 7) ;
+	 *		//buttonStart = new JoystickButton(xBoxController, 8) ;
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 * */

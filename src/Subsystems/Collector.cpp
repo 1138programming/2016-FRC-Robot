@@ -1,4 +1,8 @@
-#include <Subsystems/Collector.h>
+#include "Subsystems/Collector.h"
+#include "Commands/CollectBallIntoStorage.h"
+#include "Commands/DispenseBallOutOfStorage.h"
+
+//Esophagus subsystem: Connor N, Christian G, and Chris H(A little)
 
 Collector::Collector() :
 
@@ -25,4 +29,9 @@ void Collector::DispenseBallOutOfStorage() //This function makes the collector d
 void Collector::StopCollector() //This function makes the collector stop moving
 {
 	collectorCIM->Set(KCollectorSpeedStop);
+}
+
+Collector::~Collector()
+{
+	// TODO Auto-generated destructor stub
 }

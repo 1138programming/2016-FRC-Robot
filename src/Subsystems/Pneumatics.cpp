@@ -1,18 +1,16 @@
-/*
- * Pneumatics.cpp
- *
- *  Created on: Feb 2, 2017
- *      Author: eeuser
- */
-
 #include <Subsystems/Pneumatics.h>
+#include "../RobotMap.h"
 
-Pneumatics::Pneumatics() {
-	// TODO Auto-generated constructor stub
+Pneumatics::Pneumatics() :
+		Subsystem("Pneumatics")
+{
+	pCompressor = new Compressor(0);
 
+	pressureSensor = new AnalogInput(0);
+//	lw->AddSensor("Pneumatics", "pressureSensor", pneumaticspressureSensor);
 }
 
-Pneumatics::~Pneumatics() {
-	// TODO Auto-generated destructor stub
+void Pneumatics::InitDefaultCommand()
+{
+	pCompressor->Start();
 }
-

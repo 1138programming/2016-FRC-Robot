@@ -5,6 +5,8 @@
 #include "WPILib.h"
 #include "CANTalon.h"
 
+//Esophagus subsystem: Connor N, Christian G, and Chris H(A little)
+
 class Collector: public Subsystem
 {
 private:
@@ -20,6 +22,8 @@ public:
 	const float KCollectorSpeedForward = 1;
 	const float KCollectorSpeedReverse = -1;
 	const float KCollectorSpeedStop = 0;
+
+	virtual ~Collector();
 };
 
 #endif /* SRC_SUBSYSTEMS_COLLECTORLIFT_H_ */

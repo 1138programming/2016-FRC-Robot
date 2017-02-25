@@ -3,6 +3,7 @@
 
 #include "../CommandBase.h"
 
+
 class ShiftBase : public CommandBase {
 public:
 	ShiftBase();
@@ -14,3 +15,4 @@ public:
 };
 
 #endif  // ShiftBase_H
+

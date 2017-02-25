@@ -1,36 +1,37 @@
-#include "ShiftBase.h"
+#include "DriveWithJoysticks.h"
 
-ShiftBase::ShiftBase() {
+DriveWithJoysticks::DriveWithJoysticks() {
 	// Use Requires() here to declare subsystem dependencies
-
+	// eg. Requires(Robot::chassis.get());
 	Requires(CommandBase::driveBase);
+
 }
 
 // Called just before this Command runs the first time
-void ShiftBase::Initialize() {
+void DriveWithJoysticks::Initialize() {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
+void DriveWithJoysticks::Execute() {
 
-void ShiftBase::Execute()
-{
-	CommandBase::driveBase->ToggleShift();
+	CommandBase::driveBase->TankDrive(oi->getLeftController(), oi->getRightController());
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool ShiftBase::IsFinished()
+bool DriveWithJoysticks::IsFinished()
 {
 	return true;
 }
 
 // Called once after isFinished returns true
-void ShiftBase::End() {
+void DriveWithJoysticks::End()
+{
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void ShiftBase::Interrupted() {
+void DriveWithJoysticks::Interrupted() {
 
 }
