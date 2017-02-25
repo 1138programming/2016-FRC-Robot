@@ -1,11 +1,20 @@
-#ifndef SRC_SUBSYSTEMS_DRIVEBASE_H_
-#define SRC_SUBSYSTEMS_DRIVEBASE_H_
+/*
+ * Robotmap.h
+ *
+ *  Created on: Feb 25, 2017
+ *      Author: eeuser
+ */
+
+#ifndef SRC_ROBOTMAP_H_
+#define SRC_ROBOTMAP_H_
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include "CANTalon.h"
 #include "c:\Users\eeuser\wpilib\cpp\current\include\Ultrasonic.h"
-#include "C:\Users\eeuser\wpilib\cpp\current\include\SmartDashboard\SmartDashboard.h"
+//#include "C:\Users\eeuser\wpilib\cpp\current\include\SmartDashboard\SmartDashboard.h"
+
+class Robotmap {
 
 private:
 
@@ -58,6 +67,7 @@ private:
 		const float KRamp = 0.6;
 
 public:
+		Robotmap();
 
 	//Talons
 	const int RightFrontBaseTalon = 1;
@@ -92,6 +102,7 @@ public:
 
 	//PDP
 	const int PDPPort = 0;
+};
 
 
-#endif /* SRC_SUBSYSTEMS_BASE_H_ */
+#endif /* SRC_ROBOTMAP_H_ */
