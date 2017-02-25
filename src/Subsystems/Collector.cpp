@@ -8,7 +8,7 @@ Collector::Collector() :
 
 Subsystem("CollectorSubsystem")
 {
-	collectorCIM = new CANTalon(1);
+	collectorMotor = new CANTalon(9);
 }
 
 void Collector::InitDefaultCommand()
@@ -16,22 +16,22 @@ void Collector::InitDefaultCommand()
 
 }
 
-void Collector::CollectBallIntoStorage() //This function makes the collector collect the balls into the storage.
+void Collector::collectorOn()
 {
-	collectorCIM->Set(KCollectorSpeedForward);
+	collectorMotor->SetVoltageRampRate(KRampOn);
 }
 
-void Collector::DispenseBallOutOfStorage() //This function makes the collector dispense the balls out of the storage.
+void Collector::collectorOff()
 {
-	collectorCIM->Set(KCollectorSpeedForward);
+	collectorMotor->SetVoltageRampRate(KRampOff);
 }
 
-void Collector::StopCollector() //This function makes the collector stop moving
+void Collector::collectorSlow()
 {
-	collectorCIM->Set(KCollectorSpeedStop);
+	collectorMotor->SetVoltageRampRate(KRampSlow);
 }
 
-Collector::~Collector()
+void Collector::collectorOnReverse()
 {
-	// TODO Auto-generated destructor stub
+	collectorMotor->SetVoltageRampRate(KRampReverse);
 }

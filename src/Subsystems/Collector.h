@@ -10,20 +10,21 @@
 class Collector: public Subsystem
 {
 private:
-	CANTalon* collectorCIM;
+	CANTalon* collectorMotor;
 
 public:
 	Collector();
 	void InitDefaultCommand();
-	void CollectBallIntoStorage();
-	void DispenseBallOutOfStorage();
-	void StopCollector();
+	void collectorOn();
+	void collectorOff();
+	void collectorSlow();
+	void collectorOnReverse();
 
-	const float KCollectorSpeedForward = 1;
-	const float KCollectorSpeedReverse = -1;
-	const float KCollectorSpeedStop = 0;
+	const float KRampOn = 1;
+	const float KRampOff = 0;
+	const float KRampSlow = 0.6;
+	const float KRampReverse = -1;
 
-	virtual ~Collector();
 };
 
 #endif /* SRC_SUBSYSTEMS_COLLECTORLIFT_H_ */
