@@ -15,20 +15,25 @@ DriveBase::DriveBase() :
 	//Sets up Right Motors
 	RightFrontBaseMotor = new CANTalon(KRightMaster); //RightFrontBase is the master Talon for the right side
 	RightFrontBaseMotor->SetSafetyEnabled(true);
+	RightFrontBaseMotor->EnableControl();
+
 
 	RightRearBaseMotor = new CANTalon(2);
 	RightRearBaseMotor->SetControlMode(CANTalon::kFollower); //RightRearBase is the follower to RightRearBase
 	RightRearBaseMotor->Set(KRightMaster);
+	RightRearBaseMotor->EnableControl();
 
 	//Sets up Left motors
 	//Left base motors are inverted
 	LeftFrontBaseMotor = new CANTalon(KLeftMaster); //LeftFrontBase is the master Talon on the Left side
 	LeftFrontBaseMotor->SetSafetyEnabled(true);
 	LeftFrontBaseMotor->SetInverted(true);
+	LeftFrontBaseMotor->EnableControl();
 
 	LeftRearBaseMotor = new CANTalon(4);
 	LeftRearBaseMotor->SetControlMode(CANTalon::kFollower); //LeftRearBase is the follower to the LeftRearBase
 	LeftRearBaseMotor->Set(KLeftMaster);
+
 //	LeftRearBaseMotor->SetInverted(true);
 
 	//Solenoids
