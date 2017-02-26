@@ -3,6 +3,9 @@
 DriveBase::DriveBase() :
  	 Subsystem("DriveBase")
 {
+	//Declares the variable by setting it to the range
+	bool range = BaseUltrasonic->GetRangeInches(); // reads the range on the ultrasonic sensor
+
 	//Sets up Right Motors
 	RightRearBaseMotor = new CANTalon(KRightMaster); //RightRearBase is the master Talon for the right side
 	RightRearBaseMotor->SetSafetyEnabled(true);
@@ -30,10 +33,15 @@ DriveBase::DriveBase() :
 	RatchetSolenoid = new Solenoid(5);
 
 	//Ultrasonic
-	BaseUltrasonic = new Ultrasonic(1,1);
+	BaseUltrasonic = new Ultrasonic(0, 1);
 	BaseUltrasonic->SetAutomaticMode(true);
-}
 
+
+}
+void DriveBase::Teleop()
+{
+	SmartDashboard::PutNumber("Ultra", range);
+}
 void DriveBase::InitDefaultCommand()
 {
 	//SetDefaultCommand(new DriveWithJoysticks());
@@ -43,6 +51,7 @@ void DriveBase::TankDrive()
 {
 
 }
+
 void DriveBase::DriveForward(float distance, float speed)
 {
 

@@ -1,6 +1,7 @@
 #ifndef SRC_SUBSYSTEMS_DRIVEBASE_H_
 #define SRC_SUBSYSTEMS_DRIVEBASE_H_
 
+#include <SmartDashboard/SmartDashboard.h>
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include "CANTalon.h"
@@ -28,9 +29,11 @@ private:
 	Ultrasonic* BaseUltrasonic;
 	double DistanceToGearCollector;
 	bool whatIsRange;
+	bool range;
 
 public:
 	DriveBase();
+	void Teleop();
 	void InitDefaultCommand();
 	void TankDrive();
 	void DriveForward(float distance, float speed);
