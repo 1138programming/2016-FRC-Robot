@@ -33,28 +33,27 @@ Solenoids:
 2 and 3 - Collector/Ratchet Solenoid
 4 and 5 - Esophagus*/
 
-
-const int KLeftRearBaseTalon =  4;
-const int KLeftFrontBaseTalon = 2 ;
-const int KRightRearBaseTalon = 3 ;
-const int KRightFrontBaseTalon = 1 ;
-const int KFlywheelRightTalon = 5;
-const int KFlywheelLeftTalon = 6;
-const int KFilterRightTalon = 7;
-const int KFilterLeftTalon = 8;
-const int KCollectorTalon = 9;
+const float KLeftRearBaseTalon =  4;
+const float KLeftFrontBaseTalon = 2 ;
+const float KRightRearBaseTalon = 3 ;
+const float KRightFrontBaseTalon = 1 ;
+const float KFlywheelRightTalon = 5;
+const float KFlywheelLeftTalon = 6;
+const float KFilterFrontTalon = 7;
+const float KFilterRearTalon = 8;
+const float KCollectorTalon = 9;
 
 const float KLeftBaseMaster = 1; //KLeftMaster = Master Talon for left side
-const float KRightBaseMaster = 3; //KRightMaster = Master Talon for right side
-
+const float KRightBaseMaster = 2; //KRightMaster = Master Talon for right side
 
 //all of the solenoids are doubles, so they need 2 numbers each.  If you change one, be sure to change
 //the other one of the pair.
-const int KShiftSolenoid1 = 0;
-const int KShiftSolenoid2 = 1;
-const int KLiftSolenoid1 = 2;
-const int KLiftSolenoid2 = 3;
-const int KEsophagusSolenoid1 = 4;
-const int KEsophagusSolenoid2 = 5;
+const float KShifterSolenoid1 = 0;
+const float KShifterSolenoid2 = 1;
+const float KLiftSolenoid1 = 2;
+const float KLiftSolenoid2 = 3;
+const float KEsophagusSolenoid1 = 4;
+const float KEsophagusSolenoid2 = 5;
+
 
 #endif  // ROBOTMAP_H

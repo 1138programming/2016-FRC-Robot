@@ -9,17 +9,18 @@
 #define SRC_SUBSYSTEMS_SHOOTER_H_
 
 #include "WPILib.h"
+#include "RobotMap.h"
 #include <Commands/Subsystem.h>
 #include "CANTalon.h"
 #include "Encoder.h"
 
 class Shooter: public frc::Subsystem {
 private:
-	CANTalon* flywheelRightTalon;
-	CANTalon* flywheelLeftTalon;
+	CANTalon* flywheelRight;
+	CANTalon* flywheelLeft;
 
-	CANTalon* filterLeftTalon;
-	CANTalon* filterRightTalon;
+	CANTalon* filterFrontMotor;
+	CANTalon* filterRearMotor;
 public:
 	Shooter();
 	// To understand the override keyword in InitDefaultCommand(),

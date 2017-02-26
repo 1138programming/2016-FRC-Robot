@@ -2,6 +2,7 @@
 #define SRC_SUBSYSTEMS_DRIVEBASE_H_
 
 #include "Commands/Subsystem.h"
+#include "../RobotMap.h"
 
 #include "C:\Users\eeuser\navx-mxp\cpp\include\AHRS.h"
 
@@ -20,14 +21,11 @@ private:
 	CANTalon* RightRearBaseMotor; //Talon 3 in CAN Bus
 	CANTalon* RightFrontBaseMotor; //Talon 4 in CAN Bus
 
-	DoubleSolenoid* BaseSolenoid;
-	DoubleSolenoid* CollectorAndRatchetSolenoid;
+	DoubleSolenoid* ShifterSolenoid;
+	DoubleSolenoid* LiftSolenoid;
 
 	//Gyro
 	AHRS* ahrs;
-
-	//PIDController
-	PIDController* turnController;
 
 	double waitPeriod = 5.00;
 
@@ -56,13 +54,8 @@ public:
 	bool IsUltrasonicRangeValid();
 
 
-	const float KLeftMaster = 2; //KLeftMaster = Master Talon for left side
-	const float KRightMaster = 1; //KRightMaster = Master Talon for right side
-
 	const float KDeadZoneLimit = 0.1;
 
-//	const float KHighGear = (DoubleSolenoid::kForward);
-//	const float KLowGear = (DoubleSolenoid::kReverse);
 };
 
 #endif /* SRC_SUBSYSTEMS_BASE_H_ */

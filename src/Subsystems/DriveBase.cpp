@@ -13,40 +13,39 @@ DriveBase::DriveBase() :
 	 *	One for the base and one for the Collector and Ratchet.
 	 */
 	//Sets up Right Motors
-	RightFrontBaseMotor = new CANTalon(KRightMaster); //RightFrontBase is the master Talon for the right side
+	RightFrontBaseMotor = new CANTalon(KRightFrontBaseTalon); //RightFrontBase is the master Talon for the right side
+	RightFrontBaseMotor->SetInverted(true);
 	RightFrontBaseMotor->SetSafetyEnabled(true);
 	RightFrontBaseMotor->EnableControl();
 
 
-	RightRearBaseMotor = new CANTalon(2);
+	RightRearBaseMotor = new CANTalon(KRightRearBaseTalon);
 	RightRearBaseMotor->SetControlMode(CANTalon::kFollower); //RightRearBase is the follower to RightRearBase
-	RightRearBaseMotor->Set(KRightMaster);
+	RightRearBaseMotor->Set(KRightBaseMaster);
 	RightRearBaseMotor->EnableControl();
 
 	//Sets up Left motors
 	//Left base motors are inverted
-	LeftFrontBaseMotor = new CANTalon(KLeftMaster); //LeftFrontBase is the master Talon on the Left side
+	LeftFrontBaseMotor = new CANTalon(KLeftFrontBaseTalon); //LeftFrontBase is the master Talon on the Left side
 	LeftFrontBaseMotor->SetSafetyEnabled(true);
-	LeftFrontBaseMotor->SetInverted(true);
 	LeftFrontBaseMotor->EnableControl();
 
-	LeftRearBaseMotor = new CANTalon(4);
+	LeftRearBaseMotor = new CANTalon(KLeftRearBaseTalon);
 	LeftRearBaseMotor->SetControlMode(CANTalon::kFollower); //LeftRearBase is the follower to the LeftRearBase
-	LeftRearBaseMotor->Set(KLeftMaster);
+	LeftRearBaseMotor->Set(KLeftBaseMaster);
 
-//	LeftRearBaseMotor->SetInverted(true);
 
 	//Solenoids
 
 	//0 is forward, 1 is reverse
 	//LowGear is torque, HighGear is speed
 	//forward = highgear; reverse = lowgear;
-	BaseSolenoid = new DoubleSolenoid(0, 1);
-	CollectorAndRatchetSolenoid = new DoubleSolenoid(2, 3);
+	ShifterSolenoid = new DoubleSolenoid(KShifterSolenoid1, KShifterSolenoid2);
+	LiftSolenoid = new DoubleSolenoid(KLiftSolenoid1, KLiftSolenoid2);
 
 	//Ultrasonic
-	BaseUltrasonic = new Ultrasonic(1,1);
-	BaseUltrasonic->SetAutomaticMode(true);
+//	BaseUltrasonic = new Ultrasonic(KBaseUltrasonic1, KBaseUltrasonic2);
+//	BaseUltrasonic->SetAutomaticMode(true);
 
 	//Gyro
 	AHRS* ahrs;
@@ -61,7 +60,6 @@ DriveBase::DriveBase() :
 	LeftFrontBaseMotor->SetEncPosition(0);
 	RightFrontBaseMotor->SetEncPosition(0);
 
-	//LeftFrontBaseEncoder = new Encoder(0,1,false,Encoder::EncodingType::k4X);
 }
 void DriveBase::InitDefaultCommand()
 {
@@ -140,59 +138,54 @@ void DriveBase::BaseTurnRight(float speed, double degrees)
 		LeftFrontBaseMotor->Set(speed);
 	}
 }
+
 void DriveBase::StopBase()
 {
 	RightRearBaseMotor->Set(0);
 	LeftRearBaseMotor->Set(0);
 }
+
 void DriveBase::HighShiftBase()
 {
-	BaseSolenoid->Set(DoubleSolenoid::kForward);
+	ShifterSolenoid->Set(DoubleSolenoid::kReverse);
 }
+
 void DriveBase::LowShiftBase()
 {
-	BaseSolenoid->Set(DoubleSolenoid::kReverse);
+	ShifterSolenoid->Set(DoubleSolenoid::kForward);
 }
+
 void DriveBase::ToggleShift()
 {
-	if(BaseSolenoid -> Get() != DoubleSolenoid::kForward)
+	if(ShifterSolenoid -> Get() == DoubleSolenoid::kForward) //is it in low gear?
 	{
-		HighShiftBase();
+		HighShiftBase();		//put it in high gear
 	}
 	else
 	{
 		LowShiftBase();
 	}
 }
-/*void DriveBase::ShiftBaseToCollector()
-{
-	CollectorAndRatchetSolenoid->Set(DoubleSolenoid::kForward);
-}
-void DriveBase::ShiftCollectorToBase()
-{
-	CollectorAndRatchetSolenoid->Set(DoubleSolenoid::kReverse);
-}*/
+
 void DriveBase::EngageLift()
 {
-	if(BaseSolenoid->Get() != DoubleSolenoid::kReverse)
+	if(LiftSolenoid->Get() == DoubleSolenoid::kForward) //is the lift engaged?
 	{
-		LowShiftBase();
-		Wait(5);
-		CollectorAndRatchetSolenoid->Set(DoubleSolenoid::kForward);
+		LiftSolenoid->Set(DoubleSolenoid::kReverse);	//disengage lift
 	}
-	else if(BaseSolenoid->Get() == DoubleSolenoid::kForward)
+	else
 	{
-			CollectorAndRatchetSolenoid->Set(DoubleSolenoid::kForward);
+			LiftSolenoid->Set(DoubleSolenoid::kForward);	//engage lift
 	}
 }
 void DriveBase::DisengageLift()
 {
-	CollectorAndRatchetSolenoid->Set(DoubleSolenoid::kReverse);
+	LiftSolenoid->Set(DoubleSolenoid::kReverse);	//disengage lift
 }
 
 void DriveBase::InitDefaultCommandForUltrasonic()
 {
-	//bool IsEnabled = true;
+
 }
 
 void DriveBase::GetDistance()

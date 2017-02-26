@@ -6,9 +6,8 @@ Esophagus::Esophagus() :
 
 Subsystem("EsophagusSubsystem")
 {
-	// TODO Auto-generated constructor stub
 
-	esophagusSolenoid = new DoubleSolenoid(4,5);
+	esophagusSolenoid = new DoubleSolenoid(KEsophagusSolenoid1, KEsophagusSolenoid2);
 
 }
 

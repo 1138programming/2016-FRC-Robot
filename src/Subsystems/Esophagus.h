@@ -6,7 +6,6 @@
 #include "WPILib.h"
 #include "RobotMap.h"
 #include "Commands/Subsystem.h"
-
 #include "DoubleSolenoid.h"
 
 

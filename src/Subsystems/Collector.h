@@ -2,6 +2,7 @@
 #define SRC_SUBSYSTEMS_COLLECTOR_H_
 
 #include "Commands/Subsystem.h"
+#include "RobotMap.h"
 #include "WPILib.h"
 #include "CANTalon.h"
 
@@ -10,7 +11,7 @@
 class Collector: public Subsystem
 {
 private:
-	CANTalon* collectorCIM;
+	CANTalon* collectorMotor;
 
 public:
 	Collector();
@@ -21,6 +22,7 @@ public:
 
 	const float KCollectorSpeedForward = 1;
 	const float KCollectorSpeedReverse = -1;
+	const float KCollectorSlowSpeed = 0.3;
 	const float KCollectorSpeedStop = 0;
 
 	virtual ~Collector();

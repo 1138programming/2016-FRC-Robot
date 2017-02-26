@@ -6,7 +6,7 @@ Collector::Collector() :
 
 Subsystem("CollectorSubsystem")
 {
-	collectorCIM = new CANTalon(9);
+	collectorMotor = new CANTalon(KCollectorTalon);
 }
 
 void Collector::InitDefaultCommand()

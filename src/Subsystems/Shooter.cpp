@@ -35,33 +35,29 @@ frc::Subsystem("ShooterSubsystem")
 	 *  Copied from Legends 2015-2016 code; modifications made to work
 	 *  with Momentum talons
 	 */
-	flywheelLeftTalon = new CANTalon(6);
-	flywheelRightTalon = new CANTalon(5);
+	flywheelLeft = new CANTalon(KFlywheelLeftTalon);
+	flywheelRight = new CANTalon(KFlywheelRightTalon);
 
 	// Make the left talon both inverted and enable control
-	flywheelLeftTalon->EnableControl();
-	flywheelLeftTalon->SetSafetyEnabled(false);
-	flywheelLeftTalon->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
-	flywheelLeftTalon->SetInverted(true);
-
-	// Make the right talon a slave to the left one
-	flywheelRightTalon->SetControlMode(CANTalon::kFollower);
-	flywheelRightTalon->Set(6);
+	flywheelLeft->EnableControl();
+	flywheelLeft->SetSafetyEnabled(false);
+	flywheelLeft->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
+	flywheelRight->SetInverted(true);
 
 	// Zero out quadrature encoder
-	flywheelLeftTalon->SetPosition(0);
+	flywheelLeft->SetPosition(0);
 
-	filterLeftTalon = new CANTalon(8);
-	filterRightTalon = new CANTalon(7);
+	filterFrontMotor = new CANTalon(KFilterFrontTalon);
+	filterRearMotor = new CANTalon(KFilterRearTalon);
 
 	// Make the left filter inverted, and enable control
-	filterLeftTalon->EnableControl();
-	filterLeftTalon->SetSafetyEnabled(false);
-	filterLeftTalon->SetInverted(true);
+	filterFrontMotor->EnableControl();
+	filterFrontMotor->SetSafetyEnabled(false);
+	filterFrontMotor->SetInverted(true);
 
-	// Make the right talon a slave to the left one
-	filterRightTalon->SetControlMode(CANTalon::kFollower);
-	filterRightTalon->Set(8);
+	// Make the rear talon a slave to the front one
+	filterRearMotor->SetControlMode(CANTalon::kFollower);
+	filterRearMotor->Set(KFilterFrontTalon);
 }
 
 void Shooter::InitDefaultCommand() {
@@ -73,22 +69,22 @@ void Shooter::InitDefaultCommand() {
  */
 
 void Shooter::FlywheelsOff() {
-	flywheelLeftTalon->Set(0);
+	flywheelLeft->Set(0);
 }
 
 void Shooter::FlywheelsForward(float speed /* = default speed */) {
 	if (speed == 0.0) {
-		flywheelLeftTalon->Set(flywheelForwardSpeed);
+		flywheelLeft->Set(flywheelForwardSpeed);
 	} else {
-		flywheelLeftTalon->Set(speed); // Fowards movement based on custom value
+		flywheelLeft->Set(speed); // Fowards movement based on custom value
 	}
 }
 
 void Shooter::FlywheelsBackward(float speed /* = default speed */) {
 	if (speed == 0.0) {
-		flywheelLeftTalon->Set(-flywheelBackwardSpeed);
+		flywheelLeft->Set(-flywheelBackwardSpeed);
 	} else{
-		flywheelLeftTalon->Set(-speed);
+		flywheelLeft->Set(-speed);
 	}
 }
 
@@ -97,11 +93,11 @@ void Shooter::FlywheelsBackward(float speed /* = default speed */) {
  * 2/11/2017 - Wolf
  */
 double Shooter::GetEncPos() {
-	return flywheelLeftTalon->GetPosition();
+	return flywheelLeft->GetPosition();
 }
 
 void Shooter::ResetEncPos() {
-	flywheelLeftTalon->SetPosition(0);
+	flywheelLeft->SetPosition(0);
 }
 
 /*
@@ -110,14 +106,14 @@ void Shooter::ResetEncPos() {
  */
 void Shooter::FiltersOn(float speed /* = default */) {
 	if (speed == 0.0) {
-		filterLeftTalon->Set(filterSpeed);
+		filterFrontMotor->Set(filterSpeed);
 	} else {
-		filterLeftTalon->Set(speed);
+		filterFrontMotor->Set(speed);
 	}
 }
 
 void Shooter::FiltersOff() {
-	filterLeftTalon->Set(0);
+	filterFrontMotor->Set(0);
 }
 
 /*
@@ -128,6 +124,6 @@ void Shooter::FiltersOff() {
 void Shooter::DoPIDControl(float target /* = 1.0 */, double kP /* = 0.0 */,
 						   double kI /* = 0.0 */, double kD /* = 0.0 */)
 {
-	flywheelLeftTalon->Set(target);
-	flywheelLeftTalon->SetPID(kP,kI,kD);
+	flywheelLeft->Set(target);
+	flywheelLeft->SetPID(kP,kI,kD);
 }
