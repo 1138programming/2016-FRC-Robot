@@ -16,6 +16,9 @@ private:
 public:
 	Collector();
 	void InitDefaultCommand();
+	void CollectorForward(float collectorSpeedForward);
+	void CollectorReverse(float collectorSpeedReverse);
+	void CollectorDrive(float leftAxis, float rightAxis);
 //	void CollectBallIntoStorage();
 //	void DispenseBallOutOfStorage();
 //	void StopCollector();
@@ -24,6 +27,8 @@ public:
 	const float KCollectorSpeedReverse = -1;
 	const float KCollectorSlowSpeed = 0.3;
 	const float KCollectorSpeedStop = 0;
+	const float KCollectorDeadZone = 0.1;
+	const float KCollectorExtraSlowSpeed = 0.2;
 
 	virtual ~Collector();
 };

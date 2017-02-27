@@ -32,8 +32,8 @@ public:
 	float getLeftController() ;			//Left Controller is the Left Side Drive
 	bool getLeftTrigger() ;
 	bool getRightTrigger() ;
-	float getLeftXBoxAxis() ;			//Controls collector roller - up = intake; down = outtake
-//	float getRightXBoxAxis() ;			//No function
+	float getLeftXBoxAxis() ;			//Controls collector roller
+	float getRightXBoxAxis() ;			//Collector roller granny gear
 //	int getXBoxPOV() ;					//No function
 
 } ;

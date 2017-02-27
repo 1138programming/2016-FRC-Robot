@@ -59,10 +59,11 @@ float OI::getLeftXBoxAxis(){			//left xbox axis controls the collector
 	return -xBoxController->GetRawAxis(1);
 }
 
-////controls the collector arms, signal from joystick is reversed
-//float OI::getRightXBoxAxis(){
-//	return -xBoxController->GetRawAxis(5);
-//}
+float OI::getRightXBoxAxis()
+{
+	return -xBoxController->GetRawAxis(5);
+}
+
 //
 //int OI::getXBoxPOV(){					//POV controls the collector arms
 //	return xBoxController->GetPOV();
