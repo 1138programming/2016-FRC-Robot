@@ -23,7 +23,6 @@ void Esophagus::MoveEsophagusToGearCollection() //This function moves the Esopha
 	{
 		esophagusSolenoid->Set(DoubleSolenoid::kForward);
 	}
-
 }
 
 void Esophagus::MoveEsophagusToBallCollection() //This function moves the Esophagus so that it can now collect balls
@@ -35,3 +34,14 @@ void Esophagus::MoveEsophagusToBallCollection() //This function moves the Esopha
 	}
 }
 
+void Esophagus::SwitchEsophagus()
+{
+	if(esophagusSolenoid->Get() == DoubleSolenoid::kReverse)
+	{
+		esophagusSolenoid->Set(DoubleSolenoid::kForward);
+	}
+	else if(esophagusSolenoid->Get() == DoubleSolenoid::kForward)
+	{
+		esophagusSolenoid->Set(DoubleSolenoid::kReverse);
+	}
+}

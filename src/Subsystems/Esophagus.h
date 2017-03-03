@@ -20,6 +20,7 @@ public:
 	void MoveEsophagusToGearCollection();
 	void MoveEsophagusToBallCollection();
 	void MoveEsophagus();
+	void SwitchEsophagus();
 //	void ShiftGearBallCollection();
 };
 

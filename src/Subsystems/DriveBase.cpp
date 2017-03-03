@@ -175,7 +175,7 @@ void DriveBase::EngageLift()
 	}
 	else
 	{
-			LiftSolenoid->Set(DoubleSolenoid::kForward);	//engage lift
+		LiftSolenoid->Set(DoubleSolenoid::kForward);	//engage lift
 	}
 }
 void DriveBase::DisengageLift()
