@@ -20,7 +20,7 @@ OI::OI()
 
 	//Logitech Buttons
 	shiftButton = new JoystickButton(rightController, 1) ; //Shifts the Base from Low Gear to High Gear and vice versa
-	liftButton = new JoystickButton(leftController, 0) ;   //Shifts the Base to Lift the robot and vice versa
+	liftButton = new JoystickButton(leftController, 1) ;   //Shifts the Base to Lift the robot and vice versa
 
 	//XBox Definitions
 	buttonA	= new JoystickButton(xBoxController, 1) ;	//Toggle Shooter

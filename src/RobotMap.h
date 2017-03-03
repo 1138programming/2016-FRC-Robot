@@ -55,5 +55,9 @@ const float KLiftSolenoid2 = 3;
 const float KEsophagusSolenoid1 = 4;
 const float KEsophagusSolenoid2 = 5;
 
+//Sensors
+const float KBaseUltrasonic1 = 0;
+const float KBaseUltrasonic2 = 1;
+
 
 #endif  // ROBOTMAP_H

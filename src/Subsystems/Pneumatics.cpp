@@ -12,5 +12,5 @@ Pneumatics::Pneumatics() :
 
 void Pneumatics::InitDefaultCommand()
 {
-	pCompressor->Start();
+	//pCompressor->Start();
 }

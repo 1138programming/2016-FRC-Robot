@@ -4,17 +4,16 @@ DriveWithJoysticks::DriveWithJoysticks() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(CommandBase::driveBase);
-
 }
 
 // Called just before this Command runs the first time
 void DriveWithJoysticks::Initialize() {
-
+	driveBase->LowShiftBase();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveWithJoysticks::Execute() {
-
+	SmartDashboard::PutNumber("Index", 5.5);
 	CommandBase::driveBase->TankDrive(oi->getLeftController(), oi->getRightController());
 }
 

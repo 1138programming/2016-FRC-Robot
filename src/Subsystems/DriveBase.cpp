@@ -21,7 +21,7 @@ DriveBase::DriveBase() :
 
 	RightRearBaseMotor = new CANTalon(KRightRearBaseTalon);
 	RightRearBaseMotor->SetControlMode(CANTalon::kFollower); //RightRearBase is the follower to RightRearBase
-	RightRearBaseMotor->Set(KRightBaseMaster);
+	RightRearBaseMotor->Set(KRightFrontBaseTalon);
 	RightRearBaseMotor->EnableControl();
 
 	//Sets up Left motors
@@ -32,7 +32,7 @@ DriveBase::DriveBase() :
 
 	LeftRearBaseMotor = new CANTalon(KLeftRearBaseTalon);
 	LeftRearBaseMotor->SetControlMode(CANTalon::kFollower); //LeftRearBase is the follower to the LeftRearBase
-	LeftRearBaseMotor->Set(KLeftBaseMaster);
+	LeftRearBaseMotor->Set(KLeftFrontBaseTalon);
 
 
 	//Solenoids
@@ -44,11 +44,11 @@ DriveBase::DriveBase() :
 	LiftSolenoid = new DoubleSolenoid(KLiftSolenoid1, KLiftSolenoid2);
 
 	//Ultrasonic
-//	BaseUltrasonic = new Ultrasonic(KBaseUltrasonic1, KBaseUltrasonic2);
-//	BaseUltrasonic->SetAutomaticMode(true);
+	BaseUltrasonic = new Ultrasonic(KBaseUltrasonic1, KBaseUltrasonic2);
+	BaseUltrasonic->SetAutomaticMode(true);
 
 	//Gyro
-	AHRS* ahrs;
+	ahrs = new AHRS(SPI::Port::kMXP);
 	ahrs->GetYaw();
 
 	//Encoders
@@ -60,10 +60,15 @@ DriveBase::DriveBase() :
 	LeftFrontBaseMotor->SetEncPosition(0);
 	RightFrontBaseMotor->SetEncPosition(0);
 
+	//Variables for Ultrasonic
+
+	DistanceToGearCollector = BaseUltrasonic->GetRangeMM();
+	whatIsRange = BaseUltrasonic->IsRangeValid();
 }
+
 void DriveBase::InitDefaultCommand()
 {
-	//SetDefaultCommand(new DriveWithJoysticks());
+
 	//Sets the default to drive with joysticks when robot is turned on
 	SetDefaultCommand(new DriveWithJoysticks());
 }
@@ -71,28 +76,27 @@ void DriveBase::TankDrive(float left, float right)
 {
 	if(left > KDeadZoneLimit || left < -KDeadZoneLimit)
 	{
-		LeftRearBaseMotor->Set(left);
+		LeftFrontBaseMotor->Set(left);
+		SmartDashboard::PutNumber("leftjoystick", left);
 	}
 	else
 	{
-		LeftRearBaseMotor->Set(0);
+		LeftFrontBaseMotor->Set(0);
 	}
 
 	if(right > KDeadZoneLimit || right < -KDeadZoneLimit)
 	{
-		RightRearBaseMotor->Set(right);
+		RightFrontBaseMotor->Set(right);
+		SmartDashboard::PutNumber("rightjoystick", right);
 	}
 	else
 	{
-		RightRearBaseMotor->Set(0);
+		RightFrontBaseMotor->Set(0);
 	}
 }
+
 void DriveBase::DriveForward(float distance, float speed)
 {
-	//LeftFrontBaseMotor->Reset();
-	//RightFrontBaseMotor->Reset();
-	//LeftFrontBaseMotor->SetEncPosition(0);
-	//RightFrontBaseMotor->SetEncPosition(0);
 	float encoderReference = LeftFrontBaseMotor->GetEncPosition();
 	float encoder2Reference = RightFrontBaseMotor->GetEncPosition();
 	float encoder = LeftFrontBaseMotor->GetEncPosition();
@@ -107,8 +111,6 @@ void DriveBase::DriveForward(float distance, float speed)
 }
 void DriveBase::DriveBackward(float speed, float distance)
 {
-	//LeftFrontBaseMotor->SetEncPosition(0);
-	//RightFrontBaseMotor->SetEncPosition(0);
 	float encoderReference = LeftFrontBaseMotor->GetEncPosition();
 	float encoder2Reference = RightFrontBaseMotor->GetEncPosition();
 	float encoder = LeftFrontBaseMotor->GetEncPosition();

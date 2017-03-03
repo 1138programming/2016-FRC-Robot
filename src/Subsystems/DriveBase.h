@@ -54,7 +54,7 @@ public:
 	bool IsUltrasonicRangeValid();
 
 
-	const float KDeadZoneLimit = 0.1;
+	const float KDeadZoneLimit = 0;
 
 };
 

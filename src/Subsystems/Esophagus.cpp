@@ -1,5 +1,5 @@
-
 #include "Esophagus.h"
+
 
 
 Esophagus::Esophagus() :
@@ -13,7 +13,8 @@ Subsystem("EsophagusSubsystem")
 
 void Esophagus::InitDefaultCommand()
 {
-	MoveEsophagusToGearCollection();
+	SmartDashboard::PutNumber("Three", 3.0);
+	//MoveEsophagusToGearCollection();
 }
 
 void Esophagus::MoveEsophagusToGearCollection() //This function moves the Esophagus so that it can now collect gears

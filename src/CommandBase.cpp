@@ -15,6 +15,7 @@ OI* CommandBase::oi = NULL;
 
 void CommandBase::init()
 {
+
 	// Create a single static instance of all of your subsystems. The following
 	// line should be repeated for each subsystem in the project.
 	collector = new Collector();
@@ -26,6 +27,7 @@ void CommandBase::init()
 	shooter = new Shooter();
 	shooterCam = new ShooterCam();
 	oi = new OI();
+
 }
 CommandBase::CommandBase():
 		Command()
