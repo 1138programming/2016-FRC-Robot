@@ -1,4 +1,4 @@
-# This is a list of downloads that may be important
+# This is a list of pages that may be important
 
 | Name | Link |
 | ---- | ---- |
@@ -12,3 +12,4 @@
 | Talon Updates (On Computer) | C:\Users\Public\Documents\Cross The Road Electronics\LifeBoat\HERO Firmware Files |
 | Third Party Libraries | http://wpilib.screenstepslive.com/s/4485/m/13503/l/682619-3rd-party-libraries |
 | NavX MXP Library | http://www.kauailabs.com/public_files/navx-mxp/apidocs/java/com/kauailabs/navx/frc/AHRS.html |
+| NavX Best Practices and Usage | http://www.pdocs.kauailabs.com/navx-mxp/guidance/best-practices/ |
