@@ -25,7 +25,7 @@ private:
 	DoubleSolenoid* LiftSolenoid;
 
 	//Gyro
-	AHRS* ahrs;
+	AHRS* gyroAccelerometer;
 
 	double waitPeriod = 5.00;
 
@@ -39,8 +39,8 @@ public:
 	void TankDrive(float left, float right);
 	void DriveForward(float speed, float distance);
 	void DriveBackward(float speed, float distance);
-	void BaseTurnLeft(float speed, double degrees);
-	void BaseTurnRight(float speed, double degrees);
+	void BaseTurnLeft(double degrees);
+	void BaseTurnRight(double degrees);
 	void StopBase();
 	void HighShiftBase();
 	void LowShiftBase();
@@ -55,8 +55,6 @@ public:
 
 
 	const float KDeadZoneLimit = 0;
-	//autonomous turn constant right and left 1 and 2
-	//If in left, turn left, forward, right
 
 };
 

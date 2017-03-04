@@ -9,17 +9,17 @@ LeftAutonomousTurn1::LeftAutonomousTurn1() {
 
 // Called just before this Command runs the first time
 void LeftAutonomousTurn1::Initialize() {
-	CommandBase::driveBase->BaseTurnRight(KLeftTurn1);
+
 }
 
 // Called repeatedly when this Command is scheduled to run
 void LeftAutonomousTurn1::Execute() {
-
+	CommandBase::driveBase->BaseTurnRight(KLeftTurn1);
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool LeftAutonomousTurn1::IsFinished() {
-	return false;
+	return true;
 }
 
 // Called once after isFinished returns true
