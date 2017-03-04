@@ -8,7 +8,8 @@ DriveWithJoysticks::DriveWithJoysticks() {
 
 // Called just before this Command runs the first time
 void DriveWithJoysticks::Initialize() {
-	driveBase->LowShiftBase();
+	//driveBase->LowShiftBase();
+	//driveBase->DisengageLift();
 }
 
 // Called repeatedly when this Command is scheduled to run

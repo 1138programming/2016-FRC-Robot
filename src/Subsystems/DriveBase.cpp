@@ -1,9 +1,11 @@
 #include "Subsystems/DriveBase.h"
 #include "Commands/DriveWithJoysticks.h"
 #include "Commands/ShiftBase.h"
+#include "Commands/EngageLift.h"
 #include "C:\Users\eeuser\wpilib\cpp\current\include\Talon.h"
 #include "C:\Users\eeuser\wpilib\cpp\current\include\Solenoid.h"
 #include "sys/wait.h"
+
 //Drive Base Team: Gioia, Peter, Jahred and Kyle
 DriveBase::DriveBase() :
  	 Subsystem("DriveBase")
@@ -157,6 +159,8 @@ void DriveBase::LowShiftBase()
 	ShifterSolenoid->Set(DoubleSolenoid::kForward);
 }
 
+int counter;
+
 void DriveBase::ToggleShift()
 {
 	if(ShifterSolenoid -> Get() == DoubleSolenoid::kForward) //is it in low gear?
@@ -167,22 +171,31 @@ void DriveBase::ToggleShift()
 	{
 		LowShiftBase();
 	}
+	counter++;
+	SmartDashboard::PutNumber("CountyCountyCounty", (float)(counter) );
 }
-
+//kForward is lift engaged.
 void DriveBase::EngageLift()
 {
 	if(LiftSolenoid->Get() == DoubleSolenoid::kForward) //is the lift engaged?
 	{
 		LiftSolenoid->Set(DoubleSolenoid::kReverse);	//disengage lift
+		SmartDashboard::PutBoolean("lift engaged", false );
 	}
 	else
 	{
 			LiftSolenoid->Set(DoubleSolenoid::kForward);	//engage lift
+			SmartDashboard::PutBoolean("lift engaged", true );
 	}
 }
+
 void DriveBase::DisengageLift()
 {
 	LiftSolenoid->Set(DoubleSolenoid::kReverse);	//disengage lift
+	if (LiftSolenoid->Get() == DoubleSolenoid::kReverse)
+	{
+		SmartDashboard::PutBoolean("lift engaged", false );
+	}
 }
 
 void DriveBase::InitDefaultCommandForUltrasonic()

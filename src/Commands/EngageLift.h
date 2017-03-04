@@ -2,6 +2,9 @@
 #define EngageLift_H
 
 #include "../CommandBase.h"
+#include "WPILib.h"
+#include "C:\Users\eeuser\wpilib\cpp\current\include\WPILib.h"
+#include "C:\Users\eeuser\wpilib\cpp\current\include\Solenoid.h"
 
 class EngageLift : public CommandBase {
 public:
