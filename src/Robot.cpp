@@ -6,7 +6,9 @@
 #include <LiveWindow/LiveWindow.h>
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
-
+#include "Commands/PlaceGearLeft.h"
+#include "Commands/PlaceGearCenter.h"
+#include "Commands/PlaceGearRight.h"
 #include "Commands/ExampleCommand.h"
 #include "CommandBase.h"
 
@@ -15,7 +17,9 @@ public:
 	void RobotInit() override {
 		CommandBase::init();
 		chooser.AddDefault("Default Auto", new ExampleCommand());
-		// chooser.AddObject("My Auto", new MyAutoCommand());
+		chooser.AddObject("Left Gear Autonomous", new PlaceGearLeft());
+		chooser.AddObject("Central Gear Autonomous", new PlaceGearCenter());
+		chooser.AddObject("Right Gear Autonomous", new PlaceGearRight());
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);
 	}
 

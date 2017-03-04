@@ -65,12 +65,13 @@ const float KRightTurn2 = 75;
 const float KLeftTurn1 = 50;
 const float KLeftTurn2 = 75;
 const float KTurnSpeed = 0.3;
-//TODO change values for these constants
+//TODO change values for turning constants
 
 //Encoder Distances
 const float KDistance1 = 5;
 const float KDistance2 = 10;
-//TODO make accurate values for distance through measurements
+const float KDistanceCentral = 7;
+//TODO make accurate values for distances
 
 //Base Speeds
 const float KSlowSpeed = 0.2;
