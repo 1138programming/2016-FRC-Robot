@@ -55,9 +55,27 @@ const float KLiftSolenoid2 = 3;
 const float KEsophagusSolenoid1 = 4;
 const float KEsophagusSolenoid2 = 5;
 
-//Sensors
+//Ultrasonic Sensor
 const float KBaseUltrasonic1 = 0;
 const float KBaseUltrasonic2 = 1;
+
+//Gyro/Accelerometer Sensor
+const float KRightTurn1 = 50;
+const float KRightTurn2 = 75;
+const float KLeftTurn1 = 50;
+const float KLeftTurn2 = 75;
+const float KTurnSpeed = 0.3;
+//TODO change values for these constants
+
+//Encoder Distances
+const float KDistance1 = 5;
+const float KDistance2 = 10;
+//TODO make accurate values for distance through measurements
+
+//Base Speeds
+const float KSlowSpeed = 0.2;
+const float KHalfSpeed = 0.5;
+const float KFastSpeed = 0.8;
 
 
 #endif  // ROBOTMAP_H

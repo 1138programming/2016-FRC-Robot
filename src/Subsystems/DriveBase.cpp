@@ -50,8 +50,9 @@ DriveBase::DriveBase() :
 	BaseUltrasonic->SetAutomaticMode(true);
 
 	//Gyro
-	ahrs = new AHRS(SPI::Port::kMXP);
-	ahrs->GetYaw(); //TODO: Set initial direction on gyro (0)
+	//NOTE: gyro can have a drift of +- 2.5 degrees
+	gyroAccelerometer = new AHRS(SPI::Port::kMXP);
+	gyroAccelerometer->ZeroYaw();
 
 	//Encoders
 	//Relative = Quadrature Encoder function of MagEncoder
@@ -125,24 +126,44 @@ void DriveBase::DriveBackward(float speed, float distance)
 		encoder2 = RightFrontBaseMotor->GetEncPosition();
 	}
 }
-void DriveBase::BaseTurnLeft(float speed, double degrees)
+void DriveBase::BaseTurnLeft(double degrees)
 {
-	//Current ahrs code, probably needs to be changed
-	ahrs->GetYaw();
-	while(ahrs->GetAngleAdjustment() < degrees)
+	if(gyroAccelerometer->IsCalibrating() != true && gyroAccelerometer->IsConnected() == true) //Don't do until finished calibrating and connected propertly
 	{
-		RightFrontBaseMotor->Set(speed);
-		LeftFrontBaseMotor->Set(-speed);
+		//Set targetangle to target value, degrees is negative because of turning left
+		double targetangle = -degrees + gyroAccelerometer->GetAngle();
+		SmartDashboard::PutNumber("Target Angle", targetangle);
+		while(targetangle <= gyroAccelerometer->GetAngle()) //While hasn't reached target
+		{
+			//Keep turning to target
+			SmartDashboard::PutNumber("Current Angle Value", gyroAccelerometer->GetAngle());
+			RightFrontBaseMotor->Set(KTurnSpeed);
+			LeftFrontBaseMotor->Set(-KTurnSpeed);
+		}
+		//Turn off the base
+		RightFrontBaseMotor->Set(0);
+		LeftFrontBaseMotor->Set(0);
+		SmartDashboard::PutNumber("Final Angle Value", gyroAccelerometer->GetAngle());
 	}
 }
-void DriveBase::BaseTurnRight(float speed, double degrees)
+void DriveBase::BaseTurnRight(double degrees)
 {
-	//Current ahrs code, probably needs to be changed
-	ahrs->GetYaw();
-	while(ahrs->GetAngleAdjustment() < degrees)
+	if(gyroAccelerometer->IsCalibrating() != true && gyroAccelerometer->IsConnected() == true) //Don't do until finished calibrating and connected propertly
 	{
-		RightFrontBaseMotor->Set(-speed);
-		LeftFrontBaseMotor->Set(speed);
+		//Set targetangle to target value, degrees is positive because of turning right
+		double targetangle = degrees + gyroAccelerometer->GetAngle();
+		SmartDashboard::PutNumber("Target Angle", targetangle);
+		while(targetangle >= gyroAccelerometer->GetAngle()) //While hasn't reached target
+		{
+			//Keep turning to target
+			SmartDashboard::PutNumber("Current Angle Value", gyroAccelerometer->GetAngle());
+			RightFrontBaseMotor->Set(-KTurnSpeed);
+			LeftFrontBaseMotor->Set(KTurnSpeed);
+		}
+		//Turn off the base
+		RightFrontBaseMotor->Set(0);
+		LeftFrontBaseMotor->Set(0);
+		SmartDashboard::PutNumber("Final Angle Value", gyroAccelerometer->GetAngle());
 	}
 }
 
