@@ -51,7 +51,7 @@ DriveBase::DriveBase() :
 
 	//Gyro
 	ahrs = new AHRS(SPI::Port::kMXP);
-	ahrs->GetYaw();
+	ahrs->GetYaw(); //TODO: Set initial direction on gyro (0)
 
 	//Encoders
 	//Relative = Quadrature Encoder function of MagEncoder
@@ -138,6 +138,7 @@ void DriveBase::BaseTurnLeft(float speed, double degrees)
 void DriveBase::BaseTurnRight(float speed, double degrees)
 {
 	//Current ahrs code, probably needs to be changed
+	ahrs->GetYaw();
 	while(ahrs->GetAngleAdjustment() < degrees)
 	{
 		RightFrontBaseMotor->Set(-speed);
