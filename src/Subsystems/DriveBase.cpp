@@ -127,6 +127,7 @@ void DriveBase::DriveBackward(float speed, float distance)
 }
 void DriveBase::BaseTurnLeft(float speed, double degrees)
 {
+	//Current ahrs code, probably needs to be changed
 	ahrs->GetYaw();
 	while(ahrs->GetAngleAdjustment() < degrees)
 	{
@@ -136,6 +137,7 @@ void DriveBase::BaseTurnLeft(float speed, double degrees)
 }
 void DriveBase::BaseTurnRight(float speed, double degrees)
 {
+	//Current ahrs code, probably needs to be changed
 	while(ahrs->GetAngleAdjustment() < degrees)
 	{
 		RightFrontBaseMotor->Set(-speed);
