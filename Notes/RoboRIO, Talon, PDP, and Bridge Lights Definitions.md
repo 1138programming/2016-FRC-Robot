@@ -1,6 +1,3 @@
-# Momentum
-The 2016 2017 Robot for Team 1138
-
 # Diagnostic Lights
 What all the lights on the roboRIO, Talon, PDB, and Radio (Bridge) mean
 
