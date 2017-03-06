@@ -1,0 +1,19 @@
+Talon and Solenoid Definiitons:
+
+
+Talons:
+1 - Front Base Right
+2 - Front Base Left
+3 - Rear Base Right
+4 - Rear Base Left
+5 - Flywheel Right
+6 - Flywheel Left
+7 - Filter Right
+8 - Filter Left
+9 - Collector
+10 - Spare
+
+Solenoids:
+0 and 1 - Base Solenoid (shift)
+2 and 3 - Collector/Ratchet Solenoid
+4 and 5 - Esophagus
