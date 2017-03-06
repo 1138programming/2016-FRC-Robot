@@ -48,8 +48,8 @@ const float KRightBaseMaster = 2; //KRightMaster = Master Talon for right side
 
 //all of the solenoids are doubles, so they need 2 numbers each.  If you change one, be sure to change
 //the other one of the pair.
-const float KShifterSolenoid1 = 0;
-const float KShifterSolenoid2 = 1;
+const float KShifterSolenoid1 = 0;		//TODO swapped shifter and lift solenoids for testing.
+const float KShifterSolenoid2 = 1;		//must be changed back
 const float KLiftSolenoid1 = 2;
 const float KLiftSolenoid2 = 3;
 const float KEsophagusSolenoid1 = 4;

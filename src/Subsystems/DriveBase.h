@@ -52,6 +52,8 @@ public:
 
 
 	const float KDeadZoneLimit = 0;
+	//autonomous turn constant right and left 1 and 2
+	//If in left, turn left, forward, right
 
 };
 
