@@ -1,11 +1,17 @@
-#ifndef VisionTracking_H
-#define VisionTracking_H
+#ifndef VisionCommand_H
+#define VisionCommand_H
 
-#include <Commands/CommandGroup.h>
+#include "../CommandBase.h"
+#include "WPILib.h"
 
-class VisionTracking : public CommandGroup {
+class VisionTracking : public CommandBase {
 public:
 	VisionTracking();
+	void Initialize();
+	void Execute();
+	bool IsFinished();
+	void End();
+	void Interrupted();
 };
 
-#endif  // VisionTracking_H
+#endif  // VisionCommand_H

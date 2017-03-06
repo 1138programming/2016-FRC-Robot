@@ -7,23 +7,26 @@ DriveWithJoysticks::DriveWithJoysticks() {
 }
 
 // Called just before this Command runs the first time
-void DriveWithJoysticks::Initialize() {
-	driveBase->LowShiftBase();
+void DriveWithJoysticks::Initialize()
+{
+//	driveBase->LowShiftBase();
 }
 
 // Called repeatedly when this Command is scheduled to run
-void DriveWithJoysticks::Execute() {
-	SmartDashboard::PutNumber("Index", 5.5);
+void DriveWithJoysticks::Execute()
+{
 	CommandBase::driveBase->TankDrive(oi->getLeftController(), oi->getRightController());
 }
 
 // Make this return true when this Command no longer needs to run execute()
+
 bool DriveWithJoysticks::IsFinished()
 {
 	return true;
 }
 
 // Called once after isFinished returns true
+
 void DriveWithJoysticks::End()
 {
 

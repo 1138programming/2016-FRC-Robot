@@ -1,9 +1,11 @@
 #include "Subsystems/DriveBase.h"
 #include "Commands/DriveWithJoysticks.h"
 #include "Commands/ShiftBase.h"
+#include "Commands/ToggleLift.h"
 #include "C:\Users\eeuser\wpilib\cpp\current\include\Talon.h"
 #include "C:\Users\eeuser\wpilib\cpp\current\include\Solenoid.h"
 #include "sys/wait.h"
+
 //Drive Base Team: Gioia, Peter, Jahred and Kyle
 DriveBase::DriveBase() :
  	 Subsystem("DriveBase")
@@ -14,7 +16,7 @@ DriveBase::DriveBase() :
 	 */
 	//Sets up Right Motors
 	RightFrontBaseMotor = new CANTalon(KRightFrontBaseTalon); //RightFrontBase is the master Talon for the right side
-	RightFrontBaseMotor->SetInverted(true);
+//	RightFrontBaseMotor->SetInverted(true);
 	RightFrontBaseMotor->SetSafetyEnabled(true);
 	RightFrontBaseMotor->EnableControl();
 
@@ -27,6 +29,7 @@ DriveBase::DriveBase() :
 	//Sets up Left motors
 	//Left base motors are inverted
 	LeftFrontBaseMotor = new CANTalon(KLeftFrontBaseTalon); //LeftFrontBase is the master Talon on the Left side
+	LeftFrontBaseMotor->SetInverted(true);
 	LeftFrontBaseMotor->SetSafetyEnabled(true);
 	LeftFrontBaseMotor->EnableControl();
 
@@ -46,10 +49,10 @@ DriveBase::DriveBase() :
 	//Ultrasonic
 	BaseUltrasonic = new Ultrasonic(KBaseUltrasonic1, KBaseUltrasonic2);
 	BaseUltrasonic->SetAutomaticMode(true);
-
+;
 	//Gyro
-	ahrs = new AHRS(SPI::Port::kMXP);
-	ahrs->GetYaw();
+//	ahrs = new AHRS(SPI::Port::kMXP);
+//	ahrs->GetYaw();
 
 	//Encoders
 	//Relative = Quadrature Encoder function of MagEncoder
@@ -62,16 +65,14 @@ DriveBase::DriveBase() :
 
 	//Variables for Ultrasonic
 
-	DistanceToGearCollector = BaseUltrasonic->GetRangeMM();
-	whatIsRange = BaseUltrasonic->IsRangeValid();
 }
 
 void DriveBase::InitDefaultCommand()
 {
-
 	//Sets the default to drive with joysticks when robot is turned on
 	SetDefaultCommand(new DriveWithJoysticks());
 }
+
 void DriveBase::TankDrive(float left, float right)
 {
 	if(left > KDeadZoneLimit || left < -KDeadZoneLimit)
@@ -109,7 +110,7 @@ void DriveBase::DriveForward(float distance, float speed)
 		encoder2 = RightFrontBaseMotor->GetEncPosition();
 	}
 }
-void DriveBase::DriveBackward(float speed, float distance)
+void DriveBase::DriveBackward(float distance, float speed)
 {
 	float encoderReference = LeftFrontBaseMotor->GetEncPosition();
 	float encoder2Reference = RightFrontBaseMotor->GetEncPosition();
@@ -123,22 +124,22 @@ void DriveBase::DriveBackward(float speed, float distance)
 		encoder2 = RightFrontBaseMotor->GetEncPosition();
 	}
 }
-void DriveBase::BaseTurnLeft(float speed, double degrees)
+void DriveBase::BaseTurnLeft(double degrees, float speed)
 {
-	ahrs->GetYaw();
-	while(ahrs->GetAngleAdjustment() < degrees)
-	{
-		RightFrontBaseMotor->Set(speed);
-		LeftFrontBaseMotor->Set(-speed);
-	}
+//	ahrs->GetYaw();
+//	while(ahrs->GetAngleAdjustment() < degrees)
+//	{
+//		RightFrontBaseMotor->Set(speed);
+//		LeftFrontBaseMotor->Set(-speed);
+//	}
 }
-void DriveBase::BaseTurnRight(float speed, double degrees)
+void DriveBase::BaseTurnRight(double degrees, float speed)
 {
-	while(ahrs->GetAngleAdjustment() < degrees)
-	{
-		RightFrontBaseMotor->Set(-speed);
-		LeftFrontBaseMotor->Set(speed);
-	}
+//	while(ahrs->GetAngleAdjustment() < degrees)
+//	{
+//		RightFrontBaseMotor->Set(-speed);
+//		LeftFrontBaseMotor->Set(speed);
+//	}
 }
 
 void DriveBase::StopBase()
@@ -177,28 +178,29 @@ void DriveBase::EngageLift()
 	}
 	else
 	{
-			LiftSolenoid->Set(DoubleSolenoid::kForward);	//engage lift
+		LiftSolenoid->Set(DoubleSolenoid::kForward);	//engage lift
 	}
 }
-void DriveBase::DisengageLift()
-{
-	LiftSolenoid->Set(DoubleSolenoid::kReverse);	//disengage lift
-}
+
+//void DriveBase::DisengageLift()
+//{
+//	LiftSolenoid->Set(DoubleSolenoid::kReverse);	//disengage lift
+//}
 
 void DriveBase::InitDefaultCommandForUltrasonic()
 {
 
 }
 
-void DriveBase::GetDistance()
+double DriveBase::GetDistance()
 {
-	DistanceToGearCollector = BaseUltrasonic->GetRangeMM();
+	SmartDashboard::PutNumber("DistanceMM", BaseUltrasonic->GetRangeMM()) ;
+	return BaseUltrasonic->GetRangeMM();
 }
 
 
 bool DriveBase::IsUltrasonicRangeValid()
 {
-	whatIsRange = BaseUltrasonic->IsRangeValid();
-	SmartDashboard::PutBoolean("UltrasonicInRange", whatIsRange);
-	return whatIsRange;
+	SmartDashboard::PutBoolean("UltrasonicInRange", BaseUltrasonic->IsRangeValid());
+	return BaseUltrasonic->IsRangeValid();
 }

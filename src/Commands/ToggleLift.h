@@ -1,11 +1,11 @@
-#ifndef EngageLift_H
-#define EngageLift_H
+#ifndef ToggleLift_H
+#define ToggleLift_H
 
 #include "../CommandBase.h"
 
-class EngageLift : public CommandBase {
+class ToggleLift : public CommandBase {
 public:
-	EngageLift();
+	ToggleLift();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -13,4 +13,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // EngageLift_H
+#endif  // ToggleLift_H

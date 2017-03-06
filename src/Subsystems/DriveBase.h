@@ -6,10 +6,10 @@
 
 #include "C:\Users\eeuser\navx-mxp\cpp\include\AHRS.h"
 
-#include "C:\Users\eeuser\wpilib\cpp\current\include\WPILib.h"
-#include "C:\Users\eeuser\wpilib\user\cpp\include\CANTalon.h"
-#include "c:\Users\eeuser\wpilib\cpp\current\include\Ultrasonic.h"
-#include "C:\Users\eeuser\wpilib\cpp\current\include\SmartDashboard\SmartDashboard.h"
+#include "WPILib.h"
+#include "CANTalon.h"
+#include "Ultrasonic.h"
+#include "SmartDashboard\SmartDashboard.h"
 
 
 class DriveBase: public Subsystem
@@ -25,32 +25,29 @@ private:
 	DoubleSolenoid* LiftSolenoid;
 
 	//Gyro
-	AHRS* ahrs;
+//	AHRS* ahrs;
 
-	double waitPeriod = 5.00;
 
 	Ultrasonic* BaseUltrasonic;
-	double DistanceToGearCollector;
-	bool whatIsRange;
 
 public:
 	DriveBase();
 	void InitDefaultCommand();
 	void TankDrive(float left, float right);
-	void DriveForward(float speed, float distance);
-	void DriveBackward(float speed, float distance);
-	void BaseTurnLeft(float speed, double degrees);
-	void BaseTurnRight(float speed, double degrees);
+	void DriveForward(float distance, float speed);
+	void DriveBackward(float distance, float speed);
+	void BaseTurnLeft(double degrees, float speed);
+	void BaseTurnRight(double degrees, float speed);
 	void StopBase();
 	void HighShiftBase();
 	void LowShiftBase();
 	void ToggleShift();
 
 	void EngageLift();
-	void DisengageLift();
+//	void DisengageLift();
 
 	void InitDefaultCommandForUltrasonic();
-	void GetDistance();
+	double GetDistance();
 	bool IsUltrasonicRangeValid();
 
 

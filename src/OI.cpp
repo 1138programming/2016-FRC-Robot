@@ -2,7 +2,7 @@
 
 #include "Commands/ToggleEsophagus.h"
 #include "Commands/VisionTracking.h"
-#include "Commands/EngageLift.h"
+#include "Commands/ToggleLift.h"
 #include "Commands/ShiftBase.h"
 #include "Commands/EngageShooter.h"
 #include "Commands/FlywheelIncreaseSpeed.h"
@@ -30,7 +30,7 @@ OI::OI()
 	buttonRB = new JoystickButton(xBoxController, 6) ;	//Increase Flywheel Speed
 
 	shiftButton->WhenPressed(new ShiftBase());
-	liftButton->WhenPressed(new EngageLift());
+	liftButton->WhenPressed(new ToggleLift());
 	buttonX->WhenPressed(new ToggleEsophagus());
 	buttonB->WhenPressed(new VisionTracking());
 	buttonA->WhenPressed(new EngageShooter());
@@ -59,10 +59,10 @@ float OI::getLeftXBoxAxis(){			//left xbox axis controls the collector
 	return -xBoxController->GetRawAxis(1);
 }
 
-////controls the collector arms, signal from joystick is reversed
-//float OI::getRightXBoxAxis(){
-//	return -xBoxController->GetRawAxis(5);
-//}
+//Fine control from collector, signal from joystick is reversed
+float OI::getRightXBoxAxis(){
+	return -xBoxController->GetRawAxis(5);
+}
 //
 //int OI::getXBoxPOV(){					//POV controls the collector arms
 //	return xBoxController->GetPOV();

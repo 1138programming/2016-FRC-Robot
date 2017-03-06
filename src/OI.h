@@ -33,7 +33,7 @@ public:
 	bool getLeftTrigger() ;
 	bool getRightTrigger() ;
 	float getLeftXBoxAxis() ;			//Controls collector roller - up = intake; down = outtake
-//	float getRightXBoxAxis() ;			//No function
+	float getRightXBoxAxis() ;			//Fine control for collector roller
 //	int getXBoxPOV() ;					//No function
 
 } ;
