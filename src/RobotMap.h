@@ -82,3 +82,9 @@ const float KHalfSpeed = 0.5;
 const float KFastSpeed = 0.8;
 
 #endif  // ROBOTMAP_H
+
+
+//VERY IMPORTANT NOTE: Values for the left and right auton are:
+//186.28cm forward
+//40.1 degree turn
+//201.39cm forward
