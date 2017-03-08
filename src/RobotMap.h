@@ -67,13 +67,14 @@ const float KLeftTurn2 = 75;
 const float KTurnSpeed = 0.3;
 //TODO change values for turning constants
 
-//Encoder Distances
+//TODO Encoder Distances
 //1 rotation = 13 inches. Divide that value by the total to get the rotations.
-const float KDistance1 = 5;
-const float KDistance2 = 10;
-const float KDistanceCentral = 6;
-const float KCrossingDistance = 0.5;
+const float KDistance1 = 8.5; //This estimated distance is partially correct
+const float KDistance2 = 1.2; //This estimated distance is partially correct
+const float KDistanceCentral = 6.1; //This estimated distance is partially correct
+const float KCrossingDistance = 7.4; //This estimated distance is partially correct
 //TODO make accurate values for distances
+//For these current values, need to be altered to starting positions once decided
 
 //Base Speeds
 const float KSlowSpeed = 0.2;
