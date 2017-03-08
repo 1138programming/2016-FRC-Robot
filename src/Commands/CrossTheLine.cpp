@@ -1,29 +1,14 @@
-#include "PlaceGearCenter.h"
-#include "Commands/MoveBackwardUsingEncoderCentral.h"
-#include "Commands/VisionTracking.h"
+#include "CrossTheLine.h"
 
-PlaceGearCenter::PlaceGearCenter() {
-
-	//Order of Operations:
-	//All of this is backwards because bot is placed backwards on the field (gear collector in back of robot)
-
-	//- Rotate to the right
-	//- Move backward
-	//- Rotate to the left
-	//- Move backward
-	//- Vision Tracking
-
-
-	Requires(CommandBase::driveBase);
-	Requires(CommandBase::gearCam);
-
-	AddSequential(new MoveBackwardUsingEncoderCentral());
-	AddSequential(new VisionTracking());
-
+CrossTheLine::CrossTheLine() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
 	// these will run in order.
+
+	Requires(CommandBase::driveBase);
+
+	AddSequential(new CrossLineUsingEncoder());
 
 	// To run multiple commands at the same time,
 	// use AddParallel()

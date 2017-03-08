@@ -18,6 +18,7 @@ PlaceGearRight::PlaceGearRight() {
 
 
 	Requires(CommandBase::driveBase);
+	Requires(CommandBase::gearCam);
 
 	AddSequential(new RightAutonomousTurn1());
 	AddSequential(new MoveBackwardUsingEncoder1());

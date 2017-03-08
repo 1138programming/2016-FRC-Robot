@@ -9,6 +9,8 @@
 #include "Commands/PlaceGearLeft.h"
 #include "Commands/PlaceGearCenter.h"
 #include "Commands/PlaceGearRight.h"
+#include "Commands/NoAutonomous.h"
+#include "Commands/CrossLineUsingEncoder.h"
 #include "Commands/ExampleCommand.h"
 #include "CommandBase.h"
 
@@ -20,6 +22,8 @@ public:
 		chooser.AddObject("Left Gear Autonomous", new PlaceGearLeft());
 		chooser.AddObject("Central Gear Autonomous", new PlaceGearCenter());
 		chooser.AddObject("Right Gear Autonomous", new PlaceGearRight());
+		chooser.AddObject("No Autonomous", new NoAutonomous());
+		chooser.AddObject("Cross The Line", new CrossLineUsingEncoder());
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);
 	}
 

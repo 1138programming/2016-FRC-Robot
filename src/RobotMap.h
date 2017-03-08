@@ -68,15 +68,16 @@ const float KTurnSpeed = 0.3;
 //TODO change values for turning constants
 
 //Encoder Distances
+//1 rotation = 13 inches. Divide that value by the total to get the rotations.
 const float KDistance1 = 5;
 const float KDistance2 = 10;
-const float KDistanceCentral = 7;
+const float KDistanceCentral = 6;
+const float KCrossingDistance = 0.5;
 //TODO make accurate values for distances
 
 //Base Speeds
 const float KSlowSpeed = 0.2;
 const float KHalfSpeed = 0.5;
 const float KFastSpeed = 0.8;
-
 
 #endif  // ROBOTMAP_H

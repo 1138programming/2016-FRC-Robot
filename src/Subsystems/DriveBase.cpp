@@ -125,7 +125,7 @@ void DriveBase::DriveBackward(float speed, float distance)
 	float encoder2Reference = RightFrontBaseMotor->GetEncPosition();
 	float encoder = LeftFrontBaseMotor->GetEncPosition();
 	float encoder2 = RightFrontBaseMotor->GetEncPosition();
-	while((encoder - encoderReference) > distance && (encoder2 - encoder2Reference) > distance)
+	while((encoder - encoderReference) > distance*4096 && (encoder2 - encoder2Reference) > distance*4096)
 	{
 		RightFrontBaseMotor->Set(speed);
 		LeftFrontBaseMotor->Set(speed);
