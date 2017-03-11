@@ -17,29 +17,27 @@ void VisionTracking::Initialize()
 void VisionTracking::Execute()
 {
 	SmartDashboard::PutBoolean("Is Vision On?", true);
-	gearcam->displaySerialData(gearcam->receiveVision(),
+	int average = gearcam->displaySerialData(gearcam->receiveVision(),
 										gearcam->decoder(gearcam->pixyData[0],
 										gearcam->pixyData[1],
 										gearcam->pixyData[2]),
 										gearcam->decoder(gearcam->pixyData[3],
 										gearcam->pixyData[4],
 										gearcam->pixyData[5]));
-	int average = (gearcam->decoder(gearcam->pixyData[0],gearcam->pixyData[1],gearcam->pixyData[2]));
-	if(average < (340 + 40) && average > (340 - 40)){
+	if(average < (160 + 20) && average > (160 - 20)){
 		SmartDashboard::PutBoolean("Is Centered", true);
 		SmartDashboard::PutString("Where is the object?", "Center");
 				//Do centered driving actions
 	}
-	else if(average >= (340 + 40)){
+	else if(average >= (160 + 20)){
 		SmartDashboard::PutBoolean("Is Centered", false);
 		SmartDashboard::PutString("Where is the object?", "Right");
 			//object is in the right hand side view range
-
 	}
-	else if(average <= (340 - 40)){
+	else if(average <= (160 - 20)){
 		SmartDashboard::PutBoolean("Is Centered", false);
 		SmartDashboard::PutString("Where is the object?", "Left");
-				//object is in the left hand side view range
+		//object is in the left hand side view range
 	}
 }
 
