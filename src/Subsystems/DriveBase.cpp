@@ -1,10 +1,13 @@
 #include "Subsystems/DriveBase.h"
 #include "Commands/DriveWithJoysticks.h"
+#include "Commands/MoveBackwardWithEncoders.h"
+#include "Commands/TurnToFacePilotTower.h"
 #include "Commands/ShiftBase.h"
 #include "Commands/ToggleLift.h"
 #include "C:\Users\eeuser\wpilib\cpp\current\include\Talon.h"
 #include "C:\Users\eeuser\wpilib\cpp\current\include\Solenoid.h"
 #include "sys/wait.h"
+
 
 //Drive Base Team: Gioia, Peter, Jahred and Kyle
 DriveBase::DriveBase() :
@@ -49,10 +52,11 @@ DriveBase::DriveBase() :
 	//Ultrasonic
 	BaseUltrasonic = new Ultrasonic(KBaseUltrasonic1, KBaseUltrasonic2);
 	BaseUltrasonic->SetAutomaticMode(true);
-;
+
 	//Gyro
-//	ahrs = new AHRS(SPI::Port::kMXP);
-//	ahrs->GetYaw();
+	gyroAccelerometer = new AHRS(SPI::Port::kMXP);
+	gyroAccelerometer->AHRS::ZeroYaw();
+
 
 	//Encoders
 	//Relative = Quadrature Encoder function of MagEncoder
@@ -112,11 +116,13 @@ void DriveBase::DriveForward(float distance, float speed)
 }
 void DriveBase::DriveBackward(float distance, float speed)
 {
+	SmartDashboard::PutNumber("Distance To Pilot Tower", KDistanceToPilotTower);
+	SmartDashboard::PutNumber("Distance To Base Line", KDistanceToBaseLine);
 	float encoderReference = LeftFrontBaseMotor->GetEncPosition();
 	float encoder2Reference = RightFrontBaseMotor->GetEncPosition();
 	float encoder = LeftFrontBaseMotor->GetEncPosition();
 	float encoder2 = RightFrontBaseMotor->GetEncPosition();
-	while((encoder - encoderReference) > distance && (encoder2 - encoder2Reference) > distance)
+	while((encoder - encoderReference) > distance*4096 && (encoder2 - encoder2Reference) > distance)
 	{
 		RightFrontBaseMotor->Set(speed);
 		LeftFrontBaseMotor->Set(speed);
@@ -124,22 +130,45 @@ void DriveBase::DriveBackward(float distance, float speed)
 		encoder2 = RightFrontBaseMotor->GetEncPosition();
 	}
 }
-void DriveBase::BaseTurnLeft(double degrees, float speed)
+void DriveBase::TurnWithBase(double degrees, float turnspeed, bool leftturn)
 {
-//	ahrs->GetYaw();
-//	while(ahrs->GetAngleAdjustment() < degrees)
-//	{
-//		RightFrontBaseMotor->Set(speed);
-//		LeftFrontBaseMotor->Set(-speed);
-//	}
-}
-void DriveBase::BaseTurnRight(double degrees, float speed)
-{
-//	while(ahrs->GetAngleAdjustment() < degrees)
-//	{
-//		RightFrontBaseMotor->Set(-speed);
-//		LeftFrontBaseMotor->Set(speed);
-//	}
+	if(gyroAccelerometer->IsCalibrating() != true && gyroAccelerometer->IsConnected() == true)
+	{
+		double targetangle;
+		SmartDashboard::PutBoolean("Is Left Turn True?", leftturn);
+		if(leftturn) //Make a left turn if true
+		{
+			//Set targetangle to target value, degrees is negative because of turning left
+			targetangle = -degrees + gyroAccelerometer->GetAngle();
+			SmartDashboard::PutNumber("Target Angle", targetangle);
+			while(targetangle <= gyroAccelerometer->GetAngle()) //While has not reached target value
+			{
+				//Keep turning to target
+				SmartDashboard::PutNumber("Current Angle Value", gyroAccelerometer->GetAngle());
+				RightFrontBaseMotor->Set(turnspeed);
+				LeftFrontBaseMotor->Set(-turnspeed);
+			}
+			//Turn off the base motors
+			RightFrontBaseMotor->Set(0);
+			LeftFrontBaseMotor->Set(0);
+		}
+		else //Make a right turn if false
+		{
+			//Set targetangle to target value, degrees is positive because of turning right
+			targetangle = degrees + gyroAccelerometer->GetAngle();
+			SmartDashboard::PutNumber("Target Angle", targetangle);
+			while(targetangle >= gyroAccelerometer->GetAngle()) //While has not reached target value
+			{
+				//Keep turning to target
+				SmartDashboard::PutNumber("Current Angle Value", gyroAccelerometer->GetAngle());
+				RightFrontBaseMotor->Set(-turnspeed);
+				LeftFrontBaseMotor->Set(turnspeed);
+			}
+			//Turn off the base motors
+			RightFrontBaseMotor->Set(0);
+			LeftFrontBaseMotor->Set(0);
+		}
+	}
 }
 
 void DriveBase::StopBase()

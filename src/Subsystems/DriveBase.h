@@ -25,7 +25,7 @@ private:
 	DoubleSolenoid* LiftSolenoid;
 
 	//Gyro
-//	AHRS* ahrs;
+	AHRS* gyroAccelerometer;
 
 
 	Ultrasonic* BaseUltrasonic;
@@ -36,8 +36,7 @@ public:
 	void TankDrive(float left, float right);
 	void DriveForward(float distance, float speed);
 	void DriveBackward(float distance, float speed);
-	void BaseTurnLeft(double degrees, float speed);
-	void BaseTurnRight(double degrees, float speed);
+	void TurnWithBase(double degrees, float turnspeed, bool leftturn);
 	void StopBase();
 	void HighShiftBase();
 	void LowShiftBase();
@@ -50,8 +49,6 @@ public:
 	double GetDistance();
 	bool IsUltrasonicRangeValid();
 
-
-	const float KDeadZoneLimit = 0;
 	//autonomous turn constant right and left 1 and 2
 	//If in left, turn left, forward, right
 
