@@ -29,7 +29,9 @@ void Collector::InitDefaultCommand()
 //	collectorCIM->Set(KCollectorSpeedStop);
 //}
 
-Collector::~Collector()
+void Collector::StopCollector()
 {
-	// TODO Auto-generated destructor stub
+
+	collectorMotor->Set(0);
+
 }

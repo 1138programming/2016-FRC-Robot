@@ -16,6 +16,7 @@ private:
 public:
 	Collector();
 	void InitDefaultCommand();
+	void StopCollector();
 //	void CollectBallIntoStorage();
 //	void DispenseBallOutOfStorage();
 //	void StopCollector();
@@ -25,7 +26,6 @@ public:
 	const float KCollectorSlowSpeed = 0.3;
 	const float KCollectorSpeedStop = 0;
 
-	virtual ~Collector();
 };
 
 #endif /* SRC_SUBSYSTEMS_COLLECTORLIFT_H_ */
