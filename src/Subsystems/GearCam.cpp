@@ -40,9 +40,10 @@ double GearCam::decoder(char hundreds, char tens, char singles)
 			((double(singles) - 48.0) * 1.0)) ;
 }
 
-void GearCam::displaySerialData(int received, double x, double l)
+double GearCam::displaySerialData(int received, double x, double l)
 {
 	SmartDashboard::PutNumber("bytes", received) ;
 	SmartDashboard::PutNumber("valueX", x) ;
 	SmartDashboard::PutNumber("valueL", l) ;
+	return (x);
 }
