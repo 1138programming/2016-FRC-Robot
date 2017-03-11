@@ -59,5 +59,18 @@ const float KEsophagusSolenoid2 = 5;
 const float KBaseUltrasonic1 = 0;
 const float KBaseUltrasonic2 = 1;
 
+const float KDeadZoneLimit = 0;
+
+//Circumerence of wheel - 330.2 millimeters. Divide by this number to get number of rotations for distances
+const float KDistanceToBaseLine = 6.98;	//rotations from the diamond plate to the baseline from Field CAD
+const float KDistanceToPilotTower = 6.099; //rotations from the baseline to the pilot tower from Field CAD
+const float KTurnToPilotTower = 40.1;	//degrees to turn from the baseline to face the pilot tower.  Add direction using sign.
+const float KAutonStraightSpeed = -.3;	//TODO lets go slowly and backwards
+const float KAutonTurnSpeed = .2; //TODO turn slowly towards pilot tower
+const float KCrossTheLineDistance = 2500; //Unofficial distance to cross the line in autonomous
+const float KVisionTrackingDistance = 2000; //Unofficial distance (in mm) until we turn on vision tracking
+
+const bool KLeftTurn = true;
+const bool KRightTurn = false;
 
 #endif  // ROBOTMAP_H
