@@ -17,21 +17,6 @@
 // number and the module. For example you with a rangefinder:
 // constexpr int RANGE_FINDER_PORT = 1;
 // constexpr int RANGE_FINDER_MODULE = 1;
-/*Talons:
-1 - Front Base Right
-2 - Front Base Left
-3 - Rear Base Right
-4 - Rear Base Left
-5 - Flywheel Right
-6 - Flywheel Left
-7 - Filter Right
-8 - Filter Left
-9 - Collector
-10 - Spare
-Solenoids:
-0 and 1 - Base Solenoid (shift)
-2 and 3 - Collector/Ratchet Solenoid
-4 and 5 - Esophagus*/
 
 const float KLeftRearBaseTalon =  4;
 const float KLeftFrontBaseTalon = 2 ;
@@ -48,8 +33,8 @@ const float KRightBaseMaster = 2; //KRightMaster = Master Talon for right side
 
 //all of the solenoids are doubles, so they need 2 numbers each.  If you change one, be sure to change
 //the other one of the pair.
-const float KShifterSolenoid1 = 0;		//TODO swapped shifter and lift solenoids for testing.
-const float KShifterSolenoid2 = 1;		//must be changed back
+const float KShifterSolenoid1 = 0;
+const float KShifterSolenoid2 = 1;
 const float KLiftSolenoid1 = 2;
 const float KLiftSolenoid2 = 3;
 const float KEsophagusSolenoid1 = 4;
@@ -58,6 +43,8 @@ const float KEsophagusSolenoid2 = 5;
 //Sensors
 const float KBaseUltrasonic1 = 0;
 const float KBaseUltrasonic2 = 1;
+
+const float KDeadZoneLimit = 0.1;
 
 
 #endif  // ROBOTMAP_H

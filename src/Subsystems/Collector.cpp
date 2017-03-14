@@ -1,35 +1,26 @@
-#include "Subsystems/Collector.h"
+#include "Collector.h"
+#include "../RobotMap.h"
+#include "Commands/RunCollectorWithJoysticks.h"
+#include "Commands/RunCollectorForShooter.h"
 
-//Esophagus subsystem: Connor N, Christian G, and Chris H(A little)
-
-Collector::Collector() :
-
-Subsystem("CollectorSubsystem")
+Collector::Collector() : Subsystem("ExampleSubsystem")
 {
 	collectorMotor = new CANTalon(KCollectorTalon);
 }
 
 void Collector::InitDefaultCommand()
 {
+	SetDefaultCommand(new RunCollectorWithJoysticks());
+}
+
+
+void Collector::StopCollector() //This function makes the collector stop moving
+{
+	collectorMotor->Set(0);
 
 }
 
-//void Collector::CollectBallIntoStorage() //This function makes the collector collect the balls into the storage.
-//{
-//	collectorCIM->Set(KCollectorSpeedForward);
-//}
-//
-//void Collector::DispenseBallOutOfStorage() //This function makes the collector dispense the balls out of the storage.
-//{
-//	collectorCIM->Set(KCollectorSpeedForward);
-//}
-
-//void Collector::StopCollector() //This function makes the collector stop moving
-//{
-//	collectorCIM->Set(KCollectorSpeedStop);
-//}
-
-Collector::~Collector()
+void Collector::RunCollector(float speed)
 {
-	// TODO Auto-generated destructor stub
+	collectorMotor->Set(speed);
 }

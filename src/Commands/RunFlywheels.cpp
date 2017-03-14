@@ -11,7 +11,14 @@ void RunFlywheels::Initialize() {
 }
 
 // Called repeatedly when this Command is scheduled to run
-void RunFlywheels::Execute() {
+void RunFlywheels::Execute()
+{
+
+	CommandBase::shooter->FlywheelsON(1);
+
+
+
+
 
 }
 

@@ -18,7 +18,7 @@ void FiltersOff::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void FiltersOff::Execute() {
-	CommandBase::shooter->FiltersOff();
+	CommandBase::shooter->FiltersOFF();
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -19,9 +19,10 @@ public:
 		JoystickButton* liftButton ; //Left Trigger
 
 		//XBox Button Definitions
-		JoystickButton* buttonA ;		//Toggle Shooter System
-		JoystickButton* buttonB ;		//Toggle Vision Tracking
-		JoystickButton* buttonX ;		//Toggle Esophagus
+		JoystickButton* buttonA ;		//Toggle Vision
+		JoystickButton* buttonB ;		//Toggle Esophagus
+		JoystickButton* buttonX ;		//Turns Shooter on
+		JoystickButton* buttonY;		//Turns Shooter off
 		JoystickButton* buttonLB ;		//Decrease Flywheel Speed
 		JoystickButton* buttonRB ;		//Increase Flywheel Speed
 		//JoystickButton* buttonSelect ;

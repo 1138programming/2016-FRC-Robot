@@ -13,26 +13,19 @@ Subsystem("EsophagusSubsystem")
 
 void Esophagus::InitDefaultCommand()
 {
-	SmartDashboard::PutNumber("Three", 3.0);
-	//MoveEsophagusToGearCollection();
+
 }
 
-void Esophagus::MoveEsophagusToGearCollection() //This function moves the Esophagus so that it can now collect gears
+void Esophagus::ToggleEsophagus() //This function moves the Esophagus so that it can now collect gears
 {
-
-	if(esophagusSolenoid->Get() != DoubleSolenoid::kForward)
+	if(esophagusSolenoid->Get() == DoubleSolenoid::kReverse) //If the esophagus is open...
 	{
-		esophagusSolenoid->Set(DoubleSolenoid::kForward);
+		esophagusSolenoid->Set(DoubleSolenoid::kForward); //...then close it
 	}
 
-}
-
-void Esophagus::MoveEsophagusToBallCollection() //This function moves the Esophagus so that it can now collect balls
-{
-
-	if(esophagusSolenoid->Get() != DoubleSolenoid::kReverse)
+	else //If closed...
 	{
-		esophagusSolenoid->Set(DoubleSolenoid::kReverse);
+		esophagusSolenoid->Set(DoubleSolenoid::kReverse);	//...then open it
 	}
 }
 

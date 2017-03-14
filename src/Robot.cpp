@@ -7,14 +7,14 @@
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
 
-#include "Commands/ExampleCommand.h"
+
 #include "CommandBase.h"
 
 class Robot: public frc::IterativeRobot {
 public:
 	void RobotInit() override {
 		CommandBase::init();
-		chooser.AddDefault("Default Auto", new ExampleCommand());
+		//chooser.AddDefault("Default Auto", new ExampleCommand());
 		// chooser.AddObject("My Auto", new MyAutoCommand());
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);
 	}
@@ -49,7 +49,7 @@ public:
 			autonomousCommand.reset(new MyAutoCommand());
 		}
 		else {
-			autonomousCommand.reset(new ExampleCommand());
+			autonomousCommand.reset(new Command());
 		} */
 
 		autonomousCommand.reset(chooser.GetSelected());

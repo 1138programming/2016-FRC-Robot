@@ -7,6 +7,7 @@
 #include "Commands/EngageShooter.h"
 #include "Commands/FlywheelIncreaseSpeed.h"
 #include "Commands/FlywheelDecreaseSpeed.h"
+#include "Commands/DisengageShooter.h"
 
 
 
@@ -20,20 +21,22 @@ OI::OI()
 
 	//Logitech Buttons
 	shiftButton = new JoystickButton(rightController, 1) ; //Shifts the Base from Low Gear to High Gear and vice versa
-	liftButton = new JoystickButton(leftController, 1) ;   //Shifts the Base to Lift the robot and vice versa
+	liftButton = new JoystickButton(leftController, 7) ;   //Shifts the Base to Lift the robot and vice versa
 
 	//XBox Definitions
-	buttonA	= new JoystickButton(xBoxController, 1) ;	//Toggle Shooter
-	buttonB = new JoystickButton(xBoxController, 2) ;	//Toggle Vision
-	buttonX = new JoystickButton(xBoxController, 3) ;	//Toggle Esophagus
+	buttonA	= new JoystickButton(xBoxController, 1) ;	//Toggle Vision
+	buttonB = new JoystickButton(xBoxController, 2) ;	//Toggle Esophagus
+	buttonX = new JoystickButton(xBoxController, 3) ;	//Turn on shooter
+	buttonY = new JoystickButton(xBoxController, 4) ;	//Turn off shooter
 	buttonLB = new JoystickButton(xBoxController, 5) ;	//Decrease Flywheel Speed
 	buttonRB = new JoystickButton(xBoxController, 6) ;	//Increase Flywheel Speed
 
 	shiftButton->WhenPressed(new ShiftBase());
 	liftButton->WhenPressed(new ToggleLift());
-	buttonX->WhenPressed(new ToggleEsophagus());
-	buttonB->WhenPressed(new VisionTracking());
-	buttonA->WhenPressed(new EngageShooter());
+	buttonX->WhenPressed(new EngageShooter());
+	buttonY->WhenPressed(new DisengageShooter());
+	buttonB->WhenPressed(new ToggleEsophagus());
+	buttonA->WhenPressed(new VisionTracking());
 	buttonLB->WhenPressed(new FlywheelDecreaseSpeed());
 	buttonRB->WhenPressed(new FlywheelIncreaseSpeed());
 

@@ -1,11 +1,16 @@
 #ifndef EngageShooter_H
 #define EngageShooter_H
 
-#include <Commands/CommandGroup.h>
+#include "../CommandBase.h"
 
-class EngageShooter : public CommandGroup {
+class EngageShooter : public CommandBase {
 public:
 	EngageShooter();
+	void Initialize();
+	void Execute();
+	bool IsFinished();
+	void End();
+	void Interrupted();
 };
 
 #endif  // EngageShooter_H
