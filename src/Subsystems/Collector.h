@@ -1,31 +1,28 @@
-#ifndef SRC_SUBSYSTEMS_COLLECTOR_H_
-#define SRC_SUBSYSTEMS_COLLECTOR_H_
+#ifndef Collector_H
+#define Collector_H
 
-#include "Commands/Subsystem.h"
-#include "RobotMap.h"
+#include <Commands/Subsystem.h>
 #include "WPILib.h"
 #include "CANTalon.h"
 
-//Esophagus subsystem: Connor N, Christian G, and Chris H(A little)
-
-class Collector: public Subsystem
-{
+class Collector : public Subsystem {
 private:
-	CANTalon* collectorMotor;
+	// It's desirable that everything possible under private except
+	// for methods that implement subsystem capabilities
 
 public:
 	Collector();
 	void InitDefaultCommand();
-//	void CollectBallIntoStorage();
-//	void DispenseBallOutOfStorage();
-//	void StopCollector();
+
+	CANTalon* collectorMotor;
+
+	void StopCollector();
+	void RunCollector(float speed);
 
 	const float KCollectorSpeedForward = 1;
 	const float KCollectorSpeedReverse = -1;
 	const float KCollectorSlowSpeed = 0.3;
 	const float KCollectorSpeedStop = 0;
-
-	virtual ~Collector();
 };
 
-#endif /* SRC_SUBSYSTEMS_COLLECTORLIFT_H_ */
+#endif  // Collector_H

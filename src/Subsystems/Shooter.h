@@ -16,11 +16,21 @@
 
 class Shooter: public frc::Subsystem {
 private:
+
+	CANTalon* collectorMotor;
+
 	CANTalon* flywheelRight;
 	CANTalon* flywheelLeft;
 
 	CANTalon* filterFrontMotor;
 	CANTalon* filterRearMotor;
+
+	bool shooterState = false;
+	int LastEncPosition = 0 ;
+	int FlywheelSpeed =0 ;
+	float FlywheelTargetSpeed = 1350;	//Initial target speed for the shooter.
+
+
 public:
 	Shooter();
 	// To understand the override keyword in InitDefaultCommand(),
@@ -29,26 +39,35 @@ public:
 	void		InitDefaultCommand()				override;
 
 	// Flywheel Control - Always send positive values; code will adjust as necessary
-	void		FlywheelsOff();
-	void		FlywheelsForward(float speed=0.0); // 0.0 uses default speed; else
-	void		FlywheelsBackward(float speed=0.0); // it will use overrided speed
-
-	// Default Flywheel Control Variables; Change as necessary, but keep POSITIVE
-	float		flywheelForwardSpeed = 1.0;
-	float		flywheelBackwardSpeed = 1.0;
+	void		FlywheelsOFF();
+	void 		FlywheelsON(float speed) ;
 
 	//Quadrature Functions
 	double		GetEncPos();
 	void		ResetEncPos();
 
 	// Filter Control
-	void		FiltersOn(float speed=0.0); // Same note as FlywheelsForward
-	void		FiltersOff();
+	void FiltersOFF();
+	void FlitersON();
 
-	float		filterSpeed = 1.0;
+	//Collector Control and status
+//	void RunCollector(float speed);
+//	void StopCollector();
+	void SetShooterState(bool newState);
+	float GetShooterSpeed();
+	void AdjustShooterSpeed(float adjustment);
+	bool SetShooterEngaged();
+	bool SetShooterDisengaged();
+	bool QueryShooterState();
+	float GetShooterTargetSpeed();
 
-	void		DoPIDControl(float target=1.0, double kP=0.0, double kI=0.0, double kD=0.0);
-
+	const float KShootSpeed = 1350;
+	const float KFilterSpeed = 1;
+	const int KTicksPerRotation = 4096.0;
+	const int KUpdateInterval = 200.0;
+	const float KMinFlywheelSpeed = 1000;
+	const float KMaxFlywheelSpeed = 2000;
+	const float KFlywheelSpeedAdjust = 20;	//speed adjustment per button press
 };
 
 #endif /* SRC_SUBSYSTEMS_SHOOTER_H_ */

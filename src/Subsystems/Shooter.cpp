@@ -1,26 +1,20 @@
 /*
- * Shooter.cpp
+        * Shooter.cpp
  *
- *  Created on: Feb 2, 2017
- *      Author: Wolf
  *
  */
 
 #include <Subsystems/Shooter.h>
 #include "CANTalon.h"
-
+#include "Commands/EngageShooter.h"
+#include "Commands/DisengageShooter.h"
+#include "Commands/FiltersOn.h"
+#include "Commands/FiltersOff.h"
+#include "Commands/FlywheelDecreaseSpeed.h"
+#include "Commands/FlywheelIncreaseSpeed.h"
+#include "Commands/FlywheelsOff.h"
+#include "Commands/RunFlywheels.h"
 /*
- * List of motors and talons for Shooter
- *
- * Quad encoder - standard vex SRX mag encoder
- * 4 Motors in Total
- * 		2 on shooters - cims
- * 		2 bag motors on belt
- * 		1 cim reversed on both the belt and shooter (Unknown which)
- *
- * Talons:
- * Flywheel right: 5
- * Flywheel left: 6
  *
  */
 
@@ -30,11 +24,8 @@ frc::Subsystem("ShooterSubsystem")
 {
 	/*
 	 *  Initialize talons used by Shooter subsystem
-	 *  By Wolf 2/9/2017
-	 *
-	 *  Copied from Legends 2015-2016 code; modifications made to work
-	 *  with Momentum talons
 	 */
+
 	flywheelLeft = new CANTalon(KFlywheelLeftTalon);
 	flywheelRight = new CANTalon(KFlywheelRightTalon);
 
@@ -42,7 +33,12 @@ frc::Subsystem("ShooterSubsystem")
 	flywheelLeft->EnableControl();
 	flywheelLeft->SetSafetyEnabled(false);
 	flywheelLeft->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
-	flywheelRight->SetInverted(true);
+	//flywheelRight->SetInverted(true);
+
+	flywheelRight->SetControlMode(CANTalon::kFollower);
+	flywheelRight->Set(KFlywheelLeftTalon);
+	flywheelRight->SetClosedLoopOutputDirection(true); //flywheel right is inverted relative to the master
+
 
 	// Zero out quadrature encoder
 	flywheelLeft->SetPosition(0);
@@ -58,40 +54,26 @@ frc::Subsystem("ShooterSubsystem")
 	// Make the rear talon a slave to the front one
 	filterRearMotor->SetControlMode(CANTalon::kFollower);
 	filterRearMotor->Set(KFilterFrontTalon);
+
+	//bool shooterState = false;
+
+	//const float KTargetFlywheelSpeed = 1 ;
 }
 
-void Shooter::InitDefaultCommand() {
+void Shooter::InitDefaultCommand()
+{
 }
 
-/*
- * Flywheel Functions
- * 2/11/17 - Wolf
- */
+void Shooter::FlywheelsON(float speed)
+{
+	flywheelLeft->Set(speed);
+}
 
-void Shooter::FlywheelsOff() {
+void Shooter::FlywheelsOFF()
+{
 	flywheelLeft->Set(0);
 }
 
-void Shooter::FlywheelsForward(float speed /* = default speed */) {
-	if (speed == 0.0) {
-		flywheelLeft->Set(flywheelForwardSpeed);
-	} else {
-		flywheelLeft->Set(speed); // Fowards movement based on custom value
-	}
-}
-
-void Shooter::FlywheelsBackward(float speed /* = default speed */) {
-	if (speed == 0.0) {
-		flywheelLeft->Set(-flywheelBackwardSpeed);
-	} else{
-		flywheelLeft->Set(-speed);
-	}
-}
-
-/*
- * Quadrature Functions
- * 2/11/2017 - Wolf
- */
 double Shooter::GetEncPos() {
 	return flywheelLeft->GetPosition();
 }
@@ -100,30 +82,61 @@ void Shooter::ResetEncPos() {
 	flywheelLeft->SetPosition(0);
 }
 
-/*
- * Filter Bag Motors
- * 2/11/17 - Wolf
- */
-void Shooter::FiltersOn(float speed /* = default */) {
-	if (speed == 0.0) {
-		filterFrontMotor->Set(filterSpeed);
-	} else {
-		filterFrontMotor->Set(speed);
-	}
+void Shooter::FlitersON()
+{
+	filterFrontMotor->Set(KFilterSpeed);
 }
 
-void Shooter::FiltersOff() {
+void Shooter::FiltersOFF()
+{
 	filterFrontMotor->Set(0);
 }
 
-/*
- * PID Control
- * 2/11/17 - Wolf and PID man
- */
-
-void Shooter::DoPIDControl(float target /* = 1.0 */, double kP /* = 0.0 */,
-						   double kI /* = 0.0 */, double kD /* = 0.0 */)
+bool Shooter::SetShooterEngaged()
 {
-	flywheelLeft->Set(target);
-	flywheelLeft->SetPID(kP,kI,kD);
+	shooterState = true;
+	return shooterState;
 }
+
+bool Shooter::SetShooterDisengaged()
+{
+	shooterState = false;
+	return shooterState;
+}
+
+bool Shooter::QueryShooterState()
+{
+	SmartDashboard::PutBoolean("query shooter state", shooterState);
+	return Shooter::shooterState;
+}
+
+void Shooter::SetShooterState(bool newState)
+{
+	shooterState = newState;
+}
+
+float Shooter::GetShooterSpeed()
+{
+	FlywheelSpeed = (KUpdateInterval / KTicksPerRotation) * (Shooter::flywheelLeft->GetEncPosition() - LastEncPosition);
+
+	return FlywheelSpeed ;
+}
+
+//Pass in a value to adjust the shooter target speed.  Check that you are not exceeding the limits
+void Shooter::AdjustShooterSpeed(float adjustment)
+{
+	if(adjustment < 0 && FlywheelTargetSpeed + adjustment >= KMinFlywheelSpeed)	//decreasing, but not below the minimum
+	{
+		FlywheelTargetSpeed += adjustment;
+	}
+	else if(adjustment > 0 && FlywheelTargetSpeed + adjustment <= KMaxFlywheelSpeed) //increasing, but not above the minimum
+	{
+		FlywheelTargetSpeed += adjustment;
+	}
+}
+
+float Shooter::GetShooterTargetSpeed()
+{
+	return FlywheelSpeed;
+}
+

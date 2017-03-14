@@ -5,16 +5,16 @@
 #include <string>
 
 #include "Commands/Command.h"
-#include "Subsystems/Collector.h"
 #include "Subsystems/DriveBase.h"
 #include "Subsystems/Esophagus.h"
-#include "Subsystems/ExampleSubsystem.h"
+//#include "Subsystems/ExampleSubsystem.h"
 #include "Subsystems/GearCam.h"
 #include "Subsystems/Pneumatics.h"
 #include "Subsystems/Shooter.h"
 #include "Subsystems/ShooterCam.h"
 #include "OI.h"
 #include "WPILib.h"
+#include "Subsystems/Collector.h"
 
 #include "C:\Users\eeuser\wpilib\user\cpp\include\CANTalon.h"
 //#include "Subsystems/ExampleSubsystem.h"
@@ -37,7 +37,7 @@ public:
 	static Collector* collector;
 	static DriveBase* driveBase;
 	static Esophagus* esophagus;
-	static ExampleSubsystem* exampleSubsystem;
+//	static ExampleSubsystem* exampleSubsystem;
 	static GearCam* gearcam;
 	static Pneumatics* pneumatics;
 	static Shooter* shooter;

@@ -13,7 +13,7 @@ public:
 	void End() override;
 	void Interrupted() override;
 
-	float &speed = CommandBase::shooter->filterSpeed;
+	//float &speed = CommandBase::shooter->filterSpeed;
 	// A reference to the filterSpeed variable; Use
 	// as a regular variable, and it will update the
 	// flywheelBackwardSpeed variable in the shooter

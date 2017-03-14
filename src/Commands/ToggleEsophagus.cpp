@@ -5,6 +5,7 @@ ToggleEsophagus::ToggleEsophagus() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 //	Requires(CommandBase::esophagus.get());
+	Requires(CommandBase::esophagus);
 }
 
 // Called just before this Command runs the first time
@@ -13,7 +14,10 @@ void ToggleEsophagus::Initialize() {
 }
 
 // Called repeatedly when this Command is scheduled to run
-void ToggleEsophagus::Execute() {
+void ToggleEsophagus::Execute()
+{
+
+	CommandBase::esophagus->ToggleEsophagus(); //Toggle Esophagus from closed to open
 
 }
 

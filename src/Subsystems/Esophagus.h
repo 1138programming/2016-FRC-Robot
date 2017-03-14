@@ -14,12 +14,11 @@ class Esophagus: public Subsystem
 private:
 	DoubleSolenoid* esophagusSolenoid;
 
+
 public:
 	Esophagus();
 	void InitDefaultCommand();
-	void MoveEsophagusToGearCollection();
-	void MoveEsophagusToBallCollection();
-	void MoveEsophagus();
+	void ToggleEsophagus();
 //	void ShiftGearBallCollection();
 };
 
