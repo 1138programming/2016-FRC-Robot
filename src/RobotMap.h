@@ -44,11 +44,8 @@ const float KEsophagusSolenoid2 = 5;
 const float KBaseUltrasonic1 = 0;
 const float KBaseUltrasonic2 = 1;
 
-<<<<<<< HEAD
 const float KDeadZoneLimit = 0.1;
 
-=======
-const float KDeadZoneLimit = 0;
 
 //Circumerence of wheel - 330.2 millimeters. Divide by this number to get number of rotations for distances
 const float KDistanceToBaseLine = 6.98;	//rotations from the diamond plate to the baseline from Field CAD
@@ -61,6 +58,5 @@ const float KVisionTrackingDistance = 2000; //Unofficial distance (in mm) until 
 
 const bool KLeftTurn = true;
 const bool KRightTurn = false;
->>>>>>> e727bc2ffbdefbc6eee5c322cde2e42042fc7df2
 
 #endif  // ROBOTMAP_H
