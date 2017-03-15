@@ -48,14 +48,8 @@ public:
 	double GetDistance();
 	bool IsUltrasonicRangeValid();
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> e727bc2ffbdefbc6eee5c322cde2e42042fc7df2
 	//autonomous turn constant right and left 1 and 2
 	//If in left, turn left, forward, right
-
 };
 
 #endif /* SRC_SUBSYSTEMS_BASE_H_ */

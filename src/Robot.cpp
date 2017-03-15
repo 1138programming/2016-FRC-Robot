@@ -17,11 +17,6 @@ class Robot: public frc::IterativeRobot {
 public:
 	void RobotInit() override {
 		CommandBase::init();
-<<<<<<< HEAD
-		//chooser.AddDefault("Default Auto", new ExampleCommand());
-		// chooser.AddObject("My Auto", new MyAutoCommand());
-=======
-		chooser.AddDefault("Default Auto", new ExampleCommand());
 		chooser.AddObject("Left Gear Autonomous",
 				new AutonCommandGroup(KDistanceToBaseLine,
 				KTurnToPilotTower,
@@ -51,7 +46,7 @@ public:
 				0, //No turning involved
 				KRightTurn)); //No turning involved
 		chooser.AddObject("No Autonomous", NULL);
->>>>>>> e727bc2ffbdefbc6eee5c322cde2e42042fc7df2
+
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);
 	}
 
