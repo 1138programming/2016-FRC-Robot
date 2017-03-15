@@ -21,7 +21,7 @@ public:
 
 	const float KCollectorSpeedForward = 1;
 	const float KCollectorSpeedReverse = -1;
-	const float KCollectorSlowSpeed = 0.3;
+	const float KCollectorSlowSpeed = 0.15;
 	const float KCollectorSpeedStop = 0;
 };
 

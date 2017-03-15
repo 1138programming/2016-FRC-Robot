@@ -182,6 +182,11 @@ void DriveBase::EngageLift()
 	}
 }
 
+int DriveBase::QueryLiftState()
+{
+	return LiftSolenoid->Get();
+}
+
 //void DriveBase::DisengageLift()
 //{
 //	LiftSolenoid->Set(DoubleSolenoid::kReverse);	//disengage lift

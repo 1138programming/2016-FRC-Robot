@@ -1,5 +1,4 @@
 #include "DisengageShooter.h"
-#include "SmartDashboard/SmartDashboard.h"
 
 DisengageShooter::DisengageShooter() {
 	// Use Requires() here to declare subsystem dependencies
@@ -15,7 +14,6 @@ void DisengageShooter::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void DisengageShooter::Execute()
 {
-	SmartDashboard::PutBoolean("Disengaging Shooter", true);
 //	if(CommandBase::shooter->QueryShooterState() == true)//If the shooter is on...
 //	{
 		CommandBase::shooter->FiltersOFF();
