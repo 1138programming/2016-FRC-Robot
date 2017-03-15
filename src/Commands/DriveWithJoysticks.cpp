@@ -15,7 +15,14 @@ void DriveWithJoysticks::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void DriveWithJoysticks::Execute()
 {
-	CommandBase::driveBase->TankDrive(oi->getLeftController(), oi->getRightController());
+	if (driveBase->QueryLiftState() == DoubleSolenoid::kForward)
+	{
+		CommandBase::driveBase->TankDrive(oi->getRightController(), oi->getRightController());
+	}
+	else
+	{
+		CommandBase::driveBase->TankDrive(oi->getLeftController(), oi->getRightController());
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()

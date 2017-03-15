@@ -9,8 +9,6 @@
 #include "WPILib.h"
 #include "CANTalon.h"
 #include "Ultrasonic.h"
-#include "SmartDashboard\SmartDashboard.h"
-
 
 class DriveBase: public Subsystem
 {
@@ -42,6 +40,7 @@ public:
 	void HighShiftBase();
 	void LowShiftBase();
 	void ToggleShift();
+	int QueryLiftState();
 
 	void EngageLift();
 //	void DisengageLift();
