@@ -9,13 +9,49 @@
 
 
 #include "CommandBase.h"
+#include "Commands/AutonCommandGroup.h"
+#include "Commands/TurnToFacePilotTower.h"
+#include "Commands/MoveBackwardWithEncoders.h"
 
 class Robot: public frc::IterativeRobot {
 public:
 	void RobotInit() override {
 		CommandBase::init();
+<<<<<<< HEAD
 		//chooser.AddDefault("Default Auto", new ExampleCommand());
 		// chooser.AddObject("My Auto", new MyAutoCommand());
+=======
+		chooser.AddDefault("Default Auto", new ExampleCommand());
+		chooser.AddObject("Left Gear Autonomous",
+				new AutonCommandGroup(KDistanceToBaseLine,
+				KTurnToPilotTower,
+				KDistanceToPilotTower,
+				KAutonStraightSpeed,
+				KAutonTurnSpeed,
+				KRightTurn));
+		chooser.AddObject("Center Gear Autonomous",
+				new AutonCommandGroup(KDistanceToBaseLine,
+				0, //No turning involved
+				0, //No second movement involved
+				KAutonStraightSpeed,
+				0, //No turning involved
+				KRightTurn)); //No turning involved
+		chooser.AddObject("Right Gear Autonomous",
+				new AutonCommandGroup(KDistanceToBaseLine,
+				KTurnToPilotTower,
+				KDistanceToPilotTower,
+				KAutonStraightSpeed,
+				KAutonTurnSpeed,
+				KLeftTurn));
+		chooser.AddObject("Cross The Line",
+				new AutonCommandGroup(KCrossTheLineDistance,
+				0, //No turning involved
+				0, //No second movement involved
+				KAutonStraightSpeed,
+				0, //No turning involved
+				KRightTurn)); //No turning involved
+		chooser.AddObject("No Autonomous", NULL);
+>>>>>>> e727bc2ffbdefbc6eee5c322cde2e42042fc7df2
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);
 	}
 

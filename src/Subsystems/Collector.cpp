@@ -22,5 +22,6 @@ void Collector::StopCollector() //This function makes the collector stop moving
 
 void Collector::RunCollector(float speed)
 {
+	SmartDashboard::PutNumber("Running the collector at speed ", speed);
 	collectorMotor->Set(speed);
 }
