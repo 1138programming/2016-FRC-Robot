@@ -12,42 +12,25 @@
 #include "Commands/AutonCommandGroup.h"
 #include "Commands/TurnToFacePilotTower.h"
 #include "Commands/MoveBackwardWithEncoders.h"
+#include "Commands/AutonomousLineDrive.h"
+#include "Commands/AutonomousCenterGear.h"
+#include "Commands/AutonomousRightGear.h"
+#include "Commands/AutonomousLeftGear.h"
 
 class Robot: public frc::IterativeRobot {
+
 public:
 	void RobotInit() override {
 		CommandBase::init();
-		chooser.AddObject("Left Gear Autonomous",
-				new AutonCommandGroup(KDistanceToBaseLine,
-				KTurnToPilotTower,
-				KDistanceToPilotTower,
-				KAutonStraightSpeed,
-				KAutonTurnSpeed,
-				KRightTurn));
-		chooser.AddObject("Center Gear Autonomous",
-				new AutonCommandGroup(KDistanceToBaseLine,
-				0, //No turning involved
-				0, //No second movement involved
-				KAutonStraightSpeed,
-				0, //No turning involved
-				KRightTurn)); //No turning involved
-		chooser.AddObject("Right Gear Autonomous",
-				new AutonCommandGroup(KDistanceToBaseLine,
-				KTurnToPilotTower,
-				KDistanceToPilotTower,
-				KAutonStraightSpeed,
-				KAutonTurnSpeed,
-				KLeftTurn));
-		chooser.AddObject("Cross The Line",
-				new AutonCommandGroup(KCrossTheLineDistance,
-				0, //No turning involved
-				0, //No second movement involved
-				KAutonStraightSpeed,
-				0, //No turning involved
-				KRightTurn)); //No turning involved
-		chooser.AddObject("No Autonomous", NULL);
+		CameraServer::GetInstance()->StartAutomaticCapture();
 
-		frc::SmartDashboard::PutData("Auto Modes", &chooser);
+		chooser.AddObject("Cross The Line", new AutonomousLineDrive());
+		chooser.AddObject("Left Gear Autonomous", new AutonomousLeftGear());
+		chooser.AddDefault("Center Gear Autonomous", new AutonomousCenterGear());
+		chooser.AddObject("Right Gear Autonomous", new AutonomousRightGear());
+		chooser.AddObject("No Autonomous", NULL);
+		SmartDashboard::PutData("Auto Modes", &chooser);
+
 	}
 
 	/**
@@ -85,7 +68,9 @@ public:
 
 		autonomousCommand.reset(chooser.GetSelected());
 
-		if (autonomousCommand.get() != nullptr) {
+		if (autonomousCommand.get() != nullptr)
+		{
+			SmartDashboard::PutBoolean("Start Auton", true);
 			autonomousCommand->Start();
 		}
 	}

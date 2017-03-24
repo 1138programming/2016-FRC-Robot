@@ -68,7 +68,7 @@ DriveBase::DriveBase() :
 	RightFrontBaseMotor->SetEncPosition(0);
 
 	//Variables for Ultrasonic
-
+	targetstate = true;		//start out specifying that we are not looking for a target
 }
 
 void DriveBase::InitDefaultCommand()
@@ -114,34 +114,40 @@ void DriveBase::DriveForward(float distance, float speed)
 		encoder2 = RightFrontBaseMotor->GetEncPosition();
 	}
 }
+
 void DriveBase::DriveBackward(float distance, float speed)
 {
-	SmartDashboard::PutNumber("Distance To Pilot Tower", KDistanceToPilotTower);
-	SmartDashboard::PutNumber("Distance To Base Line", KDistanceToBaseLine);
-	float encoderReference = LeftFrontBaseMotor->GetEncPosition();
-	float encoder2Reference = RightFrontBaseMotor->GetEncPosition();
-	float encoder = LeftFrontBaseMotor->GetEncPosition();
-	float encoder2 = RightFrontBaseMotor->GetEncPosition();
-	while((encoder - encoderReference) > distance*4096 && (encoder2 - encoder2Reference) > distance)
+	encoder = RightFrontBaseMotor->GetEncPosition();
+	if (encoder >= -distance*EncoderTicksPerRev)		// negative target because we are going backwards.
 	{
+		SmartDashboard::PutNumber("Target Distance", -distance*EncoderTicksPerRev);
 		RightFrontBaseMotor->Set(speed);
 		LeftFrontBaseMotor->Set(speed);
-		encoder = LeftFrontBaseMotor->GetEncPosition();
-		encoder2 = RightFrontBaseMotor->GetEncPosition();
+		encoder = RightFrontBaseMotor->GetEncPosition();
+		SmartDashboard::PutNumber("Current Position", encoder);
 	}
+	else
+	{
+		SetTargetState(true);		//we have reached our target.
+		StopBase();					//stop the motors before we fall out of the command.
+		SmartDashboard::PutBoolean("We drove backwards to target", true);
+	}
+
 }
+
 void DriveBase::TurnWithBase(double degrees, float turnspeed, bool leftturn)
 {
 	if(gyroAccelerometer->IsCalibrating() != true && gyroAccelerometer->IsConnected() == true)
 	{
-		double targetangle;
+		//double targetangle;
 		SmartDashboard::PutBoolean("Is Left Turn True?", leftturn);
 		if(leftturn) //Make a left turn if true
 		{
+			SmartDashboard::PutNumber("Target Angle", -degrees);
+			SmartDashboard::PutBoolean("Turning Left", true);
 			//Set targetangle to target value, degrees is negative because of turning left
-			targetangle = -degrees + gyroAccelerometer->GetAngle();
-			SmartDashboard::PutNumber("Target Angle", targetangle);
-			while(targetangle <= gyroAccelerometer->GetAngle()) //While has not reached target value
+
+			if(-degrees <= gyroAccelerometer->GetAngle()) //While has not reached target value
 			{
 				//Keep turning to target
 				SmartDashboard::PutNumber("Current Angle Value", gyroAccelerometer->GetAngle());
@@ -149,24 +155,31 @@ void DriveBase::TurnWithBase(double degrees, float turnspeed, bool leftturn)
 				LeftFrontBaseMotor->Set(-turnspeed);
 			}
 			//Turn off the base motors
-			RightFrontBaseMotor->Set(0);
-			LeftFrontBaseMotor->Set(0);
+			else
+			{
+				SetTargetState(true);		// we met our target
+				StopBase();
+				SmartDashboard::PutBoolean("We turned to target", true);
+			}
 		}
 		else //Make a right turn if false
 		{
+			SmartDashboard::PutBoolean("Turning Left", false);
 			//Set targetangle to target value, degrees is positive because of turning right
-			targetangle = degrees + gyroAccelerometer->GetAngle();
-			SmartDashboard::PutNumber("Target Angle", targetangle);
-			while(targetangle >= gyroAccelerometer->GetAngle()) //While has not reached target value
+			SmartDashboard::PutNumber("Target Angle", degrees);
+			if(degrees >= gyroAccelerometer->GetAngle()) //While has not reached target value
 			{
 				//Keep turning to target
 				SmartDashboard::PutNumber("Current Angle Value", gyroAccelerometer->GetAngle());
 				RightFrontBaseMotor->Set(-turnspeed);
 				LeftFrontBaseMotor->Set(turnspeed);
 			}
-			//Turn off the base motors
-			RightFrontBaseMotor->Set(0);
-			LeftFrontBaseMotor->Set(0);
+			else
+			{
+				SetTargetState(true);		// we met our target
+				StopBase();
+				SmartDashboard::PutBoolean("We turned to target", true);
+			}
 		}
 	}
 }
@@ -216,6 +229,13 @@ int DriveBase::QueryLiftState()
 	return LiftSolenoid->Get();
 }
 
+void DriveBase::ResetEncoders()
+{
+	LeftFrontBaseMotor->SetEncPosition(0);
+	RightFrontBaseMotor->SetEncPosition(0);
+	LiftSolenoid->Set(DoubleSolenoid::kReverse);
+}
+
 //void DriveBase::DisengageLift()
 //{
 //	LiftSolenoid->Set(DoubleSolenoid::kReverse);	//disengage lift
@@ -232,9 +252,22 @@ double DriveBase::GetDistance()
 	return BaseUltrasonic->GetRangeMM();
 }
 
-
 bool DriveBase::IsUltrasonicRangeValid()
 {
 	SmartDashboard::PutBoolean("UltrasonicInRange", BaseUltrasonic->IsRangeValid());
 	return BaseUltrasonic->IsRangeValid();
+}
+
+bool DriveBase::GetTargetState()
+{
+	return targetstate;
+}
+
+void DriveBase::SetTargetState(bool state)
+{
+	targetstate = state;
+}
+
+void DriveBase::ResetGyro(){
+	DriveBase::gyroAccelerometer->AHRS::ZeroYaw();
 }

@@ -18,6 +18,8 @@ private:
 public:
 	Esophagus();
 	void InitDefaultCommand();
+	void OpenEsophagus();
+	void closeEsophagus();
 	void ToggleEsophagus();
 //	void ShiftGearBallCollection();
 };

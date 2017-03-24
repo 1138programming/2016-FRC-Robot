@@ -2,6 +2,7 @@
 #define RunCollectorWithJoysticks_H
 
 #include "../CommandBase.h"
+#include "RobotMap.h"
 
 class RunCollectorWithJoysticks : public CommandBase {
 public:

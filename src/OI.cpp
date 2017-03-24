@@ -1,6 +1,8 @@
 #include "OI.h"
 
 #include "Commands/ToggleEsophagus.h"
+#include "Commands/CloseEsophagus.h"
+#include "Commands/OpenEsophagus.h"
 #include "Commands/VisionTracking.h"
 #include "Commands/ToggleLift.h"
 #include "Commands/ShiftBase.h"
@@ -8,6 +10,7 @@
 #include "Commands/FlywheelIncreaseSpeed.h"
 #include "Commands/FlywheelDecreaseSpeed.h"
 #include "Commands/DisengageShooter.h"
+#include "RobotMap.h"
 
 
 
@@ -15,21 +18,21 @@ OI::OI()
 {
 
 	//Logitech and xbox controllers
-	leftController = new Joystick(0) ;
-	rightController = new Joystick(1) ;
-	xBoxController = new Joystick(2) ;
+	leftController = new Joystick(KLeftJoystick) ;
+	rightController = new Joystick(KRightJoystick) ;
+	xBoxController = new Joystick(KXBoxController) ;
 
 	//Logitech Buttons
 	shiftButton = new JoystickButton(rightController, 1) ; //Shifts the Base from Low Gear to High Gear and vice versa
 	liftButton = new JoystickButton(leftController, 7) ;   //Shifts the Base to Lift the robot and vice versa
 
 	//XBox Definitions
-	buttonA	= new JoystickButton(xBoxController, 1) ;	//Toggle Vision
-	buttonB = new JoystickButton(xBoxController, 2) ;	//Toggle Esophagus
-	buttonX = new JoystickButton(xBoxController, 3) ;	//Turn on shooter
-	buttonY = new JoystickButton(xBoxController, 4) ;	//Turn off shooter
-	buttonLB = new JoystickButton(xBoxController, 5) ;	//Decrease Flywheel Speed
-	buttonRB = new JoystickButton(xBoxController, 6) ;	//Increase Flywheel Speed
+	buttonA	= new JoystickButton(xBoxController, KButtonA) ;	//Toggle Vision
+	buttonB = new JoystickButton(xBoxController, KButtonB) ;	//Toggle Esophagus
+	buttonX = new JoystickButton(xBoxController, KButtonX) ;	//Turn on shooter
+	buttonY = new JoystickButton(xBoxController, KButtonY) ;	//Turn off shooter
+	buttonLB = new JoystickButton(xBoxController, KLeftBumper) ;	//Decrease Flywheel Speed
+	buttonRB = new JoystickButton(xBoxController, KRightBumpter) ;	//Increase Flywheel Speed
 
 	shiftButton->WhenPressed(new ShiftBase());
 	liftButton->WhenPressed(new ToggleLift());
@@ -37,8 +40,8 @@ OI::OI()
 	buttonY->WhenPressed(new DisengageShooter());
 	buttonB->WhenPressed(new ToggleEsophagus());
 	buttonA->WhenPressed(new VisionTracking());
-	buttonLB->WhenPressed(new FlywheelDecreaseSpeed());
-	buttonRB->WhenPressed(new FlywheelIncreaseSpeed());
+	buttonLB->WhenPressed(new OpenEsophagus());		//buttonLB->WhenPressed(new FlywheelDecreaseSpeed());
+	buttonRB->WhenPressed(new CloseEsophagus());	//buttonRB->WhenPressed(new FlywheelIncreaseSpeed());
 
 }
 

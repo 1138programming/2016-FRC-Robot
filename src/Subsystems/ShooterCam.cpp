@@ -6,10 +6,19 @@
  */
 
 #include <Subsystems/ShooterCam.h>
+//#include <CameraServer.h>
 
-ShooterCam::ShooterCam() {
-	// TODO Auto-generated constructor stub
+ShooterCam::ShooterCam()
+//	 	 Subsystem("ShooterCam")
+	{
+		//Sets up Right Motors
 
+
+}
+
+void ShooterCam::openCamera(){
+	//cs = new UsbCamera;
+	//cs->StartAutomaticCapture();
 }
 
 ShooterCam::~ShooterCam() {
