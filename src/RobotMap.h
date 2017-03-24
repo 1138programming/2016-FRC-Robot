@@ -45,18 +45,34 @@ const float KBaseUltrasonic1 = 0;
 const float KBaseUltrasonic2 = 1;
 
 const float KDeadZoneLimit = 0.1;
+const float KXboxDeadZoneLimit = 0.2;
 
-
+//Constants for Autonomous routines
 //Circumerence of wheel - 330.2 millimeters. Divide by this number to get number of rotations for distances
-const float KDistanceToBaseLine = 6.98;	//rotations from the diamond plate to the baseline from Field CAD
-const float KDistanceToPilotTower = 6.099; //rotations from the baseline to the pilot tower from Field CAD
-const float KTurnToPilotTower = 40.1;	//degrees to turn from the baseline to face the pilot tower.  Add direction using sign.
-const float KAutonStraightSpeed = -.3;	//TODO lets go slowly and backwards
+const float KRevsToBaseLine = 6.98;	//rotations from the diamond plate to the baseline from Field CAD (192.55cm)
+const float KRevsToPilotTower = 6.099; //rotations from the baseline to the pilot tower from Field CAD (174.42cm)
+const float KTurnToPilotTower = 40.1;	//degrees to turn from the baseline to face the pilot tower.  (26.72 deg)
+const float KAutonStraightSpeed = .3;	//TODO lets go slowly and backwards
 const float KAutonTurnSpeed = .2; //TODO turn slowly towards pilot tower
-const float KCrossTheLineDistance = 2500; //Unofficial distance to cross the line in autonomous
-const float KVisionTrackingDistance = 2000; //Unofficial distance (in mm) until we turn on vision tracking
+const float KRevsToCrossTheLine = 10; //Unofficial distance to cross the line in autonomous
+const float KRevsToVisionTracking = 3; //Unofficial distance  until we turn on vision tracking
+const float EncoderTicksPerRev = 4096; //The amount of ticks it takes to do one full rotation with the encoder
 
 const bool KLeftTurn = true;
 const bool KRightTurn = false;
+
+//Joystick Definitions
+const int KLeftJoystick = 0 ;
+const int KRightJoystick = 1 ;
+const int KXBoxController = 2;
+
+//XBox button definitions
+const int KButtonA = 1 ;	//Toggle Vision
+const int KButtonB = 2 ;	//Toggle Esophagus
+const int KButtonX = 3 ;	//Turn on shooter
+const int KButtonY = 4 ;	//Turn off shooter
+const int KLeftBumper = 5 ;	//Decrease Flywheel Speed
+const int KRightBumpter = 6 ;
+
 
 #endif  // ROBOTMAP_H

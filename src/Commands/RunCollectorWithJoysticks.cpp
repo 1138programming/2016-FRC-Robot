@@ -34,7 +34,7 @@ void RunCollectorWithJoysticks::Execute()
 
 		SmartDashboard::PutNumber("RightXBoxJoystick", CommandBase::oi->getRightXBoxAxis());
 		//Left joystick overrides the right one, so if we want to go fast that is what we do.
-		if(collectorSpeedFAST > KDeadZoneLimit || collectorSpeedFAST < -KDeadZoneLimit)
+		if(collectorSpeedFAST > KXboxDeadZoneLimit || collectorSpeedFAST < -KXboxDeadZoneLimit)
 		{
 			CommandBase::collector->RunCollector(-collectorSpeedFAST);
 		}
@@ -42,15 +42,15 @@ void RunCollectorWithJoysticks::Execute()
 		//by pressing the right joystick
 		else
 		{
-			if(collectorSpeedSLOW > KDeadZoneLimit)
+			if(collectorSpeedSLOW > KXboxDeadZoneLimit)
 			{
-				CommandBase::collector->RunCollector(-KcollectorSpeedSLOW);	//run very slow to catch the knot
+				CommandBase::collector->RunCollector(KcollectorSpeedSLOW);	//run very slow to catch the knot
 			}
 			else
 			{
-				if ( collectorSpeedSLOW < -KDeadZoneLimit)
+				if ( collectorSpeedSLOW < -KXboxDeadZoneLimit)
 				{
-					CommandBase::collector->RunCollector(KcollectorSpeedSLOW);	//run very slow to catch the knot
+					CommandBase::collector->RunCollector(-KcollectorSpeedSLOW);	//run very slow to catch the knot
 				}
 				else		//neither joystick is pressed, so just stop the collector motors.
 				{

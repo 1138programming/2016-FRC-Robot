@@ -4,7 +4,7 @@
 #include "Commands/Subsystem.h"
 #include "../RobotMap.h"
 
-#include "C:\Users\eeuser\navx-mxp\cpp\include\AHRS.h"
+#include "AHRS.h"
 
 #include "WPILib.h"
 #include "CANTalon.h"
@@ -24,7 +24,7 @@ private:
 
 	//Gyro
 	AHRS* gyroAccelerometer;
-
+	float encoder = 0;
 
 	Ultrasonic* BaseUltrasonic;
 
@@ -39,7 +39,11 @@ public:
 	void HighShiftBase();
 	void LowShiftBase();
 	void ToggleShift();
+	void ResetEncoders();
 	int QueryLiftState();
+	bool GetTargetState();	//specifies whether or not we are looking for a target
+	void SetTargetState(bool state);
+	void ResetGyro();
 
 	void EngageLift();
 //	void DisengageLift();
@@ -47,6 +51,7 @@ public:
 	void InitDefaultCommandForUltrasonic();
 	double GetDistance();
 	bool IsUltrasonicRangeValid();
+	bool targetstate = false;
 
 	//autonomous turn constant right and left 1 and 2
 	//If in left, turn left, forward, right

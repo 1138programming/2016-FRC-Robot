@@ -1,33 +1,34 @@
-#include "DriveForwardWithEncoders.h"
+#include "CloseEsophagus.h"
 
-DriveForwardWithEncoders::DriveForwardWithEncoders() {
+CloseEsophagus::CloseEsophagus() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	Requires(CommandBase::driveBase);
+	Requires(esophagus);
 }
 
 // Called just before this Command runs the first time
-void DriveForwardWithEncoders::Initialize() {
+void CloseEsophagus::Initialize() {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void DriveForwardWithEncoders::Execute() {
-	driveBase->DriveForward(KRevsToBaseLine, KAutonStraightSpeed);
+void CloseEsophagus::Execute()
+{
+	CommandBase::esophagus->closeEsophagus();
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool DriveForwardWithEncoders::IsFinished() {
-	return false;
+bool CloseEsophagus::IsFinished() {
+	return true;
 }
 
 // Called once after isFinished returns true
-void DriveForwardWithEncoders::End() {
+void CloseEsophagus::End() {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void DriveForwardWithEncoders::Interrupted() {
+void CloseEsophagus::Interrupted() {
 
 }
