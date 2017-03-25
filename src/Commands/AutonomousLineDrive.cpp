@@ -12,6 +12,7 @@ AutonomousLineDrive::AutonomousLineDrive() {
 void AutonomousLineDrive::Initialize() {
 	SmartDashboard::PutBoolean("Doing Line Drive Auton", true);
 	CommandBase::driveBase->ResetEncoders();
+	driveBase->SetEncoderReference();		//adjust the starting encoder position
 	driveBase->SetTargetState(false); //we are now looking for a target.
 }
 

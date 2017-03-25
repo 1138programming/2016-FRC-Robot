@@ -14,8 +14,10 @@
 #include "Commands/MoveBackwardWithEncoders.h"
 #include "Commands/AutonomousLineDrive.h"
 #include "Commands/AutonomousCenterGear.h"
-#include "Commands/AutonomousRightGear.h"
-#include "Commands/AutonomousLeftGear.h"
+//#include "Commands/AutonomousRightGear.h"
+#include "Commands/AutonomousRightSide.h"
+//#include "Commands/AutonomousLeftGear.h"
+#include "Commands/AutonomousLeftSide.h"
 
 class Robot: public frc::IterativeRobot {
 
@@ -25,9 +27,11 @@ public:
 		CameraServer::GetInstance()->StartAutomaticCapture();
 
 		chooser.AddObject("Cross The Line", new AutonomousLineDrive());
-		chooser.AddObject("Left Gear Autonomous", new AutonomousLeftGear());
+//		chooser.AddObject("Left Gear Autonomous", new AutonomousLeftGear());
+		chooser.AddObject("Left Gear Autonomous", new AutonomousLeftSide());
 		chooser.AddDefault("Center Gear Autonomous", new AutonomousCenterGear());
-		chooser.AddObject("Right Gear Autonomous", new AutonomousRightGear());
+//		chooser.AddObject("Right Gear Autonomous", new AutonomousRightGear());
+		chooser.AddObject("Right Gear Autonomous", new AutonomousRightSide());
 		chooser.AddObject("No Autonomous", NULL);
 		SmartDashboard::PutData("Auto Modes", &chooser);
 

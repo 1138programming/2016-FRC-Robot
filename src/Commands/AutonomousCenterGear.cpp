@@ -10,6 +10,7 @@ AutonomousCenterGear::AutonomousCenterGear() {
 // Called just before this Command runs the first time
 void AutonomousCenterGear::Initialize() {
 	CommandBase::driveBase->ResetEncoders();
+	driveBase->SetEncoderReference();		//adjust the starting encoder position
 	driveBase->SetTargetState(false); //we are now looking for a target.
 }
 
