@@ -6,9 +6,9 @@
 
 AutonomousRightGear::AutonomousRightGear()
 {
-	Requires(CommandBase::driveBase);
-	SmartDashboard::PutBoolean("Doing Right Gear Auton", true);
-	SmartDashboard::PutBoolean("About to do the first move", true);
+//	Requires(CommandBase::driveBase);
+
+
 	AddSequential(new MoveBackwardWithEncoders(KRevsToBaseLine, KAutonStraightSpeed));
 	SmartDashboard::PutBoolean("About to do the turn", true);
 	AddSequential(new TurnToFacePilotTower(KTurnToPilotTower, KAutonTurnSpeed, KLeftTurn));

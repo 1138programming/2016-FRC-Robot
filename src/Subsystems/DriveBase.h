@@ -44,6 +44,10 @@ public:
 	bool GetTargetState();	//specifies whether or not we are looking for a target
 	void SetTargetState(bool state);
 	void ResetGyro();
+	int GetAutonStage();		//keeps track of where we are in multi-stage auton (turn left and right)
+	void SetAutonStage(int stage);
+	float GetEncoderReference();
+	void SetEncoderReference();
 
 	void EngageLift();
 //	void DisengageLift();
@@ -52,9 +56,15 @@ public:
 	double GetDistance();
 	bool IsUltrasonicRangeValid();
 	bool targetstate = false;
+	int autonstage = 0;		//not currently doing auton stage
+	float encrefposition = 0;		//this is used to remember an encoder position
 
-	//autonomous turn constant right and left 1 and 2
-	//If in left, turn left, forward, right
+	const int KAutonNotStarted = 0;	//haven't started the auton
+	const int KAutonFirstMove = 1;	//we are moving forward the first time.
+	const int KAutonTurn	= 2;	//we are doing the turn (left or right)
+	const int KAutonSecondMove = 3; //we are moving forward to the peg.
+	const int KAutonFinished = 4;	//completed all stages of the autonomous
+
 };
 
 #endif /* SRC_SUBSYSTEMS_BASE_H_ */

@@ -48,16 +48,24 @@ const float KDeadZoneLimit = 0.1;
 const float KXboxDeadZoneLimit = 0.2;
 
 //Constants for Autonomous routines
-//Circumerence of wheel - 330.2 millimeters. Divide by this number to get number of rotations for distances
-const float KRevsToBaseLine = 6.98;	//rotations from the diamond plate to the baseline from Field CAD (192.55cm)
-const float KRevsToPilotTower = 6.099; //rotations from the baseline to the pilot tower from Field CAD (174.42cm)
-const float KTurnToPilotTower = 40.1;	//degrees to turn from the baseline to face the pilot tower.  (26.72 deg)
-const float KAutonStraightSpeed = .3;	//TODO lets go slowly and backwards
-const float KAutonTurnSpeed = .2; //TODO turn slowly towards pilot tower
+//Circumference of wheel - 330.2 millimeters. Divide by this number to get number of rotations for distances
+const float KWheelRadius = 5.255; //In centimeters
+const float KWheelCircumference = 33.02; //In centimeters
+const float KDistanceToBaseLine = 191.64; //In centimeters
+const float KDistanceToPilotTower = 86.86; //In centimeters
+const float KRevsToBaseLine = KDistanceToBaseLine / KWheelCircumference;	//rotations from the diamond plate to the baseline from Field CAD (191.64cm)
+const float KRevsToPilotTower = KDistanceToPilotTower / KWheelCircumference; //rotations from the baseline to the pilot tower from Field CAD (86.86cm)
+const float KTurnToPilotTower = 55;	//degrees to turn from the baseline to face the pilot tower.
+const float KAutonStraightSpeed = .5;	//TODO lets go slowly and backwards
+const float KAutonTurnSpeed = .5; //TODO turn slowly towards pilot tower
 const float KRevsToCrossTheLine = 10; //Unofficial distance to cross the line in autonomous
 const float KRevsToVisionTracking = 3; //Unofficial distance  until we turn on vision tracking
-const float EncoderTicksPerRev = 4096; //The amount of ticks it takes to do one full rotation with the encoder
+const float KEncoderTicksPerRev = 4096; //The amount of ticks it takes to do one full rotation with the encoder
 
+//Okay, don't get clever and decide this isn't actually the way we are turning.  I don't care which way we are turning.
+//Left turn means the turn we make when our starting position is on the left side of the field.  Right Turn is when
+//our starting position is on the right side of the field.  We are also doing the turn going backwards and that
+//changes the direction too.  Don't think to much about this or your brain will explode.
 const bool KLeftTurn = true;
 const bool KRightTurn = false;
 

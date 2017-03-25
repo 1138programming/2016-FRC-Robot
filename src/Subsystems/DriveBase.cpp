@@ -69,6 +69,8 @@ DriveBase::DriveBase() :
 
 	//Variables for Ultrasonic
 	targetstate = true;		//start out specifying that we are not looking for a target
+	autonstage = 0;
+	encrefposition = 0;	//this is the value of the encoder before we begin looking for a target
 }
 
 void DriveBase::InitDefaultCommand()
@@ -118,13 +120,17 @@ void DriveBase::DriveForward(float distance, float speed)
 void DriveBase::DriveBackward(float distance, float speed)
 {
 	encoder = RightFrontBaseMotor->GetEncPosition();
-	if (encoder >= -distance*EncoderTicksPerRev)		// negative target because we are going backwards.
+	float adjustedtarget = -distance*KEncoderTicksPerRev + GetEncoderReference();
+	SmartDashboard::PutNumber("Encoder Reference is ", GetEncoderReference());
+	SmartDashboard::PutNumber("Target is ", -distance*KEncoderTicksPerRev);
+	SmartDashboard::PutNumber("Adjusted Target is ", adjustedtarget);
+
+	if (encoder >= adjustedtarget)		// negative target because we are going backwards.
 	{
-		SmartDashboard::PutNumber("Target Distance", -distance*EncoderTicksPerRev);
 		RightFrontBaseMotor->Set(speed);
 		LeftFrontBaseMotor->Set(speed);
 		encoder = RightFrontBaseMotor->GetEncPosition();
-		SmartDashboard::PutNumber("Current Position", encoder);
+		SmartDashboard::PutNumber("Current Encoder Position", encoder);
 	}
 	else
 	{
@@ -139,15 +145,14 @@ void DriveBase::TurnWithBase(double degrees, float turnspeed, bool leftturn)
 {
 	if(gyroAccelerometer->IsCalibrating() != true && gyroAccelerometer->IsConnected() == true)
 	{
-		//double targetangle;
 		SmartDashboard::PutBoolean("Is Left Turn True?", leftturn);
 		if(leftturn) //Make a left turn if true
 		{
-			SmartDashboard::PutNumber("Target Angle", -degrees);
 			SmartDashboard::PutBoolean("Turning Left", true);
-			//Set targetangle to target value, degrees is negative because of turning left
-
-			if(-degrees <= gyroAccelerometer->GetAngle()) //While has not reached target value
+			SmartDashboard::PutBoolean("Turning Right", false);
+			//Set targetangle to target value
+			SmartDashboard::PutNumber("Target Angle", degrees);
+			if(degrees >= gyroAccelerometer->GetAngle()) //While has not reached target value
 			{
 				//Keep turning to target
 				SmartDashboard::PutNumber("Current Angle Value", gyroAccelerometer->GetAngle());
@@ -166,8 +171,7 @@ void DriveBase::TurnWithBase(double degrees, float turnspeed, bool leftturn)
 		{
 			SmartDashboard::PutBoolean("Turning Left", false);
 			//Set targetangle to target value, degrees is positive because of turning right
-			SmartDashboard::PutNumber("Target Angle", degrees);
-			if(degrees >= gyroAccelerometer->GetAngle()) //While has not reached target value
+			if(-degrees <= gyroAccelerometer->GetAngle()) //While has not reached target value
 			{
 				//Keep turning to target
 				SmartDashboard::PutNumber("Current Angle Value", gyroAccelerometer->GetAngle());
@@ -270,4 +274,26 @@ void DriveBase::SetTargetState(bool state)
 
 void DriveBase::ResetGyro(){
 	DriveBase::gyroAccelerometer->AHRS::ZeroYaw();
+//	SmartDashboard::PutNumber("We just tried to reset the Yaw", gyroAccelerometer->GetAngle());
 }
+
+int DriveBase::GetAutonStage()
+{
+	return autonstage;
+}
+
+void DriveBase::SetAutonStage(int stage)
+{
+	autonstage = stage;
+}
+
+float DriveBase::GetEncoderReference()
+{
+	return encrefposition;
+}
+
+void DriveBase::SetEncoderReference()
+{
+	encrefposition = RightFrontBaseMotor->GetEncPosition();
+}
+
