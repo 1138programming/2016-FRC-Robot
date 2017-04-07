@@ -25,7 +25,7 @@ private:
 	//Gyro
 	AHRS* gyroAccelerometer;
 	float encoder = 0;
-
+	float encoderLeft = 0;
 	Ultrasonic* BaseUltrasonic;
 
 public:
@@ -48,6 +48,9 @@ public:
 	void SetAutonStage(int stage);
 	float GetEncoderReference();
 	void SetEncoderReference();
+	float GetLeftEncoderReference();
+
+	void SetLeftEncoderReference();
 
 	void EngageLift();
 //	void DisengageLift();
@@ -58,12 +61,16 @@ public:
 	bool targetstate = false;
 	int autonstage = 0;		//not currently doing auton stage
 	float encrefposition = 0;		//this is used to remember an encoder position
+	float encrefpositionLeft = 0;
 
 	const int KAutonNotStarted = 0;	//haven't started the auton
 	const int KAutonFirstMove = 1;	//we are moving forward the first time.
 	const int KAutonTurn	= 2;	//we are doing the turn (left or right)
 	const int KAutonSecondMove = 3; //we are moving forward to the peg.
-	const int KAutonFinished = 4;	//completed all stages of the autonomous
+	const int KAutonVision1 = 4;		//only used if we have the vision tracking, but it can stay here
+	const int KAutonVision2 = 5;		//only used if we have the vision tracking, but it can stay here
+	const int KAutonVision3 = 6;		//only used if we have the vision tracking, but it can stay here
+	const int KAutonFinished = 7;	//completed all stages of the autonomous
 
 };
 

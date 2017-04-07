@@ -71,6 +71,7 @@ DriveBase::DriveBase() :
 	targetstate = true;		//start out specifying that we are not looking for a target
 	autonstage = 0;
 	encrefposition = 0;	//this is the value of the encoder before we begin looking for a target
+	encrefpositionLeft = 0;
 }
 
 void DriveBase::InitDefaultCommand()
@@ -100,6 +101,7 @@ void DriveBase::TankDrive(float left, float right)
 	{
 		RightFrontBaseMotor->Set(0);
 	}
+
 }
 
 void DriveBase::DriveForward(float distance, float speed)
@@ -120,25 +122,41 @@ void DriveBase::DriveForward(float distance, float speed)
 void DriveBase::DriveBackward(float distance, float speed)
 {
 	encoder = RightFrontBaseMotor->GetEncPosition();
+	encoderLeft = LeftFrontBaseMotor->GetEncPosition();
 	float adjustedtarget = -distance*KEncoderTicksPerRev + GetEncoderReference();
+	float adjustedtargetLeft = -distance*KEncoderTicksPerRev + GetLeftEncoderReference();
 	SmartDashboard::PutNumber("Encoder Reference is ", GetEncoderReference());
 	SmartDashboard::PutNumber("Target is ", -distance*KEncoderTicksPerRev);
 	SmartDashboard::PutNumber("Adjusted Target is ", adjustedtarget);
-
-	if (encoder >= adjustedtarget)		// negative target because we are going backwards.
+	SmartDashboard::PutNumber("Actual motor speed", RightFrontBaseMotor->Get());
+	if (encoder >= adjustedtarget)
+//		&& encoderLeft >= adjustedtargetLeft)		// negative target because we are going backwards.
 	{
-		RightFrontBaseMotor->Set(speed);
-		LeftFrontBaseMotor->Set(speed);
-		encoder = RightFrontBaseMotor->GetEncPosition();
-		SmartDashboard::PutNumber("Current Encoder Position", encoder);
+//		RightFrontBaseMotor->Set(speed);
+//		LeftFrontBaseMotor->Set(speed);
+		if(encoderLeft == encoder){
+			RightFrontBaseMotor->Set(speed);
+			LeftFrontBaseMotor->Set(speed);
+		}
+		else if(encoderLeft < encoder){
+			RightFrontBaseMotor->Set(speed - 0.025);
+			LeftFrontBaseMotor->Set(speed);
+		}
+		else if(encoderLeft > encoder){
+			RightFrontBaseMotor->Set(speed);
+			LeftFrontBaseMotor->Set(speed - 0.025);
+		}
+//		RightFrontBaseMotor->Set(speed);
+//		LeftFrontBaseMotor->Set(speed);
+//		encoder = RightFrontBaseMotor->GetEncPosition();
+//		SmartDashboard::PutNumber("Current Encoder Position", encoder);
 	}
 	else
 	{
-		SetTargetState(true);		//we have reached our target.
-		StopBase();					//stop the motors before we fall out of the command.
-		SmartDashboard::PutBoolean("We drove backwards to target", true);
+//		SetTargetState(true);		//we have reached our target.
+//		StopBase();					//stop the motors before we fall out of the command.
+//		SmartDashboard::PutBoolean("We drove backwards to target", GetTargetState());
 	}
-
 }
 
 void DriveBase::TurnWithBase(double degrees, float turnspeed, bool leftturn)
@@ -296,4 +314,12 @@ void DriveBase::SetEncoderReference()
 {
 	encrefposition = RightFrontBaseMotor->GetEncPosition();
 }
+float DriveBase::GetLeftEncoderReference()
+{
+	return encrefpositionLeft;
+}
 
+void DriveBase::SetLeftEncoderReference()
+{
+	encrefpositionLeft = LeftFrontBaseMotor->GetEncPosition();
+}

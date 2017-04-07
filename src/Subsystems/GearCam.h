@@ -25,8 +25,7 @@ public:
 	double decoder(char hundreds, char tens, char singles) ;
 	void initVision() ;
 	int receiveVision() ;
-
-
+	void VisionForPeg();
 };
 
 #endif /* SRC_SUBSYSTEMS_GEARCAM_H_ */

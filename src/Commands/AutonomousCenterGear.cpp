@@ -9,8 +9,9 @@ AutonomousCenterGear::AutonomousCenterGear() {
 
 // Called just before this Command runs the first time
 void AutonomousCenterGear::Initialize() {
-	CommandBase::driveBase->ResetEncoders();
+//	CommandBase::driveBase->ResetEncoders();
 	driveBase->SetEncoderReference();		//adjust the starting encoder position
+	driveBase->SetLeftEncoderReference();
 	driveBase->SetTargetState(false); //we are now looking for a target.
 }
 
@@ -26,7 +27,7 @@ void AutonomousCenterGear::Execute()
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutonomousCenterGear::IsFinished() {
-
+	SmartDashboard::PutBoolean("This should eventually go to true", driveBase->GetTargetState());
 	return driveBase->GetTargetState();
 }
 

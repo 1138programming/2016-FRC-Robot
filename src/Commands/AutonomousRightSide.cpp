@@ -1,9 +1,11 @@
 #include "AutonomousRightSide.h"
+//#define VISION
 
 AutonomousRightSide::AutonomousRightSide() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(CommandBase::driveBase);
+	Requires(CommandBase::gearCam);
 }
 
 // Called just before this Command runs the first time
@@ -45,14 +47,64 @@ void AutonomousRightSide::Execute() {
 	//		CommandBase::driveBase->ResetEncoders();	//need to reset the encoders for third stage.  This isn't working
 		}
 	}
+
 	if (driveBase->GetAutonStage() == driveBase->KAutonSecondMove)		//third stage
 	{
 //		SmartDashboard::PutBoolean("Auton Stage 3: Moving towards the gear peg", false);
 		driveBase->DriveBackward(KRevsToPilotTower, KAutonStraightSpeed);
+#ifndef VISION
 		if(driveBase->GetTargetState() == true)
 		{
 			driveBase->SetAutonStage(driveBase->KAutonFinished);	//move on to the third stage
 		}
+#endif
+#ifdef VISION
+		if(driveBase->GetTargetState() == true)
+		{
+			driveBase->SetTargetState(false); //we are now looking for the next target.
+			driveBase->SetAutonStage(driveBase->KAutonVision1);	//move on to the fourth stage
+			SmartDashboard::PutNumber("Leaving Auton Stage 3", driveBase->GetAutonStage());
+		}
+	}
+
+	if (driveBase->GetAutonStage() == driveBase->KAutonVision1)		//fourth stage
+	{
+		SmartDashboard::PutBoolean("Auton Stage 4: Vision Tracking", true);
+		gearCam->VisionForPeg();
+		if(driveBase->GetTargetState() == true)
+		{
+			driveBase->SetTargetState(false); //we are now looking for the next target.
+			driveBase->SetAutonStage(driveBase->KAutonVision2);	//move on to the third stage
+			CommandBase::driveBase->ResetGyro();	//need to reset the gyro for fourth stage
+			SmartDashboard::PutNumber("Leaving Auton Stage 4", driveBase->GetAutonStage());
+		}
+	}
+
+	if (driveBase->GetAutonStage() == driveBase->KAutonVision2)		//fourth stage
+		{
+			SmartDashboard::PutBoolean("Auton Stage 5: Vision Tracking", true);
+			//CommandBase::driveBase->TurnWithBase(KTurnToPegTip, KAutonTurnSpeed, KRightTurn); //TODO change values
+			if(driveBase->GetTargetState() == true)
+			{
+				driveBase->SetTargetState(false); //we are now looking for the next target.
+				driveBase->SetAutonStage(driveBase->KAutonVision3);	//move on to the third stage
+				CommandBase::driveBase->SetEncoderReference();	//need to reset the gyro for fourth stage
+				SmartDashboard::PutNumber("Leaving Auton Stage 5", driveBase->GetAutonStage());
+			}
+		}
+
+	if (driveBase->GetAutonStage() == driveBase->KAutonVision3)		//fourth stage
+			{
+				SmartDashboard::PutBoolean("Auton Stage 6: Vision Tracking", true);
+				//driveBase->DriveBackward(KRevsToScoreAuton, KAutonStraightSpeed); //TODO change values
+				if(driveBase->GetTargetState() == true)
+				{
+					driveBase->SetTargetState(false); //we are now looking for the next target.
+					driveBase->SetAutonStage(driveBase->KAutonFinished);	//move on to the third stage
+					SmartDashboard::PutNumber("Leaving Auton Stage 6", driveBase->GetAutonStage());
+				}
+			}
+#endif
 	}
 }
 

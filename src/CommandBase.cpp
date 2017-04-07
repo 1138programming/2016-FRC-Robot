@@ -8,7 +8,7 @@ DriveBase* CommandBase::driveBase = NULL;
 Collector* CommandBase::collector = NULL;
 Esophagus* CommandBase::esophagus = NULL;
 //ExampleSubsystem* CommandBase::exampleSubsystem = NULL;
-GearCam* CommandBase::gearcam = NULL;
+GearCam* CommandBase::gearCam = NULL;
 Pneumatics* CommandBase::pneumatics = NULL;
 Shooter* CommandBase::shooter = NULL;
 ShooterCam* CommandBase::shooterCam = NULL;
@@ -23,7 +23,7 @@ void CommandBase::init()
 	esophagus = new Esophagus();
 	collector = new Collector();
 //	exampleSubsystem = new ExampleSubsystem();
-	gearcam = new GearCam();
+	gearCam = new GearCam();
 	pneumatics = new Pneumatics();
 	shooter = new Shooter();
 	shooterCam = new ShooterCam();

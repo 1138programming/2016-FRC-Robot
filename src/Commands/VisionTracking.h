@@ -12,6 +12,10 @@ public:
 	bool IsFinished();
 	void End();
 	void Interrupted();
+
+private:
+	CameraServer* cam;
 };
+
 
 #endif  // VisionCommand_H
