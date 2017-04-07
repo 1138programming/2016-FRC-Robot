@@ -52,15 +52,25 @@ const float KXboxDeadZoneLimit = 0.2;
 const float KWheelRadius = 5.255; //In centimeters
 const float KWheelCircumference = 33.02; //In centimeters
 const float KDistanceToBaseLine = 191.64; //In centimeters
+#ifdef VISION
+const float KDistanceToPilotTower = 86.86 - 47; //In centimeters
+#else
 const float KDistanceToPilotTower = 86.86; //In centimeters
+#endif
 const float KRevsToBaseLine = KDistanceToBaseLine / KWheelCircumference;	//rotations from the diamond plate to the baseline from Field CAD (191.64cm)
 const float KRevsToPilotTower = KDistanceToPilotTower / KWheelCircumference; //rotations from the baseline to the pilot tower from Field CAD (86.86cm)
 const float KTurnToPilotTower = 55;	//degrees to turn from the baseline to face the pilot tower.
-const float KAutonStraightSpeed = .5;	//TODO lets go slowly and backwards
+const float KAutonStraightSpeed = .4;	//TODO lets go slowly and backwards //originally 0.5
 const float KAutonTurnSpeed = .5; //TODO turn slowly towards pilot tower
 const float KRevsToCrossTheLine = 10; //Unofficial distance to cross the line in autonomous
 const float KRevsToVisionTracking = 3; //Unofficial distance  until we turn on vision tracking
 const float KEncoderTicksPerRev = 4096; //The amount of ticks it takes to do one full rotation with the encoder
+//const float KVariableDistance = 3; //Helps to determine how far we will move in autonomous
+//float KRevsToPegTip; //Amount we have to move to the peg tip
+//const float KRevsToScoreAuton = KRevsToPegTip/KVariableDistance;
+//float KDegreesToPegTip; //Amount we have to turn to the peg tip
+//const float KTurnToPegTip = KDegreesToPegTip/KVariableDistance;
+
 
 //Okay, don't get clever and decide this isn't actually the way we are turning.  I don't care which way we are turning.
 //Left turn means the turn we make when our starting position is on the left side of the field.  Right Turn is when

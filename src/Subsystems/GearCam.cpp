@@ -46,3 +46,12 @@ void GearCam::displaySerialData(int received, double x, double l)
 	SmartDashboard::PutNumber("valueX", x) ;
 	SmartDashboard::PutNumber("valueL", l) ;
 }
+
+void GearCam::VisionForPeg()
+{
+	//KRevsToPegTip = 3;
+	//KDegreesToPegTip = 50;
+	//Sensor reads something...
+	//Set DistanceToPegTip to Sensor Value
+	//TODO set KDistanceToPegTip to sensor reading
+}

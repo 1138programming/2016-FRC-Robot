@@ -11,7 +11,7 @@ AutonomousLineDrive::AutonomousLineDrive() {
 // Called just before this Command runs the first time
 void AutonomousLineDrive::Initialize() {
 	SmartDashboard::PutBoolean("Doing Line Drive Auton", true);
-	CommandBase::driveBase->ResetEncoders();
+//	CommandBase::driveBase->ResetEncoders();
 	driveBase->SetEncoderReference();		//adjust the starting encoder position
 	driveBase->SetTargetState(false); //we are now looking for a target.
 }
@@ -20,20 +20,22 @@ void AutonomousLineDrive::Initialize() {
 void AutonomousLineDrive::Execute()
 {
 	if(driveBase->GetTargetState() == false)		//we are looking for a target
-		{
-			CommandBase::driveBase->DriveBackward(KRevsToCrossTheLine, KAutonStraightSpeed);
-		}
-		else
-		{
-			driveBase->SetTargetState(true);	//set that the target is reached.
-			driveBase->StopBase();		//target reached
-		}
+	{
+		CommandBase::driveBase->DriveBackward(KRevsToCrossTheLine, KAutonStraightSpeed);
+	}
+//		else
+//		{
+//			driveBase->SetTargetState(true);	//set that the target is reached.
+//			driveBase->StopBase();		//target reached
+//		}
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutonomousLineDrive::IsFinished()
 {
-	return driveBase->GetTargetState();
+	SmartDashboard::PutBoolean("This should eventually go to true", driveBase->GetTargetState());
+//	return driveBase->GetTargetState();
+	return false;
 }
 
 // Called once after isFinished returns true

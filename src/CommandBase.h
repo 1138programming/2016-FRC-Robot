@@ -38,7 +38,7 @@ public:
 	static DriveBase* driveBase;
 	static Esophagus* esophagus;
 //	static ExampleSubsystem* exampleSubsystem;
-	static GearCam* gearcam;
+	static GearCam* gearCam;
 	static Pneumatics* pneumatics;
 	static Shooter* shooter;
 	static ShooterCam* shooterCam;
