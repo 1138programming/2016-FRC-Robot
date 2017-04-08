@@ -34,6 +34,8 @@ public:
 	void TankDrive(float left, float right);
 	void DriveForward(float distance, float speed);
 	void DriveBackward(float distance, float speed);
+	void DriveBackwardS(float distance, float speed);
+	void DriveBackwardF(float distance, float speed);
 	void TurnWithBase(double degrees, float turnspeed, bool leftturn);
 	void StopBase();
 	void HighShiftBase();

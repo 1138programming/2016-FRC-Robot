@@ -62,7 +62,7 @@ bool OI::getRightTrigger(){			//right controller's trigger engages the lift
 }
 
 float OI::getLeftXBoxAxis(){			//left xbox axis controls the collector
-	return -xBoxController->GetRawAxis(1);
+	return xBoxController->GetRawAxis(1);
 }
 
 //Fine control from collector, signal from joystick is reversed

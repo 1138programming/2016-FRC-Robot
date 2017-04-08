@@ -20,7 +20,7 @@ void AutonomousLeftSide::Execute() {
 	if (driveBase->GetAutonStage() == driveBase->KAutonFirstMove)		//first stage
 	{
 //		SmartDashboard::PutBoolean("Auton Stage 1: Moving for the first time", true);
-		driveBase->DriveBackward(KRevsToBaseLine, KAutonStraightSpeed);
+		driveBase->DriveBackward(KRevsToFirstTurn, KAutonStraightSpeed+0.1);
 		if(driveBase->GetTargetState() == true)
 		{
 			driveBase->SetTargetState(false); //we are now looking for the next target.
@@ -34,7 +34,7 @@ void AutonomousLeftSide::Execute() {
 	if (driveBase->GetAutonStage() == driveBase->KAutonTurn)		//second stage
 	{
 //		SmartDashboard::PutBoolean("Auton Stage 2: Turning", true);
-		CommandBase::driveBase->TurnWithBase(KTurnToPilotTower, KAutonTurnSpeed, KLeftTurn);
+		CommandBase::driveBase->TurnWithBase(KTurnToPilotTower+5, KAutonTurnSpeed, KLeftTurn);
 		if(driveBase->GetTargetState() == true)
 		{
 			driveBase->SetTargetState(false); //we are now looking for the next target.
@@ -48,7 +48,7 @@ void AutonomousLeftSide::Execute() {
 	if (driveBase->GetAutonStage() == driveBase->KAutonSecondMove)		//third stage
 	{
 		SmartDashboard::PutBoolean("Auton Stage 3: Moving towards the gear peg", false);
-		driveBase->DriveBackward(KRevsToPilotTower, KAutonStraightSpeed);
+		driveBase->DriveBackward(KRevsToPilotTower, KAutonStraightSpeed+0.1);
 		if(driveBase->GetTargetState() == true)
 		{
 			driveBase->SetAutonStage(driveBase->KAutonFinished);	//move on to the third stage
@@ -62,10 +62,11 @@ bool AutonomousLeftSide::IsFinished() {
 	{
 		SmartDashboard::PutBoolean("Auton Stage 4: Finished", true);
 		driveBase->SetAutonStage(driveBase->KAutonNotStarted);
-		return true;		//we are done with all stages of the autonomous
+		return false; //true;		//we are done with all stages of the autonomous
 	}
-	else
+	else {
 		return false;		//we may have finished some stages but not all.
+	}
 }
 
 // Called once after isFinished returns true

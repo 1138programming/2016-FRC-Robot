@@ -20,15 +20,16 @@ void AutonomousCenterGear::Execute()
 {
 	if(driveBase->GetTargetState() == false)		//we are looking for a target
 	{
-		CommandBase::driveBase->DriveBackward(KRevsToBaseLine, KAutonStraightSpeed);
+		CommandBase::driveBase->DriveBackwardS(KRevsToBaseLine, KAutonStraightSpeed);
 	}
 	//drive backwards will set the target state to true and stop the motors when it reaches the target.
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutonomousCenterGear::IsFinished() {
-	SmartDashboard::PutBoolean("This should eventually go to true", driveBase->GetTargetState());
+//	SmartDashboard::PutBoolean("This should eventually go to true", driveBase->GetTargetState());
 	return driveBase->GetTargetState();
+//	return false;
 }
 
 // Called once after isFinished returns true

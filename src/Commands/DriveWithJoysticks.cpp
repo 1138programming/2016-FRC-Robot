@@ -15,14 +15,14 @@ void DriveWithJoysticks::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void DriveWithJoysticks::Execute()
 {
-//	if (driveBase->QueryLiftState() == DoubleSolenoid::kForward)
-//	{
-//		CommandBase::driveBase->TankDrive(oi->getRightController(), oi->getRightController());
-//	}
-//	else
-//	{
+	if (driveBase->QueryLiftState() == DoubleSolenoid::kForward)
+	{
+		CommandBase::driveBase->TankDrive(oi->getRightController(), oi->getRightController());
+	}
+	else
+	{
 		CommandBase::driveBase->TankDrive(oi->getLeftController(), oi->getRightController());
-//	}
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -42,5 +42,5 @@ void DriveWithJoysticks::End()
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void DriveWithJoysticks::Interrupted() {
-
+//	SmartDashboard::PutBoolean("Are you interrupted", true);
 }
