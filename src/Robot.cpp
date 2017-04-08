@@ -43,7 +43,11 @@ public:
 	 * the robot is disabled.
 	 */
 	void DisabledInit() override {
-
+		if (autonomousCommand.get() != nullptr)
+		{
+			//SmartDashboard::PutBoolean("Start Auton", true);
+			autonomousCommand.release();
+		}
 	}
 
 	void DisabledPeriodic() override {
@@ -74,7 +78,7 @@ public:
 
 		if (autonomousCommand.get() != nullptr)
 		{
-			SmartDashboard::PutBoolean("Start Auton", true);
+			//SmartDashboard::PutBoolean("Start Auton", true);
 			autonomousCommand->Start();
 		}
 	}
@@ -90,6 +94,7 @@ public:
 		// this line or comment it out.
 		if (autonomousCommand != nullptr) {
 			autonomousCommand->Cancel();
+			//SmartDashboard::PutBoolean("Are you canceling the autonCommand?", true);
 		}
 	}
 

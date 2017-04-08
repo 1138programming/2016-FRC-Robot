@@ -52,17 +52,19 @@ const float KXboxDeadZoneLimit = 0.2;
 const float KWheelRadius = 5.255; //In centimeters
 const float KWheelCircumference = 33.02; //In centimeters
 const float KDistanceToBaseLine = 191.64; //In centimeters
+const float KDistanceToFirstTurn = (78-13)*2.54;	//centimeters to the first turn we want to take 54.5
 #ifdef VISION
 const float KDistanceToPilotTower = 86.86 - 47; //In centimeters
 #else
-const float KDistanceToPilotTower = 86.86; //In centimeters
+const float KDistanceToPilotTower = 71*2.54; //In centimeters 86.86
 #endif
 const float KRevsToBaseLine = KDistanceToBaseLine / KWheelCircumference;	//rotations from the diamond plate to the baseline from Field CAD (191.64cm)
 const float KRevsToPilotTower = KDistanceToPilotTower / KWheelCircumference; //rotations from the baseline to the pilot tower from Field CAD (86.86cm)
+const float KRevsToFirstTurn = KDistanceToFirstTurn / KWheelCircumference;
 const float KTurnToPilotTower = 55;	//degrees to turn from the baseline to face the pilot tower.
 const float KAutonStraightSpeed = .4;	//TODO lets go slowly and backwards //originally 0.5
 const float KAutonTurnSpeed = .5; //TODO turn slowly towards pilot tower
-const float KRevsToCrossTheLine = 10; //Unofficial distance to cross the line in autonomous
+const float KRevsToCrossTheLine = 15; //Unofficial distance to cross the line in autonomous
 const float KRevsToVisionTracking = 3; //Unofficial distance  until we turn on vision tracking
 const float KEncoderTicksPerRev = 4096; //The amount of ticks it takes to do one full rotation with the encoder
 //const float KVariableDistance = 3; //Helps to determine how far we will move in autonomous

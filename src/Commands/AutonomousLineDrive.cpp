@@ -21,21 +21,21 @@ void AutonomousLineDrive::Execute()
 {
 	if(driveBase->GetTargetState() == false)		//we are looking for a target
 	{
-		CommandBase::driveBase->DriveBackward(KRevsToCrossTheLine, KAutonStraightSpeed);
+		CommandBase::driveBase->DriveBackwardS(KRevsToCrossTheLine, KAutonStraightSpeed + 0.15);
 	}
-//		else
-//		{
-//			driveBase->SetTargetState(true);	//set that the target is reached.
-//			driveBase->StopBase();		//target reached
-//		}
+//	else
+//	{
+//		driveBase->SetTargetState(true);	//set that the target is reached.
+//		driveBase->StopBase();		//target reached
+//	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutonomousLineDrive::IsFinished()
 {
-	SmartDashboard::PutBoolean("This should eventually go to true", driveBase->GetTargetState());
-//	return driveBase->GetTargetState();
-	return false;
+//	SmartDashboard::PutBoolean("This should eventually go to true", driveBase->GetTargetState());
+	return driveBase->GetTargetState();
+//	return false;
 }
 
 // Called once after isFinished returns true
